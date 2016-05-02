@@ -1,14 +1,14 @@
-import { RioButton } from './button';
-import { RioContainer } from './container';
-import { RioCounter } from './counter';
-import { RioLogo } from './logo';
-import { RioNavigator, RioNavigatorItem } from './navigator';
+import { SendButton } from './button';
+import { WatsonContainer } from './container';
+import { CompanyLogo } from './logo';
+import { AppNavigator, AppNavigatorItem } from './navigator';
+import { Chat } from './chat';
 
 export {
-  RioButton,
-  RioContainer,
-  RioCounter,
-  RioLogo,
-  RioNavigator,
-  RioNavigatorItem
+  SendButton,
+  WatsonContainer,
+  CompanyLogo,
+  AppNavigator,
+  AppNavigatorItem,
+  Chat
 };

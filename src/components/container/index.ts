@@ -1,7 +1,7 @@
 import { Component, Input } from 'angular2/core';
 
 @Component({
-  selector: 'rio-container',
+  selector: 'watson-container',
   template: `
   <div
     class="clearFix px1"
@@ -16,7 +16,7 @@ import { Component, Input } from 'angular2/core';
   </div>
   `
 })
-export class RioContainer {
+export class WatsonContainer {
   @Input() size = 1;
   @Input() center = false;
 };

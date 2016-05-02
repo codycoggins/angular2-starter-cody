@@ -7,60 +7,71 @@ import {
 
 import { RouteConfig, ROUTER_DIRECTIVES } from 'angular2/router';
 
-import { RioAboutPage } from './about-page';
-import { RioCounterPage } from './counter-page';
+import { AboutPage } from './about-page';
+import { MainPage } from './main-page';
 
 import {
-  RioContainer,
-  RioNavigator,
-  RioNavigatorItem,
-  RioLogo
+  WatsonContainer,
+  AppNavigator,
+  AppNavigatorItem,
+  CompanyLogo,
+  Chat
 } from '../components';
 
 @Component({
-  selector: 'rio-sample-app',
+  selector: 'watson-app',
   directives: [
-    ROUTER_DIRECTIVES, RioNavigator, RioNavigatorItem,
-    RioLogo, RioContainer
+    ROUTER_DIRECTIVES, AppNavigator, AppNavigatorItem,
+    CompanyLogo, WatsonContainer
   ],
   // Global styles imported in the app component.
   encapsulation: ViewEncapsulation.None,
   styles: [require('../styles/index.css')],
   template: `
-    <div>
-      <rio-navigator>
-        <rio-navigator-item [mr]=true>
-          <rio-logo></rio-logo>
-        </rio-navigator-item>
-        <rio-navigator-item [mr]=true>
-          <a [routerLink]="['Counter']"
-            class="text-decoration-none">Counter</a>
-        </rio-navigator-item>
-        <rio-navigator-item>
+    <div id="wrapper" class="fit">
+      <app-navigator>
+        <app-navigator-item [mr]=true>
+          <company-logo></company-logo>
+        </app-navigator-item>
+        <app-navigator-item [mr]=true>
+          <a [routerLink]="['Main']"
+            class="text-decoration-none">Main</a>
+        </app-navigator-item>
+        <app-navigator-item>
           <a [routerLink]="['About']"
             class="text-decoration-none">About Us</a>
-        </rio-navigator-item>
+        </app-navigator-item>
         <div class="flex flex-auto"></div>
-      </rio-navigator>
-      <rio-container>
-        <router-outlet></router-outlet>
-      </rio-container>
+      </app-navigator>
+
+      <div id="app-area" class="clearfix border fit bg-green">
+      <router-outlet></router-outlet>
+        <div id="chat-container" class="left border">
+          <chat>
+
+          </chat>
+        </div>
+        <div id="visualization-container" class="right border fit bg-red block">
+        Visualization Area
+        </div>
+      </div>
+
     </div>
   `
 })
 @RouteConfig([
   {
-    path: '/counter',
-    name: 'Counter',
-    component: RioCounterPage,
+    path: '/main',
+    name: 'Main',
+    component: MainPage,
     useAsDefault: true
   },
   {
     path: '/about',
     name: 'About',
-    component: RioAboutPage
+    component: AboutPage
   }
 ])
-export class RioSampleApp {
+export class WatsonApp {
 
 };

@@ -4,10 +4,11 @@ import { SendButton } from '../button';
 @Component({
   selector: 'chat',
   template: `
-    <div class="flex">
+    <div class="clearfix border fit bg-blue">
       <h2>Chat App</h2>
       <div id="chatlog"
-       style="height:120px;width:120px;border:1px solid #ccc;overflow:auto;">
+       style="min-height:120px;"
+       class="fit border overflow-auto">
       As you can see, once there's enough text in this box,
       the box will grow scroll bars... that's why we call it a scroll
       box! You could also place an image into the scroll box.

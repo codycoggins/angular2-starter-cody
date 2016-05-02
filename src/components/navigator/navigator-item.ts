@@ -1,7 +1,7 @@
 import { Input, Component } from 'angular2/core';
 
 @Component({
-  selector: 'rio-navigator-item',
+  selector: 'app-navigator-item',
   template: `
     <div
       class="truncate"
@@ -13,7 +13,7 @@ import { Input, Component } from 'angular2/core';
     </div>
   `
 })
-export class RioNavigatorItem {
+export class AppNavigatorItem {
   @Input() mr = false;
   @Input() ml = false;
 };

@@ -1,7 +1,7 @@
 import { Component } from 'angular2/core';
 
 @Component({
-  selector: 'rio-logo',
+  selector: 'company-logo',
   styles: [require('./logo.css')],
   template: `
     <div className="flex items-center">
@@ -13,6 +13,6 @@ import { Component } from 'angular2/core';
     </div>
   `
 })
-export class RioLogo {
+export class CompanyLogo {
   private LogoImage = require('../../assets/rangleio-logo.svg');
 };
