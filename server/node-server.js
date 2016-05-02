@@ -11,7 +11,7 @@ const nodeAppServer = require('./node-app-server');
  */
 
 const app = express();
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 3000;
 
 // Enable various security helpers.
 app.use(helmet());

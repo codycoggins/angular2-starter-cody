@@ -2,7 +2,7 @@
 
 var expect = require('chai').expect;
 var R = require('ramda');
-var APP_URL = 'http://localhost:8080/index.html';
+var APP_URL = 'http://localhost:3000/index.html';
 var S = require('./selectors');
 
 describe('login page tests', function () {
@@ -14,7 +14,7 @@ describe('login page tests', function () {
         return browser.waitForVisible('body', 5000);
       });
   });
-  
+
   // After this set of tests, clean up the browser instance.
   after(function() {
     return browser.end();
@@ -26,7 +26,7 @@ describe('login page tests', function () {
         expect(title).to.eql('NgCourse-Next Demo Application');
       });
   });
-  
+
   it('shows login controls', function () {
     return Promise.all([
         browser.isVisible(S.LOGIN_FORM.USERNAME_INPUT),
