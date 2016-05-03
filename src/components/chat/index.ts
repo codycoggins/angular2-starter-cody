@@ -4,22 +4,16 @@ import { SendButton } from '../button';
 @Component({
   selector: 'chat',
   template: `
-    <div class="clearfix border fit bg-blue">
+    <div class="clearfix border fit">
       <h2>Chat App</h2>
       <div id="chatlog"
-       style="height:100%;"
+       style="height:300px;"
        class="fit border overflow-auto">
-      As you can see, once there's enough text in this box,
-      the box will grow scroll bars... that's why we call it a scroll
-      box! You could also place an image into the scroll box.
+      Hello, Alvin. Would you like to examine changes in some of Dove's sub-brands or may I help you with something else?
       </div>
 
       <input type="text" id="message_input"/>
       <button onclick="">send</button>
-
-      <div class="flex-auto flex-center center h1">
-        {{ counter }}
-      </div>
 
     </div>
   `,

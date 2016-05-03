@@ -28,8 +28,8 @@ import {
   encapsulation: ViewEncapsulation.None,
   styles: [require('../styles/index.css')],
   template: `
-    <div id="wrapper" class="fit">
-      <app-navigator>
+    <div id="wrapper" class="fit" style="height:100%">
+      <app-navigator class="p1">
         <app-navigator-item [mr]=true>
           <company-logo></company-logo>
         </app-navigator-item>
@@ -44,9 +44,10 @@ import {
         <div class="flex flex-auto"></div>
       </app-navigator>
 
-      <div id="app-area" class="flex flex-wrap">
+      <div id="app-area" class="flex flex-wrap"
+       style="height:100%; margin:0 auto -100px">
       <router-outlet></router-outlet>
-        
+
 
       </div>
 

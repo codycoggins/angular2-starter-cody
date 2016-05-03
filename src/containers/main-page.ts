@@ -6,24 +6,23 @@ import { WatsonContainer } from '../components';
   selector: 'main-page',
   directives: [ WatsonContainer, Chat ],
   template: `
-    <watson-container>
+
       <h2 class="caps">Main Page</h2>
       <p>
         This will be the main page.
       </p>
 
 
-      <div id="chat-container" class="col col-4  border">
+      <div id="chat-container" class="col col-4  border top-0 p1">
       <chat>
       </chat>
-        
+
       </div>
 
-      <div id="visualization-container" class="flex-auto border bg-red">
+      <div id="visualization-container" class="col col-8 border bg-red top-0 p1"
+       style="min-height:300px">
         Visualization Area
       </div>
-
-    </watson-container>
   `
 })
 export class MainPage {}
