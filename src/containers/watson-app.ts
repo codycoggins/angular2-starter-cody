@@ -45,6 +45,7 @@ import {
       </app-navigator>
 
       <div id="app-area" class="flex">
+      <router-outlet></router-outlet>
         <div id="chat-container" class="col-4  border">
           <chat>
 

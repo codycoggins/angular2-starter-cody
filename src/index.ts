@@ -9,7 +9,7 @@ import { enableProdMode, provide } from 'angular2/core';
 import { bootstrap} from 'angular2/platform/browser';
 import { ROUTER_PROVIDERS } from 'angular2/router';
 import { APP_BASE_HREF } from 'angular2/platform/common';
-import { WatsonApp } from './containers/sample-app';
+import { WatsonApp } from './containers/watson-app';
 
 declare let __PRODUCTION__: any;
 
