@@ -4,23 +4,37 @@ import { SendButton } from '../button';
 @Component({
   selector: 'chat',
   template: `
-    <div class="clearfix border fit">
+    <div class="clearfix fit">
       <div id="chatlog"
        style="height:300px;"
-       class="fit border overflow-auto">
-      Hello, Alvin. Would you like to examine changes in
-      some of Dove's sub-brands or may I help you with something else?
+       class="fit overflow-auto">
+       {{chatText}}
       </div>
 
-      <input type="text" id="message_input"/>
-      <button onclick="">send</button>
+
+
+      <input #inputBox type="text" class="form-control"
+        (keyup.enter)="send(inputBox.value); inputBox.value='';"
+        value="{{newText}}"
+      />
+      <button (click)="send(inputBox.value); inputBox.value='';">send</button>
 
     </div>
   `,
   directives: [Chat]
 })
 export class Chat {
-  @Input() counter: number;
-  @Input() increment: () => void;
-  @Input() decrement: () => void;
+  chatText: string;
+  newText: string;
+
+  constructor() {
+    this.chatText = 'Hello, Alvin. Would you like to examine changes in' +
+      'some of Dove\'s sub-brands or may I help you with something else?';
+
+  }
+  send (newText: string) {
+    // TODO: how do you add line break? and clear the box after send.
+    this.chatText = this.chatText + '   ' + newText;
+
+  };
 };

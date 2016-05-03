@@ -37,10 +37,6 @@ import {
           <a [routerLink]="['Home']"
             class="text-decoration-none">Home</a>
         </app-navigator-item>
-        <app-navigator-item [mr]=true>
-          <a [routerLink]="['Print']"
-            class="text-decoration-none">Print</a>
-        </app-navigator-item>
         <app-navigator-item>
           <a [routerLink]="['About']"
             class="text-decoration-none">About</a>
@@ -69,11 +65,6 @@ import {
     path: '/about',
     name: 'About',
     component: AboutPage
-  },
-  {
-    path: '/Main',
-    name: 'Print',
-    component: MainPage
   }
 ])
 export class WatsonApp {

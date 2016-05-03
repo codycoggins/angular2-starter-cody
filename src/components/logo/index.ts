@@ -5,7 +5,8 @@ import { Component } from 'angular2/core';
   styles: [require('./logo.css')],
   template: `
     <div className="flex items-center">
-      Company Logo Here
+      <img src="../src/assets/watson_logo-e1422392582870.png"
+       height="70px" width="7 0px"/>
     </div>
   `
 })

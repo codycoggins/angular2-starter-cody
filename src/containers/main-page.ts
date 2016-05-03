@@ -7,7 +7,8 @@ import { WatsonContainer } from '../components';
   selector: 'main-page',
   directives: [ WatsonContainer, Chat, Visualization ],
   template: `
-      <div id="chat-container" class="col col-4 top-0 p1">
+      <div id="chat-container" class="col col-4 top-0 p1"
+       style="border-right: solid black thin;">
       <chat>
       </chat>
 
