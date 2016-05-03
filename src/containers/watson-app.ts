@@ -44,18 +44,9 @@ import {
         <div class="flex flex-auto"></div>
       </app-navigator>
 
-      <div id="app-area" class="flex">
+      <div id="app-area" class="flex flex-wrap">
       <router-outlet></router-outlet>
-        <div id="chat-container" class="col-4  border">
-          <chat>
-
-          </chat>
-        </div>
-
-        <div id="visualization-container" class="col-8  border bg-red">
-          Visualization Area
-        </div>
-
+        
 
       </div>
 

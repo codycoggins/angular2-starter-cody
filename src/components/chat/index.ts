@@ -7,7 +7,7 @@ import { SendButton } from '../button';
     <div class="clearfix border fit bg-blue">
       <h2>Chat App</h2>
       <div id="chatlog"
-       style="min-height:120px;"
+       style="height:100%;"
        class="fit border overflow-auto">
       As you can see, once there's enough text in this box,
       the box will grow scroll bars... that's why we call it a scroll
