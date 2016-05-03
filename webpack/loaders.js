@@ -31,6 +31,7 @@ exports.css = {
 };
 
 exports.svg = makeUrlLoader(/\.svg$/);
+exports.png = makeUrlLoader(/\.png$/);
 exports.eot = makeUrlLoader(/\.eot$/);
 exports.woff = makeUrlLoader(/\.woff$/);
 exports.woff2 = makeUrlLoader(/\.woff2$/);

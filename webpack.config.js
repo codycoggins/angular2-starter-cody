@@ -107,6 +107,7 @@ module.exports = {
       loaders.html,
       loaders.css,
       loaders.svg,
+      loaders.png,
       loaders.eot,
       loaders.woff,
       loaders.woff2,

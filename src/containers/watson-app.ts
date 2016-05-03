@@ -29,17 +29,21 @@ import {
   styles: [require('../styles/index.css')],
   template: `
     <div id="wrapper" class="fit" style="height:100%">
-      <app-navigator class="p1">
+      <app-navigator class="p1 fit">
         <app-navigator-item [mr]=true>
           <company-logo></company-logo>
         </app-navigator-item>
+        <app-navigator-item [mr]=true >
+          <a [routerLink]="['Home']"
+            class="text-decoration-none">Home</a>
+        </app-navigator-item>
         <app-navigator-item [mr]=true>
-          <a [routerLink]="['Main']"
-            class="text-decoration-none">Main</a>
+          <a [routerLink]="['Print']"
+            class="text-decoration-none">Print</a>
         </app-navigator-item>
         <app-navigator-item>
           <a [routerLink]="['About']"
-            class="text-decoration-none">About Us</a>
+            class="text-decoration-none">About</a>
         </app-navigator-item>
         <div class="flex flex-auto"></div>
       </app-navigator>
@@ -57,7 +61,7 @@ import {
 @RouteConfig([
   {
     path: '/main',
-    name: 'Main',
+    name: 'Home',
     component: MainPage,
     useAsDefault: true
   },
@@ -65,6 +69,11 @@ import {
     path: '/about',
     name: 'About',
     component: AboutPage
+  },
+  {
+    path: '/Main',
+    name: 'Print',
+    component: MainPage
   }
 ])
 export class WatsonApp {

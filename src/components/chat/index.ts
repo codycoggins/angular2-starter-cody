@@ -5,11 +5,11 @@ import { SendButton } from '../button';
   selector: 'chat',
   template: `
     <div class="clearfix border fit">
-      <h2>Chat App</h2>
       <div id="chatlog"
        style="height:300px;"
        class="fit border overflow-auto">
-      Hello, Alvin. Would you like to examine changes in some of Dove's sub-brands or may I help you with something else?
+      Hello, Alvin. Would you like to examine changes in
+      some of Dove's sub-brands or may I help you with something else?
       </div>
 
       <input type="text" id="message_input"/>
