@@ -30,10 +30,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/rangle/angular2-redux-starter.git"
+    "url": "https://github.com/codycoggins/angular2-starter-cody.git"
   },
   "bugs": {
-    "url": "https://github.com/rangle/angular2-redux-starter/issues"
+    "url": "https://github.com/codycoggins/angular2-starter-cody/issues"
   },
   "dependencies": {
     "express": "^4.13.4",

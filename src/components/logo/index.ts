@@ -6,7 +6,7 @@ import { Component } from 'angular2/core';
   template: `
     <div className="flex items-center">
       <img src="../src/assets/watson_logo-e1422392582870.png"
-       height="70px" width="7 0px"/>
+       height="70px" width="70px"/>
     </div>
   `
 })
