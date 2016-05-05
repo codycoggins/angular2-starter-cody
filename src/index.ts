@@ -13,6 +13,8 @@ import { WatsonApp } from './containers/watson-app';
 
 declare let __PRODUCTION__: any;
 
+// console.log('running src/index.ts');
+
 if (__PRODUCTION__) {
   enableProdMode();
 }

@@ -11,12 +11,15 @@ import { SendButton } from '../button';
        [innerHTML]="chatText">
       </div>
 
-      <input #inputBox type="text" class="fit form-control"
-        style="width:100%; height:30px; padding:5px;"
+      <input #inputBox type="text" class="fit form-control left-0 right-0"
+        style="height:30px; padding:5px;"
         (keyup.enter)="send(inputBox.value); inputBox.value='';"
-        placeholder="I'd like to..."
+        placeholder="Enter Question"
         value="{{newText}}"
       />
+      <button (click)="send(inputBox.value);inputBox.value='';"
+      class="form-control right-0"
+      >ASK</button>
     </div>
   `,
   directives: [Chat]
