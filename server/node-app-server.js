@@ -6,6 +6,9 @@ const express = require('express');
  * It is set up to allow for HTML5 mode routing (404 -> /dist/index.html).
  * This should be the last router in your express server's chain.
  */
+
+console.log('running node-app-server.js');
+
 module.exports = (app) => {
   const distPath = path.join(__dirname, '../dist');
   const indexFileName = 'index.html';

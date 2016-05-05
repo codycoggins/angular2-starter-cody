@@ -1,5 +1,7 @@
 'use strict';
 
+console.log('running webpack/loaders.js');
+
 exports.tslint = {
   test: /\.ts$/,
   loader: 'tslint',

@@ -2,6 +2,8 @@
 
 const loaders = require('./webpack/loaders');
 
+console.log('running karma.conf.js');
+
 module.exports = function (config) {
   config.set({
     frameworks: [

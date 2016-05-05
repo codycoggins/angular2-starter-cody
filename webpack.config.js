@@ -1,5 +1,7 @@
 'use strict';
 
+console.log('running webpack.config.js');
+
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -94,6 +96,7 @@ module.exports = {
   plugins: plugins,
 
   devServer: {
+    // console.log('webpack.config.js devServer');
     historyApiFallback: { index: '/' },
     proxy: proxy(),
   },
