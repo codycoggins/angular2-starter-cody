@@ -27,9 +27,13 @@ nodeAppServer(app);
 
 // Start up the server.
 app.listen(PORT, (err) => {
+
   if (err) {
+    console.log('node-server.js: ERROR');
+    console.log(err);
+    console.log(err.stack);
+    
     winston.error(err);
-    console.log('Error %s', err);
     return;
   }
 

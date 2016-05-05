@@ -1,3 +1,6 @@
+console.log('running node-proxy.js');
+
+
 const httpProxy = require('http-proxy');
 const winston = require('winston');
 const proxyConfig = require('./proxy-config');
@@ -25,3 +28,5 @@ module.exports = (app) => {
     }
   });
 };
+
+console.log('end node-proxy.js');

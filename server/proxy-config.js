@@ -11,6 +11,8 @@
 // 2. get the API to expose an x-allow-origin header, or
 // 3. use a dedicated reverse proxy (e.g. Nginx) to do this instead.
 
+console.log('running proxy-config.js');
+
 module.exports = {
   // Calls to /api/foo will get routed to
   // http://jsonplaceholder.typicode.com/foo.

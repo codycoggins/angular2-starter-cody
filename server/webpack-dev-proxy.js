@@ -15,3 +15,5 @@ module.exports = function getWebpackConfig() {
     return acc;
   }, {});
 };
+
+console.log('end webpack-dev-proxy.js');

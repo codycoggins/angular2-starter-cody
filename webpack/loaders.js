@@ -46,3 +46,5 @@ function makeUrlLoader (pattern) {
     exclude: /node_modules/
   };
 }
+
+console.log('end webpack/loaders.js');

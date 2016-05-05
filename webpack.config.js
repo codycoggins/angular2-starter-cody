@@ -123,3 +123,5 @@ module.exports = {
     return postcssPlugins;
   }
 };
+
+console.log('end webpack.config.js');
