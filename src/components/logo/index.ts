@@ -5,11 +5,11 @@ import { Component } from 'angular2/core';
   styles: [require('./logo.css')],
   template: `
     <div className="flex items-center">
-      <img src="../src/assets/watson_logo-e1422392582870.png"
+      <img src={{logoImage}}
        height="70px" width="70px"/>
     </div>
   `
 })
 export class CompanyLogo {
-  // private LogoImage = require('../../assets/rangleio-logo.svg');
+  logoImage = require('../../assets/watson_logo_large.png');
 };

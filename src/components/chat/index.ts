@@ -1,5 +1,7 @@
 import { Component, Input } from 'angular2/core';
-import { SendButton } from '../button';
+import { HTTP_PROVIDERS } from 'angular2/http';
+import { ChatService } from '../../services/chat-service';
+
 // comment
 @Component({
   selector: 'chat',
@@ -22,22 +24,38 @@ import { SendButton } from '../button';
       >ASK</button>
     </div>
   `,
-  directives: [Chat]
+  directives: [Chat],
+  providers:  [
+  HTTP_PROVIDERS,
+  ChatService
+]
 })
 export class Chat {
   chatText: string;
   newText: string;
 
-  constructor() {
-    this.chatText = '<div class="dialog watson">Hello, Alvin. '
-      + 'Would you like to examine changes in some of '
-      + 'Dove\'s sub-brands or may I help you with something else?</div>';
+  constructor(private chatService: ChatService) {
+    this.chatText = '<div class="dialog watson">Hi, Alvin. How can I '
+      + 'help you today?</div>';
 
   }
   send (newText: string) {
-    // TODO: how do you add line break?
     this.chatText = this.chatText + '<div class="dialog user">'
       + newText + '</div>';
+      // this.heroService.addHero(name)
+      //                  .subscribe(
+      //                    hero  => this.heroes.push(hero),
+      //                    error =>  this.errorMessage = <any>error);
 
+  this.chatService.getChat(newText)
+    .subscribe(
+         error =>  this.showWatsonMessage(<any>error),
+         any  => this.showWatsonMessage(any.message));
   };
+
+  showWatsonMessage(watsonText: string) {
+     this.chatText = this.chatText + '<div class="dialog watson">'
+          + watsonText + '</div>';
+
+  }
 };

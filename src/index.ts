@@ -3,6 +3,9 @@ import 'es6-shim';
 import 'es6-promise';
 import '../shims/shims_for_IE';
 
+// Add all operators to Observable
+import 'rxjs/Rx';
+
 import 'angular2/bundles/angular2-polyfills';
 
 import { enableProdMode, provide } from 'angular2/core';

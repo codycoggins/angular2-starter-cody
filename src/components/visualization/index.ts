@@ -5,9 +5,10 @@ import { Component } from 'angular2/core';
   styles: [],
   template: `
     <div>
-      <img src="../src/assets/us-heatmap.png"/>
+      <img src={{sampleVisualization}}/>
     </div>
   `
 })
 export class Visualization {
+    sampleVisualization = require('../../assets/us-heatmap.png');
 };
