@@ -20,7 +20,7 @@ app.use(helmet());
 
 // API proxy logic: if you need to talk to a remote server from your client-side
 // app you can proxy it though here by editing ./proxy-config.js
-// nodeProxy(app);
+nodeProxy(app);
 
 // Serve the distributed assets and allow HTML5 mode routing. NB: must be last.
 nodeAppServer(app);
@@ -32,7 +32,7 @@ app.listen(PORT, (err) => {
     console.log('node-server.js: ERROR');
     console.log(err);
     console.log(err.stack);
-    
+
     winston.error(err);
     return;
   }
