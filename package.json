@@ -8,7 +8,7 @@
     "typescript",
     "watson"
   ],
-  "author": "IBM Corp. and Perficient",  
+  "author": "IBM Corp. and Perficient",
   "engines": {
     "node": "4.x"
   },
@@ -18,12 +18,12 @@
     "clean": "rimraf dist/",
     "cover": "remap-istanbul -i coverage/chrome/coverage-final.json -o coverage/coverage.json",
     "postcover": "istanbul report lcov text-summary",
-    "dev": "cross-env NODE_ENV=dev webpack-dev-server -d --inline --hot --progress --no-info",
+    "dev": "cross-env NODE_ENV=development webpack-dev-server -d --inline --hot --progress --no-info",
     "lint": "npm run lint-ts && npm run lint-css",
     "lint-ts": "tslint './src/**/*.ts'",
     "lint-css": "stylelint './src/**/*.css'",
     "postinstall": "npm run typings && npm run build",
-    "start": "node server/node-server.js",
+    "start": "cross-env NODE_ENV=production npm run build && node server/node-server.js",
     "pretest": "rimraf coverage/ & npm run lint",
     "test": "karma start",
     "posttest": "npm run cover",
@@ -39,6 +39,7 @@
   },
   "dependencies": {
     "express": "^4.13.4",
+    "body-parser": "1.x",
     "helmet": "^2.0.0",
     "http-proxy": "^1.13.2",
     "winston": "^2.1.1"

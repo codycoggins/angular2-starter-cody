@@ -50,8 +50,8 @@ const prodPlugins = [
 ];
 
 const plugins = basePlugins
-  .concat(process.env.NODE_ENV === 'production' ? prodPlugins : [])
-  .concat(process.env.NODE_ENV === 'development' ? devPlugins : []);
+  .concat((process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'prod')? prodPlugins : [])
+  .concat((process.env.NODE_ENV === 'development'|| process.env.NODE_ENV === 'dev') ? devPlugins : []);
 
 const postcssBasePlugins = [
   require('postcss-import')({
@@ -71,8 +71,8 @@ const postcssProdPlugins = [
 ];
 
 const postcssPlugins = postcssBasePlugins
-  .concat(process.env.NODE_ENV === 'production' ? postcssProdPlugins : [])
-  .concat(process.env.NODE_ENV === 'development' ? postcssDevPlugins : []);
+  .concat((process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'prod') ? postcssProdPlugins : [])
+  .concat((process.env.NODE_ENV === 'development'|| process.env.NODE_ENV === 'dev') ? postcssDevPlugins : []);
 
 module.exports = {
   entry: {

@@ -40,6 +40,7 @@ exports.woff2 = makeUrlLoader(/\.woff2$/);
 exports.ttf = makeUrlLoader(/\.ttf$/);
 
 function makeUrlLoader (pattern) {
+  // console.log ('webpack/loader.js: makeUrlLoader(' + pattern + ')');
   return {
     test: pattern,
     loader: 'url',
