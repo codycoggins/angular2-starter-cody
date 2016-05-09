@@ -1,6 +1,11 @@
-import { Component, Input } from 'angular2/core';
+import { Component, Input, Output, EventEmitter, Inject } from 'angular2/core';
 import { HTTP_PROVIDERS } from 'angular2/http';
-import { ChatService } from '../../services/chat-service';
+import { ChatItem } from '../../services/chat-item';
+import { ChatSessionService } from '../../services/chat-session-service';
+import {Observer} from 'rxjs/Observer';
+import {Observable} from 'rxjs/Observable';
+import {ChatSessionStore} from '../../services/chat-session-store';
+
 
 // comment
 @Component({
@@ -9,8 +14,10 @@ import { ChatService } from '../../services/chat-service';
     <div class="clearfix fit">
       <div id="chatlog"
        style="height:300px;"
-       class="fit overflow-auto"
-       [innerHTML]="chatText">
+       class="fit overflow-auto">
+         <div *ngFor="#chatItem of chatSessionStore.allChatItems | async"
+             [ngClass]="{completed: todo.completed}">
+         <div class="dialog watson"></div>
       </div>
 
       <input #inputBox type="text" class="fit form-control left-0 right-0"
@@ -24,19 +31,15 @@ import { ChatService } from '../../services/chat-service';
       >ASK</button>
     </div>
   `,
-  directives: [Chat],
-  providers:  [
-  HTTP_PROVIDERS,
-  ChatService
-]
+  directives: [Chat]
 })
 export class Chat {
   chatText: string;
   newText: string;
 
-  constructor(private chatService: ChatService) {
-    this.chatText = '<div class="dialog watson">Hi, Alvin. How can I '
-      + 'help you today?</div>';
+  constructor(private chatSessionStore: ChatSessionStore) {
+    // this.chatText = '<div class="dialog watson">Hi, Alvin. How can I '
+    //   + 'help you today?</div>';
 
   }
   send (newText: string) {
@@ -47,10 +50,8 @@ export class Chat {
       //                    hero  => this.heroes.push(hero),
       //                    error =>  this.errorMessage = <any>error);
 
-  this.chatService.getChat(newText)
-    .subscribe(
-         error =>  this.showWatsonMessage(<any>error),
-         any  => this.showWatsonMessage(any.message));
+  let newChatI: ChatItem = new ChatItem({text: newText, isWatson: false});
+  this.chatSessionStore.addChat (newChatI);
   };
 
   showWatsonMessage(watsonText: string) {
