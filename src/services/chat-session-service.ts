@@ -1,10 +1,10 @@
 
 import {Injectable, Inject} from 'angular2/core';
-import {Http, Headers, URLSearchParams, Response} from 'angular2/http';
+import {Http, Headers, URLSearchParams, Response, HTTP_PROVIDERS}
+  from 'angular2/http';
 import {ChatItem} from './chat-item';
-import {List} from 'immutable';
+// import {List} from 'immutable';
 import {Observable} from 'rxjs/Observable';
-
 
 @Injectable()
 export class ChatSessionService {
@@ -25,7 +25,8 @@ export class ChatSessionService {
         headers.append('Content-Type', 'application/json; charset=utf-8');
         // post returns Observable<Response>
 
-        return this.http.post('/api/chat', JSON.stringify(newChatItem.toJS()),
+        return this.http.post('/api/chat',
+          JSON.stringify(newChatItem),
           {headers}).share();
     }
 

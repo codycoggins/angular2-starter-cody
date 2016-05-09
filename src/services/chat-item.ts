@@ -1,23 +1,25 @@
+//
+// import {List, Record} from 'immutable';
+// import Immutable = require('immutable');
+//
+// const ChatRecord = Immutable.Record({
+//     id: 0,
+//     text: '',
+//     isWatson: true,
+//     hasVisual: false
+// });
 
-import {List, Record} from 'immutable';
-
-const ChatRecord = Record({
-    id: 0,
-    text: '',
-    isWatson: true,
-    hasVisual: false
-});
-
-export class ChatItem extends ChatRecord {
+export class ChatItem {
 
     public id: number;
     public text: string;
     public isWatson: boolean;
     public hasVisual: boolean;
 
-    constructor(props ) {
-        super(props);
+    constructor(newText: string, newIsWatson: boolean ) {
         this.id = Math.random();
+        this.text = newText;
+        this.isWatson = newIsWatson;
     }
 
 }

@@ -1,11 +1,11 @@
-import { Component, Input, Output, EventEmitter, Inject } from 'angular2/core';
+import { Component, Input, Output, EventEmitter, Inject, Injectable }
+  from 'angular2/core';
 import { HTTP_PROVIDERS } from 'angular2/http';
 import { ChatItem } from '../../services/chat-item';
 import { ChatSessionService } from '../../services/chat-session-service';
 import {Observer} from 'rxjs/Observer';
 import {Observable} from 'rxjs/Observable';
 import {ChatSessionStore} from '../../services/chat-session-store';
-
 
 // comment
 @Component({
@@ -15,9 +15,8 @@ import {ChatSessionStore} from '../../services/chat-session-store';
       <div id="chatlog"
        style="height:300px;"
        class="fit overflow-auto">
-         <div *ngFor="#chatItem of chatSessionStore.allChatItems | async"
-             [ngClass]="{completed: todo.completed}">
-         <div class="dialog watson"></div>
+         <div *ngFor="let chatItem of chatSessionStore.allChatItems | async">
+          <div class="dialog {{chatItem.isWatson ? 'watson' : 'user'}}">Observable {{chatItem.text}}</div>
       </div>
 
       <input #inputBox type="text" class="fit form-control left-0 right-0"
@@ -31,7 +30,8 @@ import {ChatSessionStore} from '../../services/chat-session-store';
       >ASK</button>
     </div>
   `,
-  directives: [Chat]
+  directives: [Chat],
+  providers: [ChatSessionStore]
 })
 export class Chat {
   chatText: string;
@@ -43,15 +43,15 @@ export class Chat {
 
   }
   send (newText: string) {
-    this.chatText = this.chatText + '<div class="dialog user">'
+    this.chatText = this.chatText + '<div class="dialog user"> test '
       + newText + '</div>';
       // this.heroService.addHero(name)
       //                  .subscribe(
       //                    hero  => this.heroes.push(hero),
       //                    error =>  this.errorMessage = <any>error);
 
-  let newChatI: ChatItem = new ChatItem({text: newText, isWatson: false});
-  this.chatSessionStore.addChat (newChatI);
+    let newChatI: ChatItem = new ChatItem(newText, true);
+    this.chatSessionStore.addChat (newChatI);
   };
 
   showWatsonMessage(watsonText: string) {
