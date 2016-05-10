@@ -16,10 +16,29 @@ console.log('running proxy-config.js');
 module.exports = {
   // Calls to /api/foo will get routed to
   // http://jsonplaceholder.typicode.com/foo.
-  /*
+
   '/api/': {
-    target: 'http://jsonplaceholder.typicode.com',
+    target: 'http://jsonplaceholder.typicode.com/api/',
     changeOrigin: true,
   },
-  */
+  '/api/testDialogs': {
+    target: 'http://jsonplaceholder.typicode.com/api/testDialogs',
+    changeOrigin: true,
+  },
+  '/api/documents': {
+    target: 'http://jsonplaceholder.typicode.com/api/documents',
+    changeOrigin: true,
+  },
+  '/api/testAlchemy': {
+    target: 'http://jsonplaceholder.typicode.com/api/testAlchemy',
+    changeOrigin: true,
+  },
+  '/api/testDashDB': {
+    target: 'http://jsonplaceholder.typicode.com/api/testDashDB',
+    changeOrigin: true,
+  },
+  '/api/testNaturalLanguageClassifier': {
+    target: 'http://jsonplaceholder.typicode.com/api/testNaturalLanguageClassifier',
+    changeOrigin: true,
+  }
 };

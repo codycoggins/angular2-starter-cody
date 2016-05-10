@@ -33,8 +33,8 @@ module.exports = (app) => {
   });
 
   // app.get()
-  app.get(/api\/.*$/, (req, res) => apiHandler(req, res) );
-  app.post(/api\/.*$/, (req, res) => apiHandler(req, res) );
+  app.get(/localapi\/.*$/, (req, res) => apiHandler(req, res) );
+  app.post(/localapi\/.*$/, (req, res) => apiHandler(req, res) );
 
   // note: this regex exludes API
   app.use( express.static(distPath));

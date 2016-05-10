@@ -15,8 +15,14 @@ module.exports = (app) => {
     return;
   }
 
-  const proxy = httpProxy.createProxyServer()
-    .on('error', e => winston.error(e));
+  const proxy = httpProxy.createProxyServer(
+    function (req, res) {
+      winston.info('proxy called '+ req.url);
+      res.writeHead(200, { 'Content-Type': 'text/plain' });
+      res.write('request successfully proxied!' + '\n' + JSON.stringify(req.headers, true, 2));
+      res.end();
+    }
+  ).on('error', e => winston.error(e));
 
   paths.forEach(path => {
     const config = proxyConfig[path];
