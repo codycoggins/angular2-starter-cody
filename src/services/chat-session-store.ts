@@ -49,6 +49,7 @@ export class ChatSessionStore {
                 res => {
                     this._allChatItems.next(
                       this._allChatItems.getValue().push(newChat));
+                    console.log ('addChat returned ' + res.text);
                 });
 
         return obs;

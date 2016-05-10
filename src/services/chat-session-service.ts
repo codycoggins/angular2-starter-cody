@@ -22,11 +22,14 @@ export class ChatSessionService {
     // formerly returned Observable<List<ChatItem>>
     addUserChatItem(newChatItem: ChatItem) : Observable<Response> {
         const headers = new Headers();
+        const url =  '/api/testDialogs';
         headers.append('Content-Type', 'application/json; charset=utf-8');
-        // post returns Observable<Response>
+        headers.append('Accept', 'application/json');
 
-        return this.http.post('/api/chat',
-          JSON.stringify(newChatItem),
+        // post returns Observable<Response>
+        console.log ('GET ' + url + ', ' + JSON.stringify(newChatItem));
+        // payload should be:  JSON.stringify(newChatItem)
+        return this.http.get(url,
           {headers}).share();
     }
 

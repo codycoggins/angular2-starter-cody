@@ -16,7 +16,8 @@ import {ChatSessionStore} from '../../services/chat-session-store';
        style="height:300px;"
        class="fit overflow-auto">
          <div *ngFor="let chatItem of chatSessionStore.allChatItems | async">
-          <div class="dialog {{chatItem.isWatson ? 'watson' : 'user'}}">Observable {{chatItem.text}}</div>
+          <div class="dialog {{chatItem.isWatson ? 'watson' : 'user'}}"
+            >{{chatItem.text}}</div>
       </div>
 
       <input #inputBox type="text" class="fit form-control left-0 right-0"
@@ -34,7 +35,7 @@ import {ChatSessionStore} from '../../services/chat-session-store';
   providers: [ChatSessionStore]
 })
 export class Chat {
-  chatText: string;
+  // chatText: string;
   newText: string;
 
   constructor(private chatSessionStore: ChatSessionStore) {
@@ -43,20 +44,22 @@ export class Chat {
 
   }
   send (newText: string) {
-    this.chatText = this.chatText + '<div class="dialog user"> test '
-      + newText + '</div>';
+    // this.chatText = this.chatText + '<div class="dialog user"> test '
+    //   + newText + '</div>';
       // this.heroService.addHero(name)
       //                  .subscribe(
       //                    hero  => this.heroes.push(hero),
       //                    error =>  this.errorMessage = <any>error);
 
-    let newChatI: ChatItem = new ChatItem(newText, true);
+    let newChatI: ChatItem = new ChatItem(newText, false);
     this.chatSessionStore.addChat (newChatI);
   };
 
   showWatsonMessage(watsonText: string) {
-     this.chatText = this.chatText + '<div class="dialog watson">'
-          + watsonText + '</div>';
+    //  this.chatText = this.chatText + '<div class="dialog watson">'
+    //       + watsonText + '</div>';
 
+    let newChatW: ChatItem = new ChatItem(watsonText, true);
+    this.chatSessionStore.addChat (newChatW);
   }
 };
