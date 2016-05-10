@@ -26,11 +26,13 @@ export class ChatSessionService {
         headers.append('Content-Type', 'application/json; charset=utf-8');
         headers.append('Accept', 'application/json');
 
+        const params = new URLSearchParams();
+        params.set('input', newChatItem.text);
         // post returns Observable<Response>
         console.log ('GET ' + url + ', ' + JSON.stringify(newChatItem));
         // payload should be:  JSON.stringify(newChatItem)
         return this.http.get(url,
-          {headers}).share();
+          {headers: headers, search: params}).share();
     }
 
 

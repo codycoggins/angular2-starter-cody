@@ -1,4 +1,3 @@
-
 import {Injectable} from 'angular2/core';
 import {ChatSessionService} from './chat-session-service';
 import {Observable} from 'rxjs/Observable';
@@ -24,7 +23,8 @@ export class ChatSessionStore {
 
 
     loadInitialData() {
-        let intro: ChatItem = new ChatItem('Welcome, I\'m Watson. How may I help you?', true);
+        let intro: ChatItem =
+          new ChatItem('Welcome, I\'m Watson. How may I help you?', true);
         this.addChat(intro);
         // this.chatSessionService.getAllChats()
         //     .subscribe(
