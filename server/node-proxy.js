@@ -16,19 +16,32 @@ module.exports = (app) => {
   }
 
   const proxy = httpProxy.createProxyServer(
-    function (req, res) {
-      winston.info('proxy called '+ req.url);
-      res.writeHead(200, { 'Content-Type': 'text/plain' });
-      res.write('request successfully proxied!' + '\n' + JSON.stringify(req.headers, true, 2));
-      res.end();
-    }
+    // function(req, res) {
+    //   console.log ('proxy invoked');
+    //   proxy.web(req, res, { target: 'http://nielsen-bluemix-orchestration-app.mybluemix.net/' });
+    // }
   ).on('error', e => winston.error(e));
+
+ //  app.get(/api\/.*$/, (req, res) => {
+ //    console.log ('app use proxy web');
+ //    proxy.web(req, res, { target: 'http://nielsen-bluemix-orchestration-app.mybluemix.net/' });
+ //  });
+ //  app.post(/api\/.*$/, (req, res) => {
+ //    console.log ('app use proxy web');
+ //    proxy.web(req, res, { target: 'http://nielsen-bluemix-orchestration-app.mybluemix.net/' });
+ //  } );
+ //
+ // app.use (/api\/.*$/, (req, res) => {
+ //   console.log ('app use proxy web');
+ //   proxy.web(req, res, config);
+ // });
 
   paths.forEach(path => {
     const config = proxyConfig[path];
     if (path && config) {
       winston.info(`Enabling proxy ${path} => `, config);
       app.use(path, (req, res) => {
+        console.log ('proxy got request '+ path);
         proxy.web(req, res, config);
       });
     }

@@ -15,30 +15,31 @@ console.log('running proxy-config.js');
 
 module.exports = {
   // Calls to /api/foo will get routed to
-  // http://jsonplaceholder.typicode.com/foo.
+  // http://nielsen-bluemix-orchestration-app.mybluemix.net/foo.
 
-  '/api/': {
-    target: 'http://jsonplaceholder.typicode.com/api/',
-    changeOrigin: true,
-  },
+
   '/api/testDialogs': {
-    target: 'http://jsonplaceholder.typicode.com/api/testDialogs',
+    target: 'http://nielsen-bluemix-orchestration-app.mybluemix.net/api/testDialogs',
     changeOrigin: true,
   },
   '/api/documents': {
-    target: 'http://jsonplaceholder.typicode.com/api/documents',
+    target: 'http://nielsen-bluemix-orchestration-app.mybluemix.net/api/documents',
     changeOrigin: true,
   },
   '/api/testAlchemy': {
-    target: 'http://jsonplaceholder.typicode.com/api/testAlchemy',
+    target: 'http://nielsen-bluemix-orchestration-app.mybluemix.net/api/testAlchemy',
     changeOrigin: true,
   },
   '/api/testDashDB': {
-    target: 'http://jsonplaceholder.typicode.com/api/testDashDB',
+    target: 'http://nielsen-bluemix-orchestration-app.mybluemix.net/api/testDashDB',
     changeOrigin: true,
   },
   '/api/testNaturalLanguageClassifier': {
-    target: 'http://jsonplaceholder.typicode.com/api/testNaturalLanguageClassifier',
+    target: 'http://nielsen-bluemix-orchestration-app.mybluemix.net/api/testNaturalLanguageClassifier',
+    changeOrigin: true,
+  },
+  '/api/': {
+    target: 'http://nielsen-bluemix-orchestration-app.mybluemix.net/api/',
     changeOrigin: true,
   }
 };

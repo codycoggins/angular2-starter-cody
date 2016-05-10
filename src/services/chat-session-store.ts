@@ -41,20 +41,29 @@ export class ChatSessionStore {
 
     }
 
-    addChat(newChat: ChatItem): Observable<any> {
+    addChat(newChat: ChatItem): boolean  {
 
+      this._allChatItems.next(
+        this._allChatItems.getValue().push( newChat  ));
+      return true;
+    }
+
+    addChatAndResponse(newChat: ChatItem): Observable<any> {
+        // display the user's input
+        this.addChat(newChat);
+        // put the request to the server.
         let obs = this.chatSessionService.addUserChatItem(newChat);
 
+        // manage the reponse from the server
         obs.subscribe(
                 res => {
+                    let chatResponse: ChatItem = new ChatItem(res.text(), true);
                     this._allChatItems.next(
-                      this._allChatItems.getValue().push(newChat));
-                    console.log ('addChat returned ' + res.text);
+                      this._allChatItems.getValue().push( chatResponse  ));
+                    console.log ('addChat returned ' + res.text());
                 });
 
         return obs;
     }
-
-
 
 }

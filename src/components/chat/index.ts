@@ -52,7 +52,7 @@ export class Chat {
       //                    error =>  this.errorMessage = <any>error);
 
     let newChatI: ChatItem = new ChatItem(newText, false);
-    this.chatSessionStore.addChat (newChatI);
+    this.chatSessionStore.addChatAndResponse (newChatI);
   };
 
   showWatsonMessage(watsonText: string) {
