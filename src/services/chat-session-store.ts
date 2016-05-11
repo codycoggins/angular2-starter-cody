@@ -57,10 +57,11 @@ export class ChatSessionStore {
         // manage the reponse from the server
         obs.subscribe(
                 res => {
-                    let chatResponse: ChatItem = new ChatItem(res.text(), true);
+                    let chatResponse: ChatItem = new ChatItem(res.json()[0], true);
                     this._allChatItems.next(
                       this._allChatItems.getValue().push( chatResponse  ));
-                    console.log ('addChat returned ' + res.text());
+                    console.log ('addChat returned text ' + res.text());
+                    console.log ('addChat returned json ' + res.json());
                 });
 
         return obs;
