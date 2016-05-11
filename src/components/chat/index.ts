@@ -27,24 +27,23 @@ import {ChatSessionStore} from '../../services/chat-session-store';
     }
   `],
   template: `
-    <div class="clearfix fit">
-      <div id="chatlog"
-       style="height:300px;"
-       class="fit overflow-auto">
-         <div *ngFor="let chatItem of chatSessionStore.allChatItems | async">
-          <div class="dialog {{chatItem.isWatson ? 'watson' : 'user'}}"
+    <div class="clearfix fit" style="560px">
+       <div id="chatlog"
+          style="height:500px;" class="fit overflow-auto"
+           >
+          <div *ngFor="let chatItem of chatSessionStore.allChatItems | async" class="dialog {{chatItem.isWatson ? 'watson' : 'user'}}"
             >{{chatItem.text}}</div>
-      </div>
+       </div>
 
-      <input #inputBox type="text" class="fit form-control left-0 right-0"
-        style="height:30px; padding:5px;"
-        (keyup.enter)="send(inputBox.value); inputBox.value='';"
-        placeholder="Enter Question"
-        value="{{newText}}"
-      />
-      <button (click)="send(inputBox.value);inputBox.value='';"
-      class="form-control right-0"
-      >ASK</button>
+       <input #inputBox type="text" class="fit form-control left-0 right-0"
+         style="height:30px; padding:5px;"
+         (keyup.enter)="send(inputBox.value); inputBox.value='';"
+         placeholder="Enter Question"
+         value="{{newText}}"
+       />
+       <button (click)="send(inputBox.value);inputBox.value='';"
+       class="form-control right-0"
+       >ASK</button>
     </div>
   `,
   directives: [Chat],
