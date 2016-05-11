@@ -7,7 +7,7 @@ import { ChartDirective } from './chart.directive.ts';
   styles: [],
   template: `
     <div>
-      <h3>Visualization here</h3>
+      <h3></h3>
       <chart-example1 ></chart-example1>
     </div>
   `,

@@ -80,12 +80,12 @@ export class ChatSessionStore {
         'Yes/No',
         '<ul><li><a>Yes</a></li><li><a>Yes</a></li></ul>');
 
-        let re: RegExp = /mct\:/gi;
-
+      let re: RegExp = /mct\:/gi;
       processedText = processedText.replace(re, 'mct-');
-      processedText = processedText.replace('=====================','');
+      processedText = processedText.replace('=====================', '');
       re = /\<br\>/gi;
-      processedText = processedText.replace(re,'<li>');
+      processedText = processedText.replace(re, '<li>');
+      processedText = processedText.replace('\n\n', '<br>');
       // processedText = processedText.replace('<br>','<li>');
       return processedText;
     }

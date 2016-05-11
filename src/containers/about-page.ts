@@ -6,10 +6,9 @@ import { WatsonContainer } from '../components';
   directives: [ WatsonContainer ],
   template: `
     <watson-container>
-      <h2 class="caps">About Us</h2>
+      <h2 class="caps">About The Project NLS POC</h2>
       <p>
-        Rangle.io is a next-generation HTML5 design and development firm
-        dedicated to modern, responsive web and mobile applications.
+        This is a Proof of Concept to demonstrate IBM Watson capabilities. It is not for production use.
       </p>
     </watson-container>
   `

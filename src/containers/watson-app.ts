@@ -35,11 +35,15 @@ import {
           <company-logo></company-logo>
         </app-navigator-item>
 
-        <div class="italic h1 flex-auto">Nielsen Watson POC</div>
+        <div class="italic h1 flex-auto">Project NLS</div>
         <div style="" class="flex">
           <app-navigator-item [mr]=true class="">
             <a [routerLink]="['Home']"
               class="navbar-link text-decoration-none">Home</a>
+          </app-navigator-item>
+          <app-navigator-item [mr]=true class="">
+            <a [routerLink]="['Home']"
+              class="navbar-link text-decoration-none">My Favorites</a>
           </app-navigator-item>
           <app-navigator-item class="">
             <a [routerLink]="['About']"
