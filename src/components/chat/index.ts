@@ -10,6 +10,22 @@ import {ChatSessionStore} from '../../services/chat-session-store';
 // comment
 @Component({
   selector: 'chat',
+  styles: [`
+    .dialog {
+      margin: 10px;
+    }
+
+    .watson {
+      border-left: solid lightblue thick;
+      padding-left: 10px;
+    }
+
+    .user {
+      border-right: solid lightgreen thick;
+      margin-left: 75px;
+      padding-right: 10px;
+    }
+  `],
   template: `
     <div class="clearfix fit">
       <div id="chatlog"

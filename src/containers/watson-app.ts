@@ -68,5 +68,4 @@ import {
   }
 ])
 export class WatsonApp {
-
 };

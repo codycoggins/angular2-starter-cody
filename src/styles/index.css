@@ -28,18 +28,3 @@
 @import 'basscss-position';
 @import 'basscss-border';
 @import 'basscss-hide';
-
-.dialog {
-  margin: 10px;
-}
-
-.watson {
-  border-left: solid lightblue thick;
-  padding-left: 10px;
-}
-
-.user {
-  border-right: solid lightgreen thick;
-  margin-left: 75px;
-  padding-right: 10px;
-}
