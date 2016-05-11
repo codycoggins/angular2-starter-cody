@@ -25,18 +25,32 @@ import {ChatSessionStore} from '../../services/chat-session-store';
       margin-left: 75px;
       padding-right: 10px;
     }
+    #chatlog {
+      height:500px;
+    }
+    #chatInput {
+      height:30px;
+      padding:5px;
+      width: 300px;
+      margin: 10px;
+    }
+    mct-hide {
+      display: none;
+    }
+    mct {
+      display: none;
+    }
   `],
   template: `
     <div class="clearfix fit" style="560px">
-       <div id="chatlog"
-          style="height:500px;" class="fit overflow-auto"
-           >
-          <div *ngFor="let chatItem of chatSessionStore.allChatItems | async" class="dialog {{chatItem.isWatson ? 'watson' : 'user'}}"
-            >{{chatItem.text}}</div>
+       <div id="chatlog"class="fit overflow-auto">
+          <div *ngFor="let chatItem of chatSessionStore.allChatItems | async"
+            class="dialog {{chatItem.isWatson ? 'watson' : 'user'}}"
+            [innerHTML]="chatItem.text"></div>
        </div>
 
-       <input #inputBox type="text" class="fit form-control left-0 right-0"
-         style="height:30px; padding:5px;"
+       <input #inputBox id="chatInput" type="text"
+        class="fit form-control left-0 right-0"
          (keyup.enter)="send(inputBox.value); inputBox.value='';"
          placeholder="Enter Question"
          value="{{newText}}"

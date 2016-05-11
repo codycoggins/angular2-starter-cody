@@ -58,7 +58,7 @@ export class ChatSessionStore {
         obs.subscribe(
                 res => {
                     let chatResponse: ChatItem =
-                      new ChatItem(res.json()[0], true);
+                      new ChatItem(this.formatReponse(res.json()[0]), true);
                     this._allChatItems.next(
                       this._allChatItems.getValue().push( chatResponse  ));
                     console.log ('addChat returned text ' + res.text());
@@ -66,6 +66,28 @@ export class ChatSessionStore {
                 });
 
         return obs;
+    }
+
+    formatReponse (watsonText: string): string {
+      console.log('formatReponse()');
+      console.log('  input\n' + watsonText);
+      let processedText: string = watsonText;
+      if (processedText.length == 0) {
+        processedText =
+          'I do not understand your question, can you ask a different way?';
+      }
+      processedText = processedText.replace(
+        'Yes/No',
+        '<ul><li><a>Yes</a></li><li><a>Yes</a></li></ul>');
+
+        let re: RegExp = /mct\:/gi;
+
+      processedText = processedText.replace(re, 'mct-');
+      processedText = processedText.replace('=====================','');
+      re = /\<br\>/gi;
+      processedText = processedText.replace(re,'<li>');
+      // processedText = processedText.replace('<br>','<li>');
+      return processedText;
     }
 
 }

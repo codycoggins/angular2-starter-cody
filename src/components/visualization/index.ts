@@ -1,26 +1,21 @@
 import { Component } from 'angular2/core';
-import { ChartComponent } from './chart-example11';
-import {ChartDirective} from "./chart.directive.ts";
+import { ChartComponent } from './chart-example1';
+import { ChartDirective } from './chart.directive.ts';
 
 @Component({
   selector: 'visualization',
   styles: [],
   template: `
     <div>
-      <chart [attr.content]="chartData" ></chart>
+      <h3>Visualization here</h3>
+      <chart-example1 ></chart-example1>
     </div>
-  `
+  `,
 })
 export class Visualization {
   constructor() {
     console.log('Visualization constructor()');
-    let chartData:any = [
-      ['Mushrooms', 3],
-      ['Onions', 1],
-      ['Olives', 1],
-      ['Zucchini', 1],
-      ['Pepperoni', 2]
-    ];
+
   };
   sampleVisualization = require('../../assets/us-heatmap.png');
 };

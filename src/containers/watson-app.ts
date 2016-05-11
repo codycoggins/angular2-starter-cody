@@ -30,18 +30,22 @@ import {
   template: `
     <div id="wrapper" class="fit" style="height:100%">
       <app-navigator class="p1 fit">
-        <app-navigator-item [mr]=true>
+
+        <app-navigator-item [mr]=true class="flex-none">
           <company-logo></company-logo>
         </app-navigator-item>
-        <app-navigator-item [mr]=true >
-          <a [routerLink]="['Home']"
-            class="text-decoration-none">Home</a>
-        </app-navigator-item>
-        <app-navigator-item>
-          <a [routerLink]="['About']"
-            class="text-decoration-none">About</a>
-        </app-navigator-item>
-        <div class="flex flex-auto"></div>
+
+        <div class="italic h1 flex-auto">Nielsen Watson POC</div>
+        <div style="" class="flex">
+          <app-navigator-item [mr]=true class="">
+            <a [routerLink]="['Home']"
+              class="navbar-link text-decoration-none">Home</a>
+          </app-navigator-item>
+          <app-navigator-item class="">
+            <a [routerLink]="['About']"
+              class="navbar-link text-decoration-none">About</a>
+          </app-navigator-item>
+        </div>
       </app-navigator>
 
       <div id="app-area" class="flex flex-wrap"
