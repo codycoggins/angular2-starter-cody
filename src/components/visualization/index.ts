@@ -48,11 +48,13 @@ export class Visualization {
     data.addColumn('number', 'KG');
     let rows = [];
     for (let c in this._content) {
-      let d: Date = new Date(this._content[c].quand);
-      let k: number = +(this._content[c].kg); // Plus sign to
-        // force conversion sting -> number
+      if (this.hasOwnProperty(c)) {
+        let d: Date = new Date(this._content[c].quand);
+        let k: number = +(this._content[c].kg); // Plus sign to
+          // force conversion sting -> number
 
-      rows.push([d, k]);
+        rows.push([d, k]);
+      }
     }
     data.addRows(rows);
     // Create options

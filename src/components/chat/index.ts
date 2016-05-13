@@ -4,9 +4,9 @@ import { Component, Input, Output, EventEmitter, Inject, Injectable,
 import { HTTP_PROVIDERS } from 'angular2/http';
 import { ChatItem } from '../../services/chat-item';
 import { ChatSessionService } from '../../services/chat-session-service';
-import {Observer} from 'rxjs/Observer';
-import {Observable} from 'rxjs/Observable';
-import {ChatSessionStore} from '../../services/chat-session-store';
+import { Observer} from 'rxjs/Observer';
+import { Observable} from 'rxjs/Observable';
+import { ChatSessionStore} from '../../services/chat-session-store';
 
 // comment
 @Component({
@@ -61,8 +61,7 @@ import {ChatSessionStore} from '../../services/chat-session-store';
         >ASK</button>
     </div>
   `,
-  directives: [Chat],
-  providers: [ChatSessionStore]
+  directives: [Chat]
 })
 export class Chat {
   // chatText: string;
@@ -73,9 +72,10 @@ export class Chat {
     private chatSessionStore: ChatSessionStore) {
     // this.chatText = '<div class="dialog watson">Hi, Alvin. How can I '
     //   + 'help you today?</div>';
-    let fScroll = this.scrollChat.bind(this);
-    let obsScroll: Observable<any> =   chatSessionStore.allChatItems;
-    obsScroll.subscribe(fScroll);
+    this.chatSessionStore = chatSessionStore;
+    // let fScroll = this.scrollChat.bind(this);
+    // let obsScroll: Observable<any> =   chatSessionStore.allChatItems;
+    // obsScroll.subscribe(fScroll);
   }
 
   send (newText: string) {
@@ -100,6 +100,7 @@ export class Chat {
   }
 
   ngAfterViewChecked() {
+      console.log('Chat: ngAfterViewChecked');
       this.scrollChat(0, 0);
   }
 

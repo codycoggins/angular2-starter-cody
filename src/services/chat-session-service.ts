@@ -2,9 +2,10 @@
 import {Injectable, Inject} from 'angular2/core';
 import {Http, Headers, URLSearchParams, Response, HTTP_PROVIDERS}
   from 'angular2/http';
+import {Observable} from 'rxjs/Observable';
+
 import {ChatItem} from './chat-item';
 // import {List} from 'immutable';
-import {Observable} from 'rxjs/Observable';
 
 @Injectable()
 export class ChatSessionService {

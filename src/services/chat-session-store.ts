@@ -1,19 +1,28 @@
 import {Injectable} from 'angular2/core';
 import {ChatSessionService} from './chat-session-service';
+import {List} from 'immutable';
 import {Observable} from 'rxjs/Observable';
 import {Subject} from 'rxjs/Subject';
-import {ChatItem} from './chat-item';
-import {List} from 'immutable';
-import {asObservable} from './asObservable';
 import {BehaviorSubject} from 'rxjs/Rx';
+
+import {asObservable} from './asObservable';
+import {DialogParser} from './dialog-parser';
+import {ChatItem} from './chat-item';
 
 @Injectable()
 export class ChatSessionStore {
 
+
     private _allChatItems: BehaviorSubject<List<ChatItem>> =
       new BehaviorSubject(List([]));
 
-    constructor(private chatSessionService: ChatSessionService) {
+    dialogParser: DialogParser;
+    chatSessionService: ChatSessionService;
+
+    constructor(chatSessionService: ChatSessionService,
+        dialogParser: DialogParser) {
+        this.chatSessionService = chatSessionService;
+        this.dialogParser = dialogParser;
         this.loadInitialData();
     }
 
@@ -67,7 +76,7 @@ export class ChatSessionStore {
                     this._allChatItems.next(
                       this._allChatItems.getValue().push( chatResponse  ));
                     console.log ('addChat returned text ' + res.text());
-                    // console.log ('addChat returned json ' + res.json());
+                    console.log ('addChat returned json ' + res.json());
                 });
 
         return obs;
@@ -75,26 +84,30 @@ export class ChatSessionStore {
 
     formatReponse (watsonText: string): string {
       console.log('formatReponse()');
+      if (watsonText == null) {
+          console.log('  null watsonText.');
+          return '';
+      }
       console.log('  input\n' + watsonText);
-      let processedText: string = watsonText;
-      // if (processedText.length === 0) {
-      //   processedText =
-      //     'I do not understand your question, can you ask a different way?';
-      // }
-      processedText = processedText.replace(
-        'Yes/No',
-        '<ul><li><a>Yes</a></li><li><a>Yes</a></li></ul>');
-
-      processedText = processedText.replace(
-        /Yes.*No/,
-        '<ul><li><a><b>Yes</b></a></li><li><a>Yes</a></li></ul>');
-      let re: RegExp = /mct\:/gi;
-      processedText = processedText.replace(re, 'mct-');
-      processedText = processedText.replace('=====================', '');
-      re = /\<br\>/gi;
-      processedText = processedText.replace(re, '<li>');
-      processedText = processedText.replace('\n\n', '<br>');
-      // processedText = processedText.replace('<br>','<li>');
+      let processedText: string = this.dialogParser.parse( watsonText);
+      // // if (processedText.length === 0) {
+      // //   processedText =
+      // //     'I do not understand your question, can you ask a different way?';
+      // // }
+      // processedText = processedText.replace(
+      //   'Yes/No',
+      //   '<ul><li><a>Yes</a></li><li><a>Yes</a></li></ul>');
+      //
+      // processedText = processedText.replace(
+      //   /Yes.*No/,
+      //   '<ul><li><a><b>Yes</b></a></li><li><a>Yes</a></li></ul>');
+      // let re: RegExp = /mct\:/gi;
+      // processedText = processedText.replace(re, 'mct-');
+      // processedText = processedText.replace('=====================', '');
+      // re = /\<br\>/gi;
+      // processedText = processedText.replace(re, '<li>');
+      // processedText = processedText.replace('\n\n', '<br>');
+      // // processedText = processedText.replace('<br>','<li>');
       return processedText;
     }
 
