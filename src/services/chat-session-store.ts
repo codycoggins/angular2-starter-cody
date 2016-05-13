@@ -61,8 +61,13 @@ export class ChatSessionStore {
                       new ChatItem(this.formatReponse(res.json()[0]), true);
                     this._allChatItems.next(
                       this._allChatItems.getValue().push( chatResponse  ));
+                    // get second part
+                    chatResponse =
+                      new ChatItem(this.formatReponse(res.json()[1]), true);
+                    this._allChatItems.next(
+                      this._allChatItems.getValue().push( chatResponse  ));
                     console.log ('addChat returned text ' + res.text());
-                    console.log ('addChat returned json ' + res.json());
+                    // console.log ('addChat returned json ' + res.json());
                 });
 
         return obs;
@@ -72,10 +77,10 @@ export class ChatSessionStore {
       console.log('formatReponse()');
       console.log('  input\n' + watsonText);
       let processedText: string = watsonText;
-      if (processedText.length === 0) {
-        processedText =
-          'I do not understand your question, can you ask a different way?';
-      }
+      // if (processedText.length === 0) {
+      //   processedText =
+      //     'I do not understand your question, can you ask a different way?';
+      // }
       processedText = processedText.replace(
         'Yes/No',
         '<ul><li><a>Yes</a></li><li><a>Yes</a></li></ul>');
