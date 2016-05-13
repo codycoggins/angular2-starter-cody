@@ -62,7 +62,6 @@ export class Visualization {
       'curveType': 'function'
     };
 
-
     // Instantiate and draw our chart, passing in some options.
     let myChart: any = new this.w.google.visualization.LineChart(this.el)
       .draw(data, options);

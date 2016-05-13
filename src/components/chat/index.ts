@@ -57,11 +57,8 @@ import {ChatSessionStore} from '../../services/chat-session-store';
          value="{{newText}}"
        />
        <button (click)="send(inputBox.value);inputBox.value='';"
-       class="form-control right-0"
-       >ASK</button>
-       <button (click)="scrollChat(chatLog);"
-       class="form-control right-0"
-       >SCROLL</button>
+        class="form-control right-0"
+        >ASK</button>
     </div>
   `,
   directives: [Chat],
@@ -100,6 +97,10 @@ export class Chat {
 
     let newChatW: ChatItem = new ChatItem(watsonText, true);
     this.chatSessionStore.addChat (newChatW);
+  }
+
+  ngAfterViewChecked() {
+      this.scrollChat(0, 0);
   }
 
   scrollChat(res, err): string {
