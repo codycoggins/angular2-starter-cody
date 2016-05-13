@@ -72,7 +72,7 @@ export class ChatSessionStore {
       console.log('formatReponse()');
       console.log('  input\n' + watsonText);
       let processedText: string = watsonText;
-      if (processedText.length == 0) {
+      if (processedText.length === 0) {
         processedText =
           'I do not understand your question, can you ask a different way?';
       }
@@ -80,6 +80,9 @@ export class ChatSessionStore {
         'Yes/No',
         '<ul><li><a>Yes</a></li><li><a>Yes</a></li></ul>');
 
+      processedText = processedText.replace(
+        /Yes.*No/,
+        '<ul><li><a><b>Yes</b></a></li><li><a>Yes</a></li></ul>');
       let re: RegExp = /mct\:/gi;
       processedText = processedText.replace(re, 'mct-');
       processedText = processedText.replace('=====================', '');

@@ -35,7 +35,7 @@ import {
           <company-logo></company-logo>
         </app-navigator-item>
 
-        <div class="italic h1 flex-auto">Project NLS</div>
+        <div class="italic bold h1 flex-auto">Project NLS</div>
         <div style="" class="flex">
           <app-navigator-item [mr]=true class="">
             <a [routerLink]="['Home']"
@@ -52,8 +52,8 @@ import {
         </div>
       </app-navigator>
 
-      <div id="app-area" class="flex flex-wrap"
-       style="height:100%; margin:0 auto -100px">
+      <div id="app-area" class=""
+       style="height:100%; margin:0; auto -100px; width: 100%;">
       <router-outlet></router-outlet>
 
 

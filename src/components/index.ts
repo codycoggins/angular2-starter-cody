@@ -3,6 +3,8 @@ import { CompanyLogo } from './logo';
 import { AppNavigator, AppNavigatorItem } from './navigator';
 import { Chat } from './chat';
 import { Visualization } from './visualization';
+import { ChartComponent } from './visualization/chart-example1';
+import { ChartDirective } from './visualization/chart-directive';
 
 export {
   WatsonContainer,
@@ -10,5 +12,7 @@ export {
   AppNavigator,
   AppNavigatorItem,
   Chat,
-  Visualization
+  Visualization,
+  ChartComponent,
+  ChartDirective
 };

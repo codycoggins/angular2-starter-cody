@@ -1,4 +1,5 @@
-import { Component, Input, Output, EventEmitter, Inject, Injectable }
+import { Component, Input, Output, EventEmitter, Inject, Injectable,
+  AfterViewChecked, ElementRef, ViewChild }
   from 'angular2/core';
 import { HTTP_PROVIDERS } from 'angular2/http';
 import { ChatItem } from '../../services/chat-item';
@@ -25,7 +26,7 @@ import {ChatSessionStore} from '../../services/chat-session-store';
       margin-left: 75px;
       padding-right: 10px;
     }
-    #chatlog {
+    #chatLog {
       height:500px;
     }
     #chatInput {
@@ -43,7 +44,7 @@ import {ChatSessionStore} from '../../services/chat-session-store';
   `],
   template: `
     <div class="clearfix fit" style="560px">
-       <div id="chatlog"class="fit overflow-auto">
+       <div #chatLog id="chatLog" class="fit overflow-auto">
           <div *ngFor="let chatItem of chatSessionStore.allChatItems | async"
             class="dialog {{chatItem.isWatson ? 'watson' : 'user'}}"
             [innerHTML]="chatItem.text"></div>
@@ -58,6 +59,9 @@ import {ChatSessionStore} from '../../services/chat-session-store';
        <button (click)="send(inputBox.value);inputBox.value='';"
        class="form-control right-0"
        >ASK</button>
+       <button (click)="scrollChat(chatLog);"
+       class="form-control right-0"
+       >SCROLL</button>
     </div>
   `,
   directives: [Chat],
@@ -66,12 +70,17 @@ import {ChatSessionStore} from '../../services/chat-session-store';
 export class Chat {
   // chatText: string;
   newText: string;
+  @ViewChild('chatLog') public chatLogElement: ElementRef;
 
-  constructor(private chatSessionStore: ChatSessionStore) {
+  constructor(public elementRef: ElementRef,
+    private chatSessionStore: ChatSessionStore) {
     // this.chatText = '<div class="dialog watson">Hi, Alvin. How can I '
     //   + 'help you today?</div>';
-
+    let fScroll = this.scrollChat.bind(this);
+    let obsScroll: Observable<any> =   chatSessionStore.allChatItems;
+    obsScroll.subscribe(fScroll);
   }
+
   send (newText: string) {
     // this.chatText = this.chatText + '<div class="dialog user"> test '
     //   + newText + '</div>';
@@ -82,6 +91,7 @@ export class Chat {
 
     let newChatI: ChatItem = new ChatItem(newText, false);
     this.chatSessionStore.addChatAndResponse (newChatI);
+    // this.scrollChat();
   };
 
   showWatsonMessage(watsonText: string) {
@@ -90,5 +100,19 @@ export class Chat {
 
     let newChatW: ChatItem = new ChatItem(watsonText, true);
     this.chatSessionStore.addChat (newChatW);
+  }
+
+  scrollChat(res, err): string {
+    console.log('Chat.scrollChat()');
+    try {
+          let myElement: ElementRef = this.chatLogElement;
+
+          myElement.nativeElement.scrollTop =
+            this.chatLogElement.nativeElement.scrollHeight;
+          return '';
+        } catch (err) {
+          console.error(err);
+          return '';
+        }
   }
 };
