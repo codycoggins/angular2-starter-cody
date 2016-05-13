@@ -2,7 +2,7 @@
   "name": "watson-nielsen-ui",
   "version": "0.0.1",
   "description": "Front end for Nielsen Watson project (using rangle Angular 2 starter)",
-  "license": "IBM, MIT",
+  "license": "IBM",
   "keywords": [
     "angular2",
     "typescript",
@@ -113,7 +113,7 @@
     "typings": "^0.8.1",
     "url-loader": "^0.5.7",
     "webpack": "^1.12.12",
-    "webpack-dev-server": "^1.14.1",
+    "webpack-dev-server": "1.x",
     "webpack-hot-middleware": "^2.9.1",
     "webpack-split-by-path": "0.0.8",
     "zone.js": "0.6.12"
