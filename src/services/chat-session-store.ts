@@ -66,19 +66,23 @@ export class ChatSessionStore {
         // manage the reponse from the server
         obs.subscribe(
                 res => {
-                    let chatResponse: ChatItem =
-                      new ChatItem(this.formatReponse(res.json()[0]), true);
-                    this._allChatItems.next(
-                      this._allChatItems.getValue().push( chatResponse  ));
-                    // get second part
-                    chatResponse =
-                      new ChatItem(this.formatReponse(res.json()[1]), true);
-                    this._allChatItems.next(
-                      this._allChatItems.getValue().push( chatResponse  ));
                     console.log ('addChat returned text ' + res.text());
                     console.log ('addChat returned json ' + res.json());
-                });
-
+                    let resJson: any = res.json();
+                    if (resJson.length === 0) {
+                      console.log('WARNING: no data returned from Dialog Service');
+                      return;
+                    }
+                    for (let i: number = 0; i < resJson.length; i++) {
+                      ;
+                      let chatResponse: ChatItem = new ChatItem(
+                        this.formatReponse(resJson[i]),
+                         true);
+                         this._allChatItems.next(
+                           this._allChatItems.getValue().push( chatResponse  ));
+                    }
+                   }
+                  );
         return obs;
     }
 

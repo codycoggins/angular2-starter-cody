@@ -100,12 +100,12 @@ export class Chat {
   }
 
   ngAfterViewChecked() {
-      console.log('Chat: ngAfterViewChecked');
+      // console.log('Chat: ngAfterViewChecked');
       this.scrollChat(0, 0);
   }
 
   scrollChat(res, err): string {
-    console.log('Chat.scrollChat()');
+    // console.log('Chat.scrollChat()');
     try {
           let myElement: ElementRef = this.chatLogElement;
 
