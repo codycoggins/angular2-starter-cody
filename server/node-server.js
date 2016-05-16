@@ -1,6 +1,6 @@
 const express = require('express');
 const winston = require('winston');
-const helmet = require('helmet');
+// const helmet = require('helmet');
 const nodeProxy = require('./node-proxy');
 const nodeAppServer = require('./node-app-server');
 
@@ -16,7 +16,7 @@ const PORT = process.env.PORT || 8080;
 console.log('running node-server.js');
 
 // Enable various security helpers.
-app.use(helmet());
+// app.use(helmet());
 
 // API proxy logic: if you need to talk to a remote server from your client-side
 // app you can proxy it though here by editing ./proxy-config.js

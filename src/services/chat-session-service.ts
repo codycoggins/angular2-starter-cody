@@ -23,12 +23,13 @@ export class ChatSessionService {
     // formerly returned Observable<List<ChatItem>>
     addUserChatItem(newChatItem: ChatItem) : Observable<Response> {
         const headers = new Headers();
-        const url =  '/api/testDialogs';
+        const url =
+      'http://nielsen-bluemix-orchestration-app.mybluemix.net/api/conversation';
         headers.append('Content-Type', 'application/json; charset=utf-8');
         headers.append('Accept', 'application/json');
 
         const params = new URLSearchParams();
-        params.set('input', newChatItem.text);
+        params.set('message', newChatItem.text);
         // post returns Observable<Response>
         console.log ('GET ' + url + ', ' + JSON.stringify(newChatItem));
         // payload should be:  JSON.stringify(newChatItem)
