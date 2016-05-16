@@ -32,34 +32,21 @@ export class ChatSessionStore {
 
 
     loadInitialData() {
-        // put the request to the server.
-        let obs: Observable<any> = this.chatSessionService.initiateChat();
-
-        // manage the reponse from the server
-        obs.subscribe(
-                res => {
-                    console.log ('Initializing Chat');
-                    // console.log ('addChat returned json ' + res.json());
-                    let resJson: any = res.json();
-                    if (resJson.length === 0) {
-                      console.log('WARNING: no data returned from Dialog Service');
-                      return;
-                    }
-                    this.chatSessionService.recordSessionIDs(res);
-                    for (let i: number = 0; i < resJson.length; i++) {
-                      ;
-                      let chatResponse: ChatItem = new ChatItem(
-                        this.formatReponse(resJson[i]),
-                         true);
-                         this._allChatItems.next(
-                           this._allChatItems.getValue().push( chatResponse  ));
-                    }
-                  },
-                  err => {
-                      console.log (err);
-                    }
-                  );
-        return obs;
+        let intro: ChatItem =
+          new ChatItem('Welcome, I\'m Watson. How may I help you?', true);
+        this.addChat(intro);
+        // this.chatSessionService.getAllChats()
+        //     .subscribe(
+        //         res => {
+        //             let allChatItems =
+        //                 (<Object[]>res.json()).map((todo: any) =>
+        //                 new ChatItem({id:todo.id,
+        // description:todo.description,completed: todo.completed}));
+        //
+        //             this._allChatItems.next(List(allChatItems));
+        //         },
+        //         err => console.log('Error retrieving Chats')
+        //     );
 
     }
 
@@ -80,13 +67,12 @@ export class ChatSessionStore {
         obs.subscribe(
                 res => {
                     console.log ('addChat returned text ' + res.text());
-                    // console.log ('addChat returned json ' + res.json());
+                    console.log ('addChat returned json ' + res.json());
                     let resJson: any = res.json();
                     if (resJson.length === 0) {
                       console.log('WARNING: no data returned from Dialog Service');
                       return;
                     }
-                    this.chatSessionService.recordSessionIDs(res);
                     for (let i: number = 0; i < resJson.length; i++) {
                       ;
                       let chatResponse: ChatItem = new ChatItem(
@@ -95,10 +81,7 @@ export class ChatSessionStore {
                          this._allChatItems.next(
                            this._allChatItems.getValue().push( chatResponse  ));
                     }
-                  },
-                  err => {
-                      console.log (err);
-                    }
+                   }
                   );
         return obs;
     }
@@ -109,7 +92,7 @@ export class ChatSessionStore {
           console.log('  null watsonText.');
           return '';
       }
-      // console.log('  input\n' + watsonText);
+      console.log('  input\n' + watsonText);
       let processedText: string = this.dialogParser.parse( watsonText);
       // // if (processedText.length === 0) {
       // //   processedText =

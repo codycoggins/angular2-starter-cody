@@ -104,7 +104,7 @@ export class DialogParser {
     };
 
     parseMctAvatarTag(text: string): string {
-      // console.log('parseMctAvatarTag(' + text + ')' );
+      console.log('parseMctAvatarTag(' + text + ')' );
       return text.replace(
         /<mct\:avatar([^]*?)<\/mct\:avatar>/g,
         '<watson-avatar ng-click="dialogCtrl.restart()"$1</watson-avatar>'
@@ -128,7 +128,7 @@ export class DialogParser {
     };
 
     removeBrsWithinUls(text: string): string {
-      // console.log ('removeBrsWithinUls ' + this);
+      console.log ('removeBrsWithinUls ' + this);
       return this.removeBrsWithinTag(text, 'ul');
     };
 
@@ -151,9 +151,9 @@ export class DialogParser {
      * @return {string} Markup ready to be rendered in the view.
      */
     parse(text: string): string {
-      // console.log('parse(' + text + ')');
+      console.log('parse(' + text + ')');
       let parsed: string = text;
-      // console.log('  parsed=' + parsed );
+      console.log('  parsed=' + parsed );
       parsed = this.parseMctAvatarTag(parsed);
       parsed = this.parseMctInputTag(parsed);
       parsed = this.parseMctSelectTag(parsed);
