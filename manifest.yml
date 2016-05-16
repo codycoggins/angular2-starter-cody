@@ -2,12 +2,11 @@
 ---
 applications:
 - name: watson-nielsen-ui3
-  command: npm run build && npm start
+  command: npm start
   path: .
   memory: 2048M
   timeout: 180
   env:
-    NODE_ENV: dev
     SECURE_EXPRESS: 1 # 1 runs only in https
     NPM_CONFIG_PRODUCTION: false # install devDependencies from package.json
     NPM_CONFIG_LOGLEVEL: warn
