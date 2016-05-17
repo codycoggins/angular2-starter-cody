@@ -2,11 +2,13 @@ import { Component, Input, Output, EventEmitter, Inject, Injectable,
   AfterViewChecked, ElementRef, ViewChild }
   from 'angular2/core';
 import { HTTP_PROVIDERS } from 'angular2/http';
-import { ChatItem } from '../../services/chat-item';
-import { ChatSessionService } from '../../services/chat-session-service';
 import { Observer} from 'rxjs/Observer';
 import { Observable} from 'rxjs/Observable';
+
+import { ChatItem } from '../../services/chat-item';
 import { ChatSessionStore} from '../../services/chat-session-store';
+
+import { AutoInput } from './autoinput';
 
 // comment
 @Component({
@@ -63,6 +65,7 @@ import { ChatSessionStore} from '../../services/chat-session-store';
   `,
   directives: [Chat]
 })
+
 export class Chat {
   // chatText: string;
   newText: string;
@@ -79,13 +82,6 @@ export class Chat {
   }
 
   send (newText: string) {
-    // this.chatText = this.chatText + '<div class="dialog user"> test '
-    //   + newText + '</div>';
-      // this.heroService.addHero(name)
-      //                  .subscribe(
-      //                    hero  => this.heroes.push(hero),
-      //                    error =>  this.errorMessage = <any>error);
-
     let newChatI: ChatItem = new ChatItem(newText, false);
     this.chatSessionStore.addChatAndResponse (newChatI);
     // this.scrollChat();

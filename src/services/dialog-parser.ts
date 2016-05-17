@@ -50,11 +50,31 @@ export class DialogParser {
    */
 
 
+   parseNLSVisualTags(text: string): string {
+     // visual_bar, visual_pie, visual_map, visual_list, visual_line, visual_column ....
+    //  let result: string = text;
+    //  let visualTypes: [string] = ['bar', 'pie', 'map', 'list', 'line', 'column' ];
+    //  for ( let s in visualTypes ) {
+    //    if (s !== '') {
+    //
+    //      result = text.replace(
+    //        '<mct:hide>visual_' + s + '</mct:hide>',
+    //        '<div class=\"VisualReference\">Please see the ' + s
+    //          + ' visual to the right</div>' );
+    //   }
+    //  }
+
+     return text.replace(
+       /<mct\:hide>visual_([^]*?)<\/mct\:hide>/g,
+       '<div class=\"VisualReference\">Please see the $1 visual to the right</div>' );
+   }
 
     parseMctInputTag(text: string): string {
+      // the following is a hack to make the dynamic text clickable
       return text.replace(
-        /<mct\:input([^]*?)<\/mct\:input>/g,
-        '<autoinput$1</autoinput>'
+        /<mct\:input>([^]*?)<\/mct\:input>/g,
+        '<autoinput onclick=\"var el = document.querySelector(\'#chatInput\'); '
+        + 'el.value=\'$1\'; var bu = document.querySelector(\'button\'); bu.click();\"> $1</autoinput>'
       );
     };
 
@@ -154,16 +174,22 @@ export class DialogParser {
       // console.log('parse(' + text + ')');
       let parsed: string = text;
       // console.log('  parsed=' + parsed );
+      parsed = this.parseNLSVisualTags(parsed);
       parsed = this.parseMctAvatarTag(parsed);
       parsed = this.parseMctInputTag(parsed);
+      // console.log('after parsing parseMctInputTag:\n' + parsed);
       parsed = this.parseMctSelectTag(parsed);
       parsed = this.parseMctDatetimeTag(parsed);
       parsed = this.parseMctAutolearnitemsTag(parsed);
+      // console.log('after parseMctAutolearnitemsTag:\n' + parsed);
       parsed = this.parseMctQuestionTag(parsed);
+      // console.log('after parseMctQuestionTag:\n' + parsed);
       parsed = this.parseMctFeedbackTag(parsed);
       parsed = this.replaceNewlines(parsed);
       parsed = this.removeBrsWithinUls(parsed);
+      // console.log('after removeBrsWithinUls:\n' + parsed);
       parsed = this.addLinkTargets(parsed);
+      console.log('after addLinkTargets:\n' + parsed);
       return parsed;
     };
 

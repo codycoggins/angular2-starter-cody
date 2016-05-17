@@ -5,6 +5,7 @@ import { Chat } from './chat';
 import { Visualization } from './visualization';
 import { ChartComponent } from './visualization/chart-example1';
 import { ChartDirective } from './visualization/chart-directive';
+import { AutoInput } from './chat/autoinput';
 
 export {
   WatsonContainer,
@@ -14,5 +15,6 @@ export {
   Chat,
   Visualization,
   ChartComponent,
-  ChartDirective
+  ChartDirective,
+  AutoInput
 };
