@@ -23,13 +23,14 @@ export class ChatSessionService {
 
     constructor(http: Http)  {
         this.http = http;
+        this.headers = new Headers();
         this.headers.append('Content-Type', 'application/json; charset=utf-8');
         this.headers.append('Accept', 'application/json');
     }
 
-    getAllChats() {
-        return this.http.get('/api/conversation');
-    }
+    // getAllChats() {
+    //     return this.http.get('/api/conversation');
+    // }
 
     initiateChat() : Observable<Response> {
       let apiPath: string = '/api/initConversation';
@@ -57,13 +58,29 @@ export class ChatSessionService {
         // post returns Observable<Response>
     }
 
-    recordSessionIDs(res: Response) {
-      console.log('recordSessionIDs: ' + res.text());
-      let body: any = res.json;
-      console.log('extracted conversation_id: ' + body.conversation_id);
-      console.log('extracted clientId: ' + body.client_id);
-      console.log('extracted response: ' + JSON.stringify(body.response));
+    recordSessionIDs(initConversation: IinitConversation) {
+      console.log('recordSessionIDs('
+        + JSON.stringify(initConversation) + ')') ;
+      this.conversationId = initConversation.id.toString();
+      this.clientId = initConversation.clientId.toString();
+      console.log('extracted conversation_id: ' + initConversation.id);
+      console.log('extracted clientId: ' + initConversation.clientId);
+      try {
+        console.log('extracted response[0]: ' + initConversation.response[0]);
+      } catch (err) {
+        console.error(err);
+      }
     }
+}
 
 
+
+
+export interface IinitConversation {
+    clientId: number;
+    confidence: number;
+    dialogId: string;
+    id: number; // this is the conversation_id
+    input: string;
+    response: string[];
 }

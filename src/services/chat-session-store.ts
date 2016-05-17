@@ -1,5 +1,5 @@
 import {Injectable} from 'angular2/core';
-import {ChatSessionService} from './chat-session-service';
+import {ChatSessionService, IinitConversation} from './chat-session-service';
 import {List} from 'immutable';
 import {Observable} from 'rxjs/Observable';
 import {Subject} from 'rxjs/Subject';
@@ -40,16 +40,19 @@ export class ChatSessionStore {
                 res => {
                     console.log ('Initializing Chat');
                     // console.log ('addChat returned json ' + res.json());
-                    let resJson: any = res.json();
-                    if (resJson.length === 0) {
-                      console.log('WARNING: no data returned from Dialog Service');
+                    let resJson: IinitConversation = <IinitConversation> res.json();
+                    if (resJson == null || resJson.id == null) {
+                      console.log
+                        ('WARNING: no data returned from Dialog Service on initial call');
                       return;
                     }
-                    this.chatSessionService.recordSessionIDs(res);
-                    for (let i: number = 0; i < resJson.length; i++) {
+                    console.log ('initConversation API returned '
+                      + JSON.stringify( res.json()));
+                    this.chatSessionService.recordSessionIDs(resJson);
+                    for (let i: number = 0; i < resJson.response.length; i++) {
                       ;
                       let chatResponse: ChatItem = new ChatItem(
-                        this.formatReponse(resJson[i]),
+                        this.formatReponse(resJson.response[i]),
                          true);
                          this._allChatItems.next(
                            this._allChatItems.getValue().push( chatResponse  ));
@@ -86,7 +89,6 @@ export class ChatSessionStore {
                       console.log('WARNING: no data returned from Dialog Service');
                       return;
                     }
-                    this.chatSessionService.recordSessionIDs(res);
                     for (let i: number = 0; i < resJson.length; i++) {
                       ;
                       let chatResponse: ChatItem = new ChatItem(
