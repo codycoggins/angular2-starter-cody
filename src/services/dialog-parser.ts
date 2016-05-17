@@ -153,7 +153,7 @@ export class DialogParser {
     };
 
     replaceNewlines(text: string): string {
-      return text.replace(/\n/g, '');
+      return text.replace(/\n\n/g, '\n<br />');
     };
 
     addLinkTargets(text: string): string {
