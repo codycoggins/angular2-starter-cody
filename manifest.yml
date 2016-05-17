@@ -2,7 +2,7 @@
 ---
 applications:
 - name: watson-nielsen-ui3
-  command: npm start
+  command: npm install && npm start
   path: .
   memory: 2048M
   timeout: 180
