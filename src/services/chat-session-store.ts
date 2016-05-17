@@ -111,7 +111,7 @@ export class ChatSessionStore {
           console.log('  null watsonText.');
           return '';
       }
-      // console.log('  input\n' + watsonText);
+      console.log('  formatReponse raw input:\n\n' + watsonText + '\n');
       let processedText: string = this.dialogParser.parse( watsonText);
       // // if (processedText.length === 0) {
       // //   processedText =

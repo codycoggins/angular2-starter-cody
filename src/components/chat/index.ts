@@ -40,6 +40,9 @@ import { AutoInput } from './autoinput';
     mct-hide {
       display: none;
     }
+    mct:hide {
+      display: none;
+    }
     mct {
       display: none;
     }
