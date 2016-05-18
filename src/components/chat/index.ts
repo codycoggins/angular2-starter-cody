@@ -15,19 +15,9 @@ import { AutoInput } from './autoinput';
   selector: 'chat',
   styles: [`
     .dialog {
-      margin: 10px;
+      # margin: 10px;
     }
 
-    .watson {
-      border-left: solid lightblue thick;
-      padding-left: 10px;
-    }
-
-    .user {
-      border-right: solid lightgreen thick;
-      margin-left: 75px;
-      padding-right: 10px;
-    }
     #chatLog {
       height:500px;
     }
@@ -45,6 +35,66 @@ import { AutoInput } from './autoinput';
     }
     mct {
       display: none;
+    }
+
+    /* Speech bubbles - Thanks to:
+    http://nicolasgallagher.com/pure-css-speech-bubbles/demo/
+    ------------------------------------------ */
+
+    .dialog {
+      position:relative;
+      padding:15px;
+      margin:1em 0 3em;
+      color:#fff;
+      background:#075698; /* default background for browsers without gradient support */
+      /* css3 */
+      background:-webkit-gradient(linear, 0 0, 0 100%, from(#2e88c4), to(#075698));
+      background:-moz-linear-gradient(#2e88c4, #075698);
+      background:-o-linear-gradient(#2e88c4, #075698);
+      background:linear-gradient(#2e88c4, #075698);
+      -webkit-border-radius:10px;
+      -moz-border-radius:10px;
+      border-radius:10px;
+    }
+
+    .dialog.watson {
+      margin-left:40px;
+      background:#075698;
+    }
+
+    .dialog.user {
+      margin-right:40px;
+      background:#075698;
+    }
+
+    .dialog:after {
+      content:"";
+      position:absolute;
+      bottom:-20px; /* value = - border-top-width - border-bottom-width */
+      left:50px; /* controls horizontal position */
+      border-width:20px 0 0 20px; /* vary these values to change the angle of the vertex */
+      border-style:solid;
+      border-color:#075698 transparent;
+      /* reduce the damage in FF3.0 */
+      display:block;
+      width:0;
+    }
+
+    .dialog.watson:after {
+      top:16px;
+      left:-40px; /* value = - border-left-width - border-right-width */
+      bottom:auto;
+      border-width:15px 40px 0 0; /* vary these values to change the angle of the vertex */
+      border-color:transparent #075698;
+    }
+
+    .dialog.user:after {
+      top:16px;
+      right:-40px; /* value = - border-left-width - border-right-width */
+      bottom:auto;
+      left:auto;
+      border-width:15px 0 0 40px; /* vary these values to change the angle of the vertex */
+      border-color:transparent #075698 ;
     }
   `],
   template: `

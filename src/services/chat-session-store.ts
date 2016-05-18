@@ -50,12 +50,14 @@ export class ChatSessionStore {
                       + JSON.stringify( res.json()));
                     this.chatSessionService.recordSessionIDs(resJson);
                     for (let i: number = 0; i < resJson.response.length; i++) {
-                      ;
-                      let chatResponse: ChatItem = new ChatItem(
-                        this.formatReponse(resJson.response[i]),
-                         true);
-                         this._allChatItems.next(
-                           this._allChatItems.getValue().push( chatResponse  ));
+                      if (resJson.response[i].length > 0) {
+                        // if (resJson.response[i] !== null && resJson.response[i] !== '') {
+                        let chatResponse: ChatItem = new ChatItem(
+                          this.formatReponse(resJson.response[i]),
+                           true);
+                           this._allChatItems.next(
+                             this._allChatItems.getValue().push( chatResponse  ));
+                      }
                     }
                   },
                   err => {
@@ -90,12 +92,13 @@ export class ChatSessionStore {
                       return;
                     }
                     for (let i: number = 0; i < resJson.length; i++) {
-                      ;
-                      let chatResponse: ChatItem = new ChatItem(
-                        this.formatReponse(resJson[i]),
-                         true);
-                         this._allChatItems.next(
-                           this._allChatItems.getValue().push( chatResponse  ));
+                      if (resJson.response[i] !== null && resJson.response[i] !== '') {
+                        let chatResponse: ChatItem = new ChatItem(
+                          this.formatReponse(resJson[i]),
+                           true);
+                           this._allChatItems.next(
+                             this._allChatItems.getValue().push( chatResponse  ));
+                      }
                     }
                   },
                   err => {
