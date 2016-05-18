@@ -18,6 +18,7 @@ import { asObservable } from './services/asObservable';
 import { ChatSessionStore } from './services/chat-session-store';
 import { ChatSessionService } from './services/chat-session-service';
 import { DialogParser } from './services/dialog-parser';
+import { VisualizationStore } from './services/visualization-store';
 
 declare let __PRODUCTION__: any;
 
@@ -33,5 +34,6 @@ bootstrap(WatsonApp, [
   provide(APP_BASE_HREF, { useValue: '/' }),
   ChatSessionService,
   ChatSessionStore,
-  DialogParser
+  DialogParser,
+  VisualizationStore
 ]);

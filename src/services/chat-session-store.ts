@@ -8,6 +8,7 @@ import {BehaviorSubject} from 'rxjs/Rx';
 import {asObservable} from './asObservable';
 import {DialogParser} from './dialog-parser';
 import {ChatItem} from './chat-item';
+import {VisualizationStore} from './visualization-store';
 
 @Injectable()
 export class ChatSessionStore {
@@ -18,11 +19,14 @@ export class ChatSessionStore {
 
     dialogParser: DialogParser;
     chatSessionService: ChatSessionService;
+    visualizationStore: VisualizationStore;
 
     constructor(chatSessionService: ChatSessionService,
-        dialogParser: DialogParser) {
+        dialogParser: DialogParser,
+        visualizationStore: VisualizationStore) {
         this.chatSessionService = chatSessionService;
         this.dialogParser = dialogParser;
+        this.visualizationStore = visualizationStore;
         this.loadInitialData();
     }
 
@@ -114,6 +118,7 @@ export class ChatSessionStore {
           console.log('  null watsonText.');
           return '';
       }
+      if (watsonText.match(/<mct\:hide>visual_map<\/mct\:hide>/)){ this.visualizationStore.addImage (this.visualizationStore.visMap1)  }
       console.log('  formatReponse raw input:\n\n' + watsonText + '\n');
       let processedText: string = this.dialogParser.parse( watsonText);
       // // if (processedText.length === 0) {

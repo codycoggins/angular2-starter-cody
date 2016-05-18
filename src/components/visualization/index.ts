@@ -1,16 +1,32 @@
-import { Component } from 'angular2/core';
+import { Component, Inject, Injectable } from 'angular2/core';
 // import { ChartComponent } from './chart-example1';
 // import { ChartDirective } from './chart-directive.ts';
 import { Directive, ElementRef, Input} from 'angular2/core';
 import {CORE_DIRECTIVES } from 'angular2/common';
+import { VisualizationStore } from '../../services/visualization-store';
 
 @Component({
   selector: 'visualization',
   styles: [`
-
+    .visOverlayLabel {
+      position: relative;
+      color: #075698;
+      background-color: lightgray;
+      z-index: 10;
+      left: 250px;
+      top: 220px;
+      font-size: 36px;
+      font-weight: bold;
+      padding: 10px;
+      font-variant: small-caps;
+      opacity: 0.6;
+    }
   `],
   template: `
-      <div class="h3 italic">Example Visualization</div>
+      <div class="flex">
+
+      </div>
+      <span _ngcontent-nvs-8="" class="visOverlayLabel">Example Visualization</span>
       <div id="chart_div"><img
         style="-webkit-filter: grayscale(100%);filter: grayscale(100%);"
         src={{sampleVisualization}}/></div>
@@ -22,7 +38,7 @@ export class Visualization {
   private _content: any[] = [];
   el: HTMLElement;
 
-  constructor(elementRef: ElementRef) {
+  constructor(elementRef: ElementRef, visualizationStore: VisualizationStore ) {
     console.log('Visualization constructor() enhanced');
     this.w = window;
     this.el = elementRef.nativeElement; // You cannot use elementRef directly !

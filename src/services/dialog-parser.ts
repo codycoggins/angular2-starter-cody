@@ -111,8 +111,10 @@ export class DialogParser {
         )
         .replace(
           /<mct\:item>([^]*?)<\/mct\:item>/g,
-          '<li><autoinput>$1</autoinput></li>'
+          '<li><autoinput onclick=\"var el = document.querySelector(\'#chatInput\'); '
+          + 'el.value=\'$1\'; var bu = document.querySelector(\'button\'); bu.click();\"> $1</autoinput></li>'
         );
+
     };
 
     parseMctQuestionTag(text: string): string {
