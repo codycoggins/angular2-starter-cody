@@ -11,7 +11,9 @@ import {CORE_DIRECTIVES } from 'angular2/common';
   `],
   template: `
       <div class="h3 italic">Example Visualization</div>
-      <div id="chart_div"><img src={{sampleVisualization}}/></div>
+      <div id="chart_div"><img
+        style="-webkit-filter: grayscale(100%);filter: grayscale(100%);"
+        src={{sampleVisualization}}/></div>
   `,
 })
 export class Visualization {
