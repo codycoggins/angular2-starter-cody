@@ -51,7 +51,6 @@ export class ChatSessionStore {
                     this.chatSessionService.recordSessionIDs(resJson);
                     for (let i: number = 0; i < resJson.response.length; i++) {
                       if (resJson.response[i].length > 0) {
-                        // if (resJson.response[i] !== null && resJson.response[i] !== '') {
                         let chatResponse: ChatItem = new ChatItem(
                           this.formatReponse(resJson.response[i]),
                            true);
@@ -92,13 +91,14 @@ export class ChatSessionStore {
                       return;
                     }
                     for (let i: number = 0; i < resJson.length; i++) {
-                      if (resJson.response[i] !== null && resJson.response[i] !== '') {
+                      // what is issue with next line?
+                      // if (resJson.response[i].length > 0) {
                         let chatResponse: ChatItem = new ChatItem(
                           this.formatReponse(resJson[i]),
                            true);
                            this._allChatItems.next(
                              this._allChatItems.getValue().push( chatResponse  ));
-                      }
+                      // }
                     }
                   },
                   err => {

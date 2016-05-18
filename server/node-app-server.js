@@ -32,7 +32,7 @@ module.exports = (app) => {
           realm: "Project NLS."
       }, function (username, password, callback) { // Custom authentication method.
           console.log ('authentication: '+ username + ',' + password);
-          callback(username === "nielsen" && password === "watson");
+          callback(username === "nielsen" && password === "W@ts0n16");
       }
   );
 
