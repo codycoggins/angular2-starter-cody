@@ -34,6 +34,7 @@
 }
 
 autoinput {
-  color: #34B94C;
+  color: #34b94c;
+  font-weight: bold;
   cursor: pointer;
 }

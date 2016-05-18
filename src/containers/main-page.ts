@@ -1,6 +1,6 @@
 import { Component } from 'angular2/core';
 import { Chat } from '../components';
-import { Visualization, ChartComponent, ChartDirective } from '../components';
+import { Visualization } from '../components';
 import { WatsonContainer } from '../components';
 
 @Component({

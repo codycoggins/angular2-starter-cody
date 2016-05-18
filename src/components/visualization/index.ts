@@ -10,7 +10,8 @@ import {CORE_DIRECTIVES } from 'angular2/common';
 
   `],
   template: `
-      <div id="chart_div"></div>
+      <div class="h3 italic">Example Visualization</div>
+      <div id="chart_div"><img src={{sampleVisualization}}/></div>
   `,
 })
 export class Visualization {
