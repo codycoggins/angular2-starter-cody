@@ -118,7 +118,18 @@ export class ChatSessionStore {
           console.log('  null watsonText.');
           return '';
       }
-      if (watsonText.match(/<mct\:hide>visual_map<\/mct\:hide>/)){ this.visualizationStore.addImage (this.visualizationStore.visMap1)  }
+      if (watsonText.match(/<mct\:hide>visual_map<\/mct\:hide>/)) {
+        this.visualizationStore.addImage (this.visualizationStore.visMap1)  ;
+      }
+      if (watsonText.match(/<mct\:hide>visual_map<\/mct\:hide>/)) {
+        this.visualizationStore.addImage (this.visualizationStore.visMap1)  ;
+      }
+      if (watsonText.match(/<mct\:hide>visual_map<\/mct\:hide>/)) {
+        this.visualizationStore.addImage (this.visualizationStore.visMap1)  ;
+      }
+      if (watsonText.match(/<mct\:hide>visual_map<\/mct\:hide>/)) {
+        this.visualizationStore.addImage (this.visualizationStore.visMap1)  ;
+      }
       console.log('  formatReponse raw input:\n\n' + watsonText + '\n');
       let processedText: string = this.dialogParser.parse( watsonText);
       // // if (processedText.length === 0) {

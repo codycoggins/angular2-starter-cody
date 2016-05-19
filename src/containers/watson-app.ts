@@ -29,7 +29,7 @@ import {
   styles: [require('../styles/index.css')],
   template: `
     <div id="wrapper" class="fit" style="height:100%">
-      <app-navigator class="p1 fit">
+      <app-navigator class="fit">
 
         <app-navigator-item [mr]=true class="flex-none">
           <company-logo></company-logo>

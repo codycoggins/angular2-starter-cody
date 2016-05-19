@@ -9,7 +9,7 @@ import { Component } from 'angular2/core';
     }
   `],
   template: `
-    <nav class="flex items-baseline justify-between p1" min-height="100px">
+    <nav class="flex items-baseline justify-between pl1 pr1" min-height="100px">
       <ng-content></ng-content>
     </nav>
   `

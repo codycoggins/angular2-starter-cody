@@ -12,7 +12,7 @@ exports.tsTest = loadTs('ts', true);
 exports.istanbulInstrumenter = loadTs('istanbul-instrumenter');
 exports.ts = loadTs();
 
-function loadTs (loader, inTest) {
+function loadTs(loader, inTest) {
   return {
     test: /\.ts$/,
     loader: loader || 'ts',
@@ -33,11 +33,18 @@ exports.css = {
 };
 
 exports.svg = makeUrlLoader(/\.svg$/);
-exports.png = makeUrlLoader(/\.png$/);
 exports.eot = makeUrlLoader(/\.eot$/);
 exports.woff = makeUrlLoader(/\.woff$/);
 exports.woff2 = makeUrlLoader(/\.woff2$/);
 exports.ttf = makeUrlLoader(/\.ttf$/);
+
+// exports.png = makeUrlLoader(/\.png$/);
+
+exports.png = {
+  test: /\.(jpg|png)$/,
+  loader: 'file?name=[path][name].[hash].[ext]',
+  exclude: /node_modules/
+}
 
 function makeUrlLoader (pattern) {
   // console.log ('webpack/loader.js: makeUrlLoader(' + pattern + ')');

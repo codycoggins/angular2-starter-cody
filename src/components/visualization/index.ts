@@ -13,23 +13,25 @@ import { VisualizationStore } from '../../services/visualization-store';
       color: #075698;
       background-color: lightgray;
       z-index: 10;
-      left: 250px;
-      top: 220px;
+      left: 170px;
+      top: 50px;
       font-size: 36px;
       font-weight: bold;
       padding: 10px;
       font-variant: small-caps;
       opacity: 0.6;
     }
+    #chart_div {
+      position: relative;
+      top: -50px;
+    }
   `],
   template: `
-      <div class="flex">
-
-      </div>
       <span _ngcontent-nvs-8="" class="visOverlayLabel">Example Visualization</span>
-      <div id="chart_div"><img
+      <div id="chart_div" ><img
         style="-webkit-filter: grayscale(100%);filter: grayscale(100%);"
-        src={{sampleVisualization}}/></div>
+        src="{{visualizationStore.imagePath}}"/>
+        </div>
   `,
 })
 export class Visualization {
@@ -37,9 +39,11 @@ export class Visualization {
     // errors in typescript on window.google
   private _content: any[] = [];
   el: HTMLElement;
+  visualizationStore: VisualizationStore;
 
   constructor(elementRef: ElementRef, visualizationStore: VisualizationStore ) {
     console.log('Visualization constructor() enhanced');
+    this.visualizationStore = visualizationStore;
     this.w = window;
     this.el = elementRef.nativeElement; // You cannot use elementRef directly !
     this.w = window;
