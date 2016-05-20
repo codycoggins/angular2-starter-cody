@@ -58,51 +58,96 @@ import { AutoInput } from './autoinput';
     }
 
     .dialog.watson {
-      margin-left:40px;
+      margin-right:50px;
+      color:#fff;
       background:#075698;
     }
 
     .dialog.user {
-      margin-right:40px;
-      background:#075698;
+      margin-right:50px;
+      color:#075698;
+      background:#fff;
     }
 
     .dialog:after {
       content:"";
       position:absolute;
-      bottom:-20px; /* value = - border-top-width - border-bottom-width */
-      left:50px; /* controls horizontal position */
-      border-width:20px 0 0 20px; /* vary these values to change the angle of the vertex */
+      bottom:-15px; /* value = - border-top-width - border-bottom-width */
+      left:20px; /* controls horizontal position */
+      border-width:15px 15px 0; /* vary these values to change the angle of the vertex */
       border-style:solid;
-      border-color:#075698 transparent;
+      /* border-color:red transparent; */
       /* reduce the damage in FF3.0 */
       display:block;
       width:0;
     }
 
     .dialog.watson:after {
-      top:16px;
-      left:-40px; /* value = - border-left-width - border-right-width */
+      top:16px; /* controls vertical position */
+      right:-20px; /* value = - border-left-width - border-right-width */
       bottom:auto;
-      border-width:15px 40px 0 0; /* vary these values to change the angle of the vertex */
+      left:auto;
+      border-width:10px 0 10px 20px;
       border-color:transparent #075698;
     }
 
     .dialog.user:after {
-      top:16px;
-      right:-40px; /* value = - border-left-width - border-right-width */
+      top:16px; /* controls vertical position */
+      right:-20px; /* value = - border-left-width - border-right-width */
       bottom:auto;
       left:auto;
-      border-width:15px 0 0 40px; /* vary these values to change the angle of the vertex */
-      border-color:transparent #075698 ;
+      border-width:10px 0 10px 20px;
+      border-color:transparent #fff;
     }
+    .watson-icon{
+      position: relative;
+      margin-right:40px;
+    }
+    .watson-icon:after {
+      position: absolute;
+      top:8px; /* controls vertical position */
+      right:-20px; /* value = - border-left-width - border-right-width */
+      text-align: center;
+      content: "W";
+      font-weight: bold;
+      border-radius: 50%;
+      height: 33px;
+      width: 40px;
+      padding-top: 7px;
+      background:#075698;
+      color: #fff;
+
+    }
+    .user-icon{
+      position: relative;
+      margin-right:40px;
+    }
+    .user-icon:after {
+      position: absolute;
+      top:8px; /* controls vertical position */
+      right:-20px; /* value = - border-left-width - border-right-width */
+      text-align: center;
+      content: "U";
+      font-weight: bold;
+      border-radius: 50%;
+      height: 33px;
+      width: 40px;
+      padding-top: 7px;
+      background:#fff;
+      color: #075698;
+    }
+
   `],
   template: `
     <div class="clearfix fit" style="560px">
        <div #chatLog id="chatLog" class="fit overflow-auto">
           <div *ngFor="let chatItem of chatSessionStore.allChatItems | async"
-            class="dialog {{chatItem.isWatson ? 'watson' : 'user'}}"
-            [innerHTML]="chatItem.text"></div>
+            class="{{chatItem.isWatson ? 'watson-icon' : 'user-icon'}}">
+            <div
+              class="dialog {{chatItem.isWatson ? 'watson' : 'user'}}"
+              [innerHTML]="chatItem.text">
+            </div>
+          </div>
        </div>
 
        <input #inputBox id="chatInput" type="text"

@@ -11,5 +11,5 @@ import { Component } from 'angular2/core';
   `
 })
 export class CompanyLogo {
-  logoImage = require('../../assets/watsonLogo_onBlack.png');
+  logoImage = require('../../assets/watson_logo_large.png');
 };

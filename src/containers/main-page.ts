@@ -9,6 +9,7 @@ import { WatsonContainer } from '../components';
   styles: [`
     chat {
       min-width: 400px;
+      background-color: #7AD3EA;
     }
     visualization {
       min-width: 600px;
@@ -17,8 +18,7 @@ import { WatsonContainer } from '../components';
   `],
   template: `
   <div id="main-page-container" class="flex flex-wrap justify-between">
-      <chat id="chat-container" class="col col-4 top-0 p1"
-       style="border-right: solid black thin;"></chat>
+      <chat id="chat-container" class="col col-4 top-0 p1"></chat>
       <visualization id="visualization-container" class="flex-auto top-0 p1"
         style="min-height:300px">Visualization Area</visualization>
   </div>

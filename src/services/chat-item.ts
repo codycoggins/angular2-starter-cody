@@ -22,4 +22,12 @@ export class ChatItem {
         this.isWatson = newIsWatson;
     }
 
+    getHTML(): string {
+      return (
+        this.text
+        + '<div class="circle">'
+        + (this.isWatson ? 'W' : 'U')
+        + '</div>');
+    }
+
 }

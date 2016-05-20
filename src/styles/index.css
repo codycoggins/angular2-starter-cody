@@ -30,11 +30,13 @@
 @import 'basscss-hide';
 
 .navbar-link {
-  color: white;
+  color: #075698;
+  font-weight: bold;
 }
 
 autoinput {
-  color: #34b94c;
+  color: #fff;
   cursor: pointer;
   font-weight: bold;
+  text-decoration: underline;
 }

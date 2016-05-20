@@ -26,13 +26,13 @@ export class VisualizationStore {
 
     get imageName() {
         // console.log('VisualizationStore: imageName=' + this._imageName.getValue());
-        console.log('imageName()' +  (<any>this._imageName)._value);
+        // console.log('imageName()' +  (<any>this._imageName)._value);
         return asObservable( (<any>this._imageName)._value);
     }
 
     get imagePath() {
         // console.log('VisualizationStore: imageName=' + this._imageName.getValue());
-        console.log('imageName()' +  (<any>this._imageName)._value);
+        // console.log('imageName()' +  (<any>this._imageName)._value);
         return  (<any>this._imageName)._value;
     }
     addImage(imageName: string): boolean  {

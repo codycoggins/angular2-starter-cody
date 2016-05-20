@@ -4,8 +4,8 @@ import { Component } from 'angular2/core';
   selector: 'app-navigator',
   styles: [`
     nav {
-      background-color: black;
-      color: #34B94C;
+      background-color: #fff;
+      color: #075698;
     }
   `],
   template: `

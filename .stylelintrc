@@ -15,7 +15,6 @@
     "color-hex-case": "lower",
     "color-hex-length": "short",
     "color-no-invalid-hex": true,
-    "comment-empty-line-before": "always",
     "comment-whitespace-inside": "always",
     "declaration-bang-space-after": "never",
     "declaration-bang-space-before": "always",

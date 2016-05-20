@@ -9,7 +9,7 @@ import { VisualizationStore } from '../../services/visualization-store';
   selector: 'visualization',
   styles: [`
     .visOverlayLabel {
-      position: relative;
+      position: absolute;
       color: #075698;
       background-color: lightgray;
       z-index: 10;
@@ -23,14 +23,16 @@ import { VisualizationStore } from '../../services/visualization-store';
     }
     #chart_div {
       position: relative;
-      top: -50px;
     }
   `],
   template: `
-      <span _ngcontent-nvs-8="" class="visOverlayLabel">Example Visualization</span>
-      <div id="chart_div" ><img
+
+      <div id="chart_div" >
+        <span _ngcontent-nvs-8="" class="visOverlayLabel">Example Visualization</span>
+        <img
         style="-webkit-filter: grayscale(100%);filter: grayscale(100%);"
         src="{{visualizationStore.imagePath}}"/>
+
         </div>
   `,
 })
