@@ -31,12 +31,12 @@ import { BarChart1 } from './barchart1';
 
       <div id="chart_div" >
         <span _ngcontent-nvs-8="" class="visOverlayLabel">Example Visualization</span>
-        <img
+        <!--<img
         style="-webkit-filter: grayscale(100%);filter: grayscale(100%);"
-        src="{{visualizationStore.imagePath}}"/>
-
+        src="{{visualizationStore.imagePath}}"/>-->
+        <bar-chart1></bar-chart1>
       </div>
-      <bar-chart1></bar-chart1>
+
   `,
 })
 export class Visualization {
@@ -51,6 +51,4 @@ export class Visualization {
     this.visualizationStore = visualizationStore;
   };
 
-  draw() {
-  }
 };

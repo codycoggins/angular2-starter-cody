@@ -26,7 +26,10 @@ import {
   ],
   // Global styles imported in the app component.
   encapsulation: ViewEncapsulation.None,
-  styles: [require('../styles/index.css')],
+  styles: [
+    require('../styles/index.css'),
+    require('../styles/nv.d3.css')
+  ],
   template: `
     <div id="wrapper" class="fit" style="height:100%">
       <app-navigator class="fit">

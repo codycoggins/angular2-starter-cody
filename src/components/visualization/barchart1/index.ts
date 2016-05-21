@@ -29,7 +29,7 @@ export class BarChart1 implements OnInit {
 
     this.options = {
       chart: {
-        type: 'lineChart',
+        type: 'discreteBarChart',
         height: 450,
         margin : {
           top: 20,
@@ -37,56 +37,144 @@ export class BarChart1 implements OnInit {
           bottom: 40,
           left: 55
         },
-        x: function(d){ return d.x; },
-        y: function(d){ return d.y; },
+        x: function(d){ return d.SUBBRAND; },
+        y: function(d){ return d.SHRCYA; },
         useInteractiveGuideline: true,
         xAxis: {
-          axisLabel: 'Time (ms)'
+          axisLabel: 'Sub-Brand'
         },
         yAxis: {
-          axisLabel: 'Voltage (v)',
-          tickFormat: function(d){
-            return d3.format('.02f')(d);
-          },
-          axisLabelDistance: -10
+          axisLabel: 'SHRCYA'
+          // tickFormat: function(d){
+          //   return d3.format('.02f')(d);
+          // },
+          // axisLabelDistance: -10
         }
       }
     };
 
-    this.data = this.sinAndCos();
+    this.data = this.getData();
   }
 
 
-sinAndCos() {
- let sin = [], sin2 = [],
-   cos = [];
-
- // Data is represented as an array of {x,y} pairs.
- for (let i = 0; i < 100; i++) {
-   sin.push({x: i, y: Math.sin(i / 10)});
-   sin2.push({x: i, y: i % 10 == 5 ? null : Math.sin(i / 10) * 0.25 + 0.5});
-   cos.push({x: i, y: .5 * Math.cos(i / 10 + 2) + Math.random() / 10});
- }
+getData() {
 
  // Line chart data should be sent as an array of series objects.
  return [
    {
-     values: sin,      // values - represents the array of {x,y} data points
-     key: 'Sine Wave', // key  - the name of the series.
-     color: '#ff7f0e'  // color - optional: choose your own line color.
-   },
-   {
-     values: cos,
-     key: 'Cosine Wave',
-     color: '#2ca02c'
-   },
-   {
-     values: sin2,
-     key: 'Another sine wave',
-     color: '#7777ff',
-     area: true      // area - set to true if you want this line to turn into a filled area chart.
-   }
+      key: 'BarChart1',
+      values: [
+     {
+       'SUBBRAND': 'SUAVE KIDS SBBR',
+       'F1': 78063.86,
+       'YA': 98865.3,
+       'CYA': 20801.44,
+       'SHR': 76.5,
+       'SHRYA': 75.3,
+       'SHRCYA': -1.2
+     },
+     {
+       'SUBBRAND': 'SUAVE MOROCCAN INFUSION',
+       'F1': 41094.21,
+       'YA': 51554.31,
+       'CYA': 10460.1,
+       'SHR': 51.5,
+       'SHRYA': 51,
+       'SHRCYA': -0.5
+     },
+     {
+       'SUBBRAND': 'SUAVE KERATIN INFUSION',
+       'F1': 12054.16,
+       'YA': 18226.62,
+       'CYA': 6172.46,
+       'SHR': 50.8,
+       'SHRYA': 50.7,
+       'SHRCYA': -0.1
+     },
+     {
+       'SUBBRAND': 'SUAVE NTRLS SBBR',
+       'F1': 101064.63,
+       'YA': 151808.41,
+       'CYA': 50743.78,
+       'SHR': 65,
+       'SHRYA': 64.9,
+       'SHRCYA': -0.1
+     },
+     {
+       'SUBBRAND': 'SUAVE SILVER SBBR',
+       'F1': 63075.9,
+       'YA': 88189.96,
+       'CYA': 25114.06,
+       'SHR': 59.2,
+       'SHRYA': 59.1,
+       'SHRCYA': -0.1
+     },
+     {
+       'SUBBRAND': 'SUAVE MEN CORE',
+       'F1': 74647.16,
+       'YA': 97643.6,
+       'CYA': 22996.44,
+       'SHR': 100,
+       'SHRYA': 100,
+       'SHRCYA': 0
+     },
+     {
+       'SUBBRAND': 'SUAVE GREEN SBBR',
+       'F1': 53401.83,
+       'YA': 82893.6,
+       'CYA': 29491.77,
+       'SHR': 44.3,
+       'SHRYA': 45.7,
+       'SHRCYA': 1.4
+     }
+   ]
+ }
  ];
+
+}
+
+
+exampleData() {
+ return  [
+    {
+      key: 'Cumulative Return',
+      values: [
+        {
+          'label' : 'A Label' ,
+          'value' : -29.765957771107
+        } ,
+        {
+          'label' : 'B Label' ,
+          'value' : 0
+        } ,
+        {
+          'label' : 'C Label' ,
+          'value' : 32.807804682612
+        } ,
+        {
+          'label' : 'D Label' ,
+          'value' : 196.45946739256
+        } ,
+        {
+          'label' : 'E Label' ,
+          'value' : 0.19434030906893
+        } ,
+        {
+          'label' : 'F Label' ,
+          'value' : -98.079782601442
+        } ,
+        {
+          'label' : 'G Label' ,
+          'value' : -13.925743130903
+        } ,
+        {
+          'label' : 'H Label' ,
+          'value' : -5.1387322875705
+        }
+      ]
+    }
+  ];
+
 }
 
 }
