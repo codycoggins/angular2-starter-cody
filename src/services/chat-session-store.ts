@@ -1,5 +1,5 @@
 import {Injectable} from 'angular2/core';
-import {ChatSessionService, IinitConversation} from './chat-session-service';
+import {ChatSessionService, IinitConversation, OLMessage, OLProfile} from './chat-session-service';
 import {List} from 'immutable';
 import {Observable} from 'rxjs/Observable';
 import {Subject} from 'rxjs/Subject';
@@ -89,16 +89,16 @@ export class ChatSessionStore {
                 res => {
                     console.log ('addChat returned text ' + res.text());
                     // console.log ('addChat returned json ' + res.json());
-                    let resJson: any = res.json();
-                    if (resJson.length === 0) {
+                    let resJson: OLMessage = <OLMessage> res.json();
+                    if (resJson == null ) {
                       console.log('WARNING: no data returned from Dialog Service');
                       return;
                     }
-                    for (let i: number = 0; i < resJson.length; i++) {
+                    for (let i: number = 0; i < resJson.response.length; i++) {
                       // what is issue with next line?
                       // if (resJson.response[i].length > 0) {
                         let chatResponse: ChatItem = new ChatItem(
-                          this.formatReponse(resJson[i]),
+                          this.formatReponse(resJson.response[i]),
                            true);
                            this._allChatItems.next(
                              this._allChatItems.getValue().push( chatResponse  ));

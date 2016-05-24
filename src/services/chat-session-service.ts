@@ -86,3 +86,30 @@ export interface IinitConversation {
     input: string;
     response: string[];
 }
+
+export interface OLMessage {
+    profile: OLProfile;
+    data: any;
+    clientId: number;
+    response: string[];
+    mctinputs: string[];
+    dialogId: string;
+    cnversationId: number; // this is the conversation_id
+}
+
+export interface OLProfile {
+    original_question: string;
+    CLASSIFIER_CLASS_0: string;
+    CLASSIFIER_CONF_0: number;
+    retailer: string;
+    ui_region: string;
+    region: string;
+    channel: string;
+    sub_brand: string;
+    sql_query_in: string;
+    sql_query_out: string;
+    visual_type: string;
+    performance_level: string;
+    profile_prompts: string;
+    brand: string;
+}
