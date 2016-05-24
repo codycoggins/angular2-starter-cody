@@ -19,13 +19,15 @@ export class ChatSessionService {
 
 
     apiHostName: string =
-      'http://nielsen-bluemix-orchestration-app.mybluemix.net';
+      'http://nielsen-orchestration-gateway.mybluemix.net';
 
+    jwtToken: string = 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJST0xFX0FETUlOLFJPTEVfVVNFUiIsImV4cCI6MTQ2NjE3MjE4MH0.6axEGNAAoTPnLWgQ_jmPGbXItEEPoyw7nukpjK7lqvY6JCiITh0krORjLwuM-xPAUGzm3k0b17uwatGeLxWLxw';
     constructor(http: Http)  {
         this.http = http;
         this.headers = new Headers();
         this.headers.append('Content-Type', 'application/json; charset=utf-8');
         this.headers.append('Accept', 'application/json');
+        this.headers.append('Authorization', this.jwtToken );
     }
 
     // getAllChats() {
