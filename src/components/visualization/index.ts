@@ -40,9 +40,6 @@ import { BarChart1 } from './barchart1';
   `,
 })
 export class Visualization {
-  w: any;  // To store the window, without generating
-    // errors in typescript on window.google
-  private _content: any[] = [];
   el: HTMLElement;
   visualizationStore: VisualizationStore;
 

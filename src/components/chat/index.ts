@@ -16,9 +16,14 @@ import { ChatInput } from '../chat-input';
 
     chat-input {
       min-width: 400px;
+      display: flex;
+      color: #fff;
+      background-color: #075698;
+    }
 
-      background-color: lightgray;
-      display: block;
+    .watson-footer {
+      color: #fff;
+      background-color: #075698;
     }
 
     #chatLog {
@@ -135,7 +140,7 @@ import { ChatInput } from '../chat-input';
 
   `],
   template: `
-    <div class="clearfix fit p1" style="560px">
+    <div class="clearfix fit p2" style="560px">
        <div #chatLog id="chatLog" class="fit overflow-auto">
           <div *ngFor="let chatItem of chatSessionStore.allChatItems | async"
             class="{{chatItem.isWatson ? 'watson-icon' : 'user-icon'}}">
@@ -146,7 +151,8 @@ import { ChatInput } from '../chat-input';
           </div>
        </div>
     </div>
-    <chat-input class="p1"></chat-input>
+    <chat-input class="p2 flex"></chat-input>
+    <div class="watson-footer center p2">Insights powered by Nielsen</div>
   `,
   directives: [Chat, ChatInput]
 })

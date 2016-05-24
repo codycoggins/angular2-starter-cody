@@ -7,8 +7,8 @@ import {
 
 import { RouteConfig, ROUTER_DIRECTIVES } from 'angular2/router';
 
-import { AboutPage } from './about-page';
-import { MainPage } from './main-page';
+import { VisualNone } from './visual-none';
+import { VisualBar } from './visual-bar';
 
 import {
   WatsonContainer,
@@ -21,8 +21,8 @@ import {
 @Component({
   selector: 'watson-app',
   directives: [
-    ROUTER_DIRECTIVES, AppNavigator, AppNavigatorItem,
-    CompanyLogo, WatsonContainer
+    ROUTER_DIRECTIVES, AppNavigator, AppNavigatorItem, Chat,
+    WatsonContainer
   ],
   // Global styles imported in the app component.
   encapsulation: ViewEncapsulation.None,
@@ -34,7 +34,7 @@ import {
       min-width: 400px;
       background-color: #7AD3EA;
     }
-    visualization {
+    #visualization-container {
       min-width: 600px;
         display: inline-block;
       }
@@ -51,16 +51,16 @@ import {
         <div class="italic bold h1 flex-auto">Project NLS</div>
         <div style="" class="flex">
           <app-navigator-item [mr]=true class="">
-            <a [routerLink]="['Home']"
+            <a [routerLink]="['Visual-None']"
               class="navbar-link text-decoration-none">Home</a>
           </app-navigator-item>
           <app-navigator-item [mr]=true class="">
-            <a [routerLink]="['Home']"
-              class="navbar-link text-decoration-none">My Favorites</a>
+            <a [routerLink]="['Visual-Bar']"
+              class="navbar-link text-decoration-none">Example Bar Chart</a>
           </app-navigator-item>
-          <app-navigator-item class="">
-            <a [routerLink]="['About']"
-              class="navbar-link text-decoration-none">About</a>
+          <app-navigator-item [mr]=true class="">
+            <a [routerLink]="['Visual-None']"
+              class="navbar-link text-decoration-none">My Favorites</a>
           </app-navigator-item>
         </div>
       </app-navigator>
@@ -69,30 +69,36 @@ import {
        style="height:100%; margin:0; auto -100px; width: 100%;">
        <div id="main-page-container" class="flex flex-wrap justify-between">
            <chat id="chat-container" class="col col-4 top-0"></chat>
-           <visualization id="visualization-container" class="flex-auto top-0 p1"
-             style="min-height:300px">Visualization Area
-<router-outlet></router-outlet>
-             </visualization>
+           <div id="visualization-container" class="flex-auto top-0 p1"
+             style="min-height:300px">
+
+                <router-outlet></router-outlet>
+
+             </div>
        </div>
-
-
 
       </div>
 
     </div>
   `
 })
+// visual-map
+// visual-bar
+// visual-column
+// visual-pie
+// visual-list
+// visual-bubble
 @RouteConfig([
   {
-    path: '/main',
-    name: 'Home',
-    component: MainPage,
+    path: '/',
+    name: 'Visual-None',
+    component: VisualNone,
     useAsDefault: true
   },
   {
-    path: '/about',
-    name: 'About',
-    component: AboutPage
+    path: '/visual-bar',
+    name: 'Visual-Bar',
+    component: VisualBar
   }
 ])
 export class WatsonApp {
