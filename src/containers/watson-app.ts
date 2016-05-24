@@ -27,8 +27,18 @@ import {
   // Global styles imported in the app component.
   encapsulation: ViewEncapsulation.None,
   styles: [
-    require('../styles/index.css')
-    // require('../styles/nv.d3.css')
+    require('../styles/index.css'),
+    require('../styles/nv.d3.css'),
+`
+    chat {
+      min-width: 400px;
+      background-color: #7AD3EA;
+    }
+    visualization {
+      min-width: 600px;
+        display: inline-block;
+      }
+      `
   ],
   template: `
     <div id="wrapper" class="fit" style="height:100%">
@@ -57,7 +67,14 @@ import {
 
       <div id="app-area" class=""
        style="height:100%; margin:0; auto -100px; width: 100%;">
-      <router-outlet></router-outlet>
+       <div id="main-page-container" class="flex flex-wrap justify-between">
+           <chat id="chat-container" class="col col-4 top-0"></chat>
+           <visualization id="visualization-container" class="flex-auto top-0 p1"
+             style="min-height:300px">Visualization Area
+<router-outlet></router-outlet>
+             </visualization>
+       </div>
+
 
 
       </div>

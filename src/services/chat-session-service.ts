@@ -21,6 +21,8 @@ export class ChatSessionService {
     apiHostName: string =
       'http://nielsen-bluemix-orchestration-app.mybluemix.net';
 
+      // will change to nielsen-orchestration-gateway.mybluemix.net
+
     constructor(http: Http)  {
         this.http = http;
         this.headers = new Headers();

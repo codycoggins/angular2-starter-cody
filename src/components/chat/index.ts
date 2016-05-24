@@ -7,25 +7,22 @@ import { Observable} from 'rxjs/Observable';
 
 import { ChatItem } from '../../services/chat-item';
 import { ChatSessionStore} from '../../services/chat-session-store';
-
-import { AutoInput } from './autoinput';
+import { ChatInput } from '../chat-input';
 
 // comment
 @Component({
   selector: 'chat',
   styles: [`
-    .dialog {
-      # margin: 10px;
+
+    chat-input {
+      min-width: 400px;
+
+      background-color: lightgray;
+      display: block;
     }
 
     #chatLog {
       height:500px;
-    }
-    #chatInput {
-      height:30px;
-      padding:5px;
-      width: 300px;
-      margin: 10px;
     }
     mct-hide {
       display: none;
@@ -138,7 +135,7 @@ import { AutoInput } from './autoinput';
 
   `],
   template: `
-    <div class="clearfix fit" style="560px">
+    <div class="clearfix fit p1" style="560px">
        <div #chatLog id="chatLog" class="fit overflow-auto">
           <div *ngFor="let chatItem of chatSessionStore.allChatItems | async"
             class="{{chatItem.isWatson ? 'watson-icon' : 'user-icon'}}">
@@ -148,19 +145,10 @@ import { AutoInput } from './autoinput';
             </div>
           </div>
        </div>
-
-       <input #inputBox id="chatInput" type="text"
-        class="fit form-control left-0 right-0"
-         (keyup.enter)="send(inputBox.value); inputBox.value='';"
-         placeholder="Enter Question"
-         value="{{newText}}"
-       />
-       <button (click)="send(inputBox.value);inputBox.value='';"
-        class="form-control right-0"
-        >ASK</button>
     </div>
+    <chat-input class="p1"></chat-input>
   `,
-  directives: [Chat]
+  directives: [Chat, ChatInput]
 })
 
 export class Chat {
@@ -176,20 +164,6 @@ export class Chat {
     // let fScroll = this.scrollChat.bind(this);
     // let obsScroll: Observable<any> =   chatSessionStore.allChatItems;
     // obsScroll.subscribe(fScroll);
-  }
-
-  send (newText: string) {
-    let newChatI: ChatItem = new ChatItem(newText, false);
-    this.chatSessionStore.addChatAndResponse (newChatI);
-    // this.scrollChat();
-  };
-
-  showWatsonMessage(watsonText: string) {
-    //  this.chatText = this.chatText + '<div class="dialog watson">'
-    //       + watsonText + '</div>';
-
-    let newChatW: ChatItem = new ChatItem(watsonText, true);
-    this.chatSessionStore.addChat (newChatW);
   }
 
   ngAfterViewChecked() {
