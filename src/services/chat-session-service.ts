@@ -19,15 +19,15 @@ export class ChatSessionService {
 
 
     apiHostName: string =
-      'http://nielsen-bluemix-orchestration-app.mybluemix.net';
+      'http://nielsen-orchestration-gateway.mybluemix.net';
 
-      // will change to nielsen-orchestration-gateway.mybluemix.net
-
+    jwtToken: string = 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJST0xFX0FETUlOLFJPTEVfVVNFUiIsImV4cCI6MTQ2NjE3MjE4MH0.6axEGNAAoTPnLWgQ_jmPGbXItEEPoyw7nukpjK7lqvY6JCiITh0krORjLwuM-xPAUGzm3k0b17uwatGeLxWLxw';
     constructor(http: Http)  {
         this.http = http;
         this.headers = new Headers();
         this.headers.append('Content-Type', 'application/json; charset=utf-8');
         this.headers.append('Accept', 'application/json');
+        this.headers.append('Authorization', this.jwtToken );
     }
 
     // getAllChats() {
@@ -85,4 +85,31 @@ export interface IinitConversation {
     id: number; // this is the conversation_id
     input: string;
     response: string[];
+}
+
+export interface OLMessage {
+    profile: OLProfile;
+    data: any;
+    clientId: number;
+    response: string[];
+    mctinputs: string[];
+    dialogId: string;
+    cnversationId: number; // this is the conversation_id
+}
+
+export interface OLProfile {
+    original_question: string;
+    CLASSIFIER_CLASS_0: string;
+    CLASSIFIER_CONF_0: number;
+    retailer: string;
+    ui_region: string;
+    region: string;
+    channel: string;
+    sub_brand: string;
+    sql_query_in: string;
+    sql_query_out: string;
+    visual_type: string;
+    performance_level: string;
+    profile_prompts: string;
+    brand: string;
 }
