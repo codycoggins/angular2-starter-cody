@@ -59,14 +59,14 @@ import { AutoInput } from './autoinput';
 
     .dialog.watson {
       margin-right:50px;
-      color:#fff;
-      background:#075698;
+      color:#075698;
+      background:#fff;
     }
 
     .dialog.user {
       margin-right:50px;
-      color:#075698;
-      background:#fff;
+      color:#fff;
+      background:#075698;
     }
 
     .dialog:after {
@@ -88,7 +88,7 @@ import { AutoInput } from './autoinput';
       bottom:auto;
       left:auto;
       border-width:10px 0 10px 20px;
-      border-color:transparent #075698;
+      border-color:transparent #fff;
     }
 
     .dialog.user:after {
@@ -97,7 +97,7 @@ import { AutoInput } from './autoinput';
       bottom:auto;
       left:auto;
       border-width:10px 0 10px 20px;
-      border-color:transparent #fff;
+      border-color:transparent #075698;
     }
     .watson-icon{
       position: relative;
@@ -114,9 +114,8 @@ import { AutoInput } from './autoinput';
       height: 33px;
       width: 40px;
       padding-top: 7px;
-      background:#075698;
-      color: #fff;
-
+      background:#fff;
+      color: #075698;
     }
     .user-icon{
       position: relative;
@@ -133,8 +132,8 @@ import { AutoInput } from './autoinput';
       height: 33px;
       width: 40px;
       padding-top: 7px;
-      background:#fff;
-      color: #075698;
+      background:#075698;
+      color: #fff;
     }
 
   `],
