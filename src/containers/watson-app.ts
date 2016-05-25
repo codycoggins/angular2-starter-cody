@@ -61,15 +61,19 @@ import {
           </app-navigator-item>
           <app-navigator-item [mr]=true class="">
             <a [routerLink]="['Visual-bar']"
-              class="navbar-link text-decoration-none">Example Bar Chart</a>
+              class="navbar-link text-decoration-none">Bar Chart</a>
           </app-navigator-item>
           <app-navigator-item [mr]=true class="">
             <a [routerLink]="['Visual-map']"
-              class="navbar-link text-decoration-none">Example Map</a>
+              class="navbar-link text-decoration-none">Map</a>
           </app-navigator-item>
           <app-navigator-item [mr]=true class="">
             <a [routerLink]="['Visual-column']"
-              class="navbar-link text-decoration-none">Exa  mple Column Chart</a>
+              class="navbar-link text-decoration-none">Column Chart</a>
+          </app-navigator-item>
+          <app-navigator-item [mr]=true class="">
+            <a [routerLink]="['Visual-list']"
+              class="navbar-link text-decoration-none">List</a>
           </app-navigator-item>
           <app-navigator-item [mr]=true class="">
             <a [routerLink]="['Visual-none']"

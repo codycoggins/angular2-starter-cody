@@ -29,12 +29,11 @@ import {
   `],
   template: `
   <div id="chart_div" >
-    <span _ngcontent-nvs-8="" class="visOverlayLabel h2 center">
+    <!--<span class="visOverlayLabel h2 center">
     Visual Column
-    </span>
-    <div innerHTML="{{chatSessionStore.dataInColumnHTML()}}"></div>
+    </span>-->
+    <div innerHTML="{{ dataInColumnHTML() }}"></div>
   </div>
-
 
   `
 })
@@ -45,4 +44,28 @@ export class VisualColumn {
     console.log('VisualColumn constructor() ');
     this.chatSessionStore = chatSessionStore;
   };
+
+  dataInColumnHTML(): string {
+    let data: any[][] = this.chatSessionStore.visualData;
+    if (data == null || data.length === 0) {
+      return '<div style="display: none;">No Data returned</div>';
+    }
+    let html: string = '';
+    html = html + '<table>';
+    for (let i: number = 0; i < data.length; i++) {
+      html = html + '<tr>';
+      let tag: string = 'td' ;
+      if (i === 0) { tag = 'th'; }
+
+      for (let j: number = 0; j < data[i].length; j++) {
+        html = html + '<' + tag + '>' + data[i][j] + '</' + tag + '>';
+      }
+      html = html + '</tr>';
+    }
+
+    html = html + '</table>';
+    return html;
+
+  }
+
 }

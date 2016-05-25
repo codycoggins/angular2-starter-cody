@@ -28,23 +28,43 @@ import {
   `],
   template: `
   <div id="chart_div" >
-    <span _ngcontent-nvs-8="" class="visOverlayLabel h2 center">
+    <!-- <span _ngcontent-nvs-8="" class="visOverlayLabel h2 center">
     Example Visual List<br/>
     <span class="h5">This is a placeholder</span>
-    </span>
-    <img
-    style="-webkit-filter: grayscale(100%);filter: grayscale(100%);"
-    src="{{ChatSessionStore.imagePath}}"/>
+    </span> -->
+    <div innerHTML="{{ dataInListHTML() }}"></div>
   </div>
 
 
   `
 })
 export class VisualList {
-  ChatSessionStore: ChatSessionStore;
+  chatSessionStore: ChatSessionStore;
 
-  constructor(ChatSessionStore: ChatSessionStore ) {
-    console.log('VisualList constructor() ');
-    this.ChatSessionStore = ChatSessionStore;
+  constructor(chatSessionStore: ChatSessionStore ) {
+    console.log('VisualColumn constructor() ');
+    this.chatSessionStore = chatSessionStore;
   };
+
+  dataInListHTML(): string {
+    let data: any[][] = this.chatSessionStore.visualData;
+    if (data == null || data.length === 0) {
+      return '<div style="display: none;">No Data returned</div>';
+    }
+    let html: string = '';
+    html = html + '<ol>';
+    for (let i: number = 0; i < data.length; i++) {
+      html = html + '<li>' + data[i][0] + '</li>';
+      if (i > 0) { html = html + '<ol>'; }
+      for (let j: number = 1; j < data[i].length; j++) {
+        html = html + '<li>' + data[i][j] + '</li>';
+      }
+      if (i > 0) { html = html + '<ol>'; }
+    }
+
+    html = html + '</ol>';
+    return html;
+
+  }
+
 }

@@ -41,10 +41,10 @@ import {
   `
 })
 export class VisualPie {
-  ChatSessionStore: ChatSessionStore;
+  chatSessionStore: ChatSessionStore;
 
-  constructor(ChatSessionStore: ChatSessionStore ) {
-    console.log('VisualPie constructor() ');
-    this.ChatSessionStore = ChatSessionStore;
+  constructor(chatSessionStore: ChatSessionStore ) {
+    console.log('VisualColumn constructor() ');
+    this.chatSessionStore = chatSessionStore;
   };
 }
