@@ -56,6 +56,58 @@ export class BarChart1 implements OnInit {
     this.data = this.getData();
   }
 
+testtest() {
+ //  let jsonResult =  [ { 'key': 'BarChart1', 'values': [
+ // foo ] } ];
+}
+
+getSQLData( ) {
+  return [  [ 'SUBBRAND', 'F1', 'YA', 'CYA', 'SHR', 'SHRYA', 'SHRCYA'],
+    [ 'SUAVE KIDS SBBR', 78063.86, 98865.3, 20801.44, 76.5, 75.3, -1.2 ],
+    [ 'SUAVE MOROCCAN INFUSION', 41094.21, 51554.31, 10460.1, 51.5, 51, -0.5 ],
+    [ 'SUAVE KERATIN INFUSION', 12054.16, 18226.62, 6172.46, 50.8, 50.7, -0.1 ],
+    [ 'SUAVE NTRLS SBBR', 101064.63, 151808.41, 50743.78, 65, 64.9, -0.1 ],
+    [ 'SUAVE SILVER SBBR', 63075.9, 88189.96, 25114.06, 59.2, 59.1, -0.1 ],
+    [ 'SUAVE MEN CORE', 74647.16, 97643.6, 22996.44, 100, 100, 0 ],
+    [ 'SUAVE GREEN SBBR', 53401.83, 82893.6, 29491.77, 44.3, 45.7, 1.4 ]  ] ;
+}
+
+translateData(data) {
+  let newJson ;
+  if (data == null || data.length === 0) {
+    console.log('translateData: WARNING null data');
+    return null;
+  }
+  // let newJson: string = '';
+  let headers = [ ];
+  newJson = ' [ { \'key\': \'BarChart1\', \'values\': [ ';
+  for (let i = 0; i < data.length; i++) {
+
+    if (i === 0) {
+        for (let j = 0; j < data[i].length; j++) {
+          headers[j] = data[0][j] ;
+          console.log ('header ' + j + headers[j]);
+        }
+    } else {
+      if (i > 1) {
+        newJson = newJson + ',\n';
+       }
+      newJson = newJson + '\n{';
+      for (let j = 0; j < data[i].length; j++) {
+        if (j > 0) {
+          newJson = newJson + ',\n';
+        }
+        newJson = newJson + '\'' + headers[j] + '\'\: \'' + data[i][j] + '\'';
+      }
+      newJson = newJson + '}';
+    }
+  }
+
+  newJson = newJson + '\n] } ]';
+  console.log(newJson);
+  return JSON.parse(newJson);
+
+}
 
 getData() {
 

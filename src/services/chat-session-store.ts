@@ -67,6 +67,45 @@ export class ChatSessionStore {
     }
 
 
+    translatedData() {
+      let data: any[][] = this._visualData;
+      let newJson: string ;
+      if (data == null || data.length === 0) {
+        console.log('translateData: WARNING null data');
+        return null;
+      }
+      // let newJson: string = '';
+      let headers = [ ];
+      newJson = ' [ { \'key\': \'BarChart1\', \'values\': [ ';
+      for (let i = 0; i < data.length; i++) {
+
+        if (i === 0) {
+            for (let j = 0; j < data[i].length; j++) {
+              headers[j] = data[0][j] ;
+              console.log ('header ' + j + headers[j]);
+            }
+        } else {
+          if (i > 1) {
+            newJson = newJson + ',\n';
+           }
+          newJson = newJson + '\n{';
+          for (let j = 0; j < data[i].length; j++) {
+            if (j > 0) {
+              newJson = newJson + ',\n';
+            }
+            newJson = newJson + '\'' + headers[j] + '\'\: \'' + data[i][j] + '\'';
+          }
+          newJson = newJson + '}';
+        }
+      }
+
+      newJson = newJson + '\n] } ]';
+      console.log(newJson);
+      return JSON.parse(newJson);
+
+    }
+
+
     loadInitialData() {
         // put the request to the server.
         let obs: Observable<any> = this.chatSessionService.initiateChat();
