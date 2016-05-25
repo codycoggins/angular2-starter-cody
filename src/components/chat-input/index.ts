@@ -36,7 +36,7 @@
       placeholder="Enter Question"
       value="{{newText}}"
     />
-    <span (click)="send(inputBox.value);inputBox.value='';"
+    <span #chatButton (click)="send(inputBox.value);inputBox.value='';"
      id="chatButton"
      class="right-0"
      >ASK</span>

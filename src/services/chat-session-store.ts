@@ -1,4 +1,5 @@
 import {Injectable} from 'angular2/core';
+import {Router} from 'angular2/router';
 import {ChatSessionService, IinitConversation, OLMessage, OLProfile} from './chat-session-service';
 import {List} from 'immutable';
 import {Observable} from 'rxjs/Observable';
@@ -17,13 +18,20 @@ export class ChatSessionStore {
     private _allChatItems: BehaviorSubject<List<ChatItem>> =
       new BehaviorSubject(List([]));
 
+    private _visualType: string = 'visual_none';
+    private _visualData: any[];
     dialogParser: DialogParser;
     chatSessionService: ChatSessionService;
     visualizationStore: VisualizationStore;
 
+    visualTypes: string[] = ['visual_map', 'visual_bar',
+    'visual_column', 'visual_pie', 'visual_list',
+    'visual_bubble', 'visual_none'];
+
     constructor(chatSessionService: ChatSessionService,
         dialogParser: DialogParser,
-        visualizationStore: VisualizationStore) {
+        visualizationStore: VisualizationStore,
+        private router: Router) {
         this.chatSessionService = chatSessionService;
         this.dialogParser = dialogParser;
         this.visualizationStore = visualizationStore;
@@ -34,6 +42,24 @@ export class ChatSessionStore {
         return asObservable(this._allChatItems);
     }
 
+    set visualType(visualType: string) {
+      this._visualType = visualType;
+      let routeName: string = visualType.replace('visual', 'Visual').replace('_', '-');
+      console.log ('Routing to ' + routeName);
+      this.router.navigate( [routeName] );
+    }
+
+    get visualType () {
+      return this._visualType;
+    }
+
+    set visualData(visualData: any[]) {
+      this._visualData = visualData;
+    }
+
+    get visualData (){
+      return this._visualData;
+    }
 
     loadInitialData() {
         // put the request to the server.
@@ -104,6 +130,7 @@ export class ChatSessionStore {
                              this._allChatItems.getValue().push( chatResponse  ));
                       // }
                     }
+                    this.visualData = resJson.data;
                   },
                   err => {
                       console.log (err);
@@ -118,11 +145,16 @@ export class ChatSessionStore {
           console.log('  null watsonText.');
           return '';
       }
-      if (watsonText.match(/<mct\:hide>visual_map<\/mct\:hide>/)) {
-        this.visualizationStore.addImage (this.visualizationStore.visMap1)  ;
-      }
-      if (watsonText.match(/<mct\:hide>visual_barchart<\/mct\:hide>/)) {
-        this.visualizationStore.addImage (this.visualizationStore.visBarchart1)  ;
+      for (let i: number = 0; i < this.visualTypes.length; i++)  {
+        // console.log('try ' + this.visualTypes[i]);
+        if (watsonText.match('<mct:hide>' + this.visualTypes[i] + '</mct:hide>')) {
+          // this.visualizationStore.addImage (this.visualizationStore.visMap1)  ;
+          // console.log ('match ' + this.visualTypes[i]);
+          this.visualType = this.visualTypes[i];
+          continue;
+        } else {
+          // console.log ('formatReponse: no match for visuals.');
+        }
       }
       // console.log('  formatReponse raw input:\n\n' + watsonText + '\n');
       let processedText: string = this.dialogParser.parse( watsonText);

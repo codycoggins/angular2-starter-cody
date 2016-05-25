@@ -9,6 +9,11 @@ import { RouteConfig, ROUTER_DIRECTIVES } from 'angular2/router';
 
 import { VisualNone } from './visual-none';
 import { VisualBar } from './visual-bar';
+import { VisualBubble } from './visual-bubble';
+import { VisualColumn } from './visual-column';
+import { VisualList } from './visual-list';
+import { VisualMap } from './visual-map';
+import { VisualPie } from './visual-pie';
 
 import {
   WatsonContainer,
@@ -16,13 +21,13 @@ import {
   AppNavigatorItem,
   CompanyLogo,
   Chat
-} from '../components';
+  } from '../components';
 
 @Component({
   selector: 'watson-app',
   directives: [
     ROUTER_DIRECTIVES, AppNavigator, AppNavigatorItem, Chat,
-    WatsonContainer
+    WatsonContainer, CompanyLogo
   ],
   // Global styles imported in the app component.
   encapsulation: ViewEncapsulation.None,
@@ -51,15 +56,23 @@ import {
         <div class="italic bold h1 flex-auto">Project NLS</div>
         <div style="" class="flex">
           <app-navigator-item [mr]=true class="">
-            <a [routerLink]="['Visual-None']"
+            <a [routerLink]="['Visual-none']"
               class="navbar-link text-decoration-none">Home</a>
           </app-navigator-item>
           <app-navigator-item [mr]=true class="">
-            <a [routerLink]="['Visual-Bar']"
+            <a [routerLink]="['Visual-bar']"
               class="navbar-link text-decoration-none">Example Bar Chart</a>
           </app-navigator-item>
           <app-navigator-item [mr]=true class="">
-            <a [routerLink]="['Visual-None']"
+            <a [routerLink]="['Visual-map']"
+              class="navbar-link text-decoration-none">Example Map</a>
+          </app-navigator-item>
+          <app-navigator-item [mr]=true class="">
+            <a [routerLink]="['Visual-column']"
+              class="navbar-link text-decoration-none">Exa  mple Column Chart</a>
+          </app-navigator-item>
+          <app-navigator-item [mr]=true class="">
+            <a [routerLink]="['Visual-none']"
               class="navbar-link text-decoration-none">My Favorites</a>
           </app-navigator-item>
         </div>
@@ -91,14 +104,39 @@ import {
 @RouteConfig([
   {
     path: '/',
-    name: 'Visual-None',
+    name: 'Visual-none',
     component: VisualNone,
     useAsDefault: true
   },
   {
     path: '/visual-bar',
-    name: 'Visual-Bar',
+    name: 'Visual-bar',
     component: VisualBar
+  },
+  {
+    path: '/visual-map',
+    name: 'Visual-map',
+    component: VisualMap
+  },
+  {
+    path: '/visual-pie',
+    name: 'Visual-pie',
+    component: VisualPie
+  },
+  {
+    path: '/visual-list',
+    name: 'Visual-list',
+    component: VisualList
+  },
+  {
+    path: '/visual-bubble',
+    name: 'Visual-bubble',
+    component: VisualBubble
+  },
+  {
+    path: '/visual-column',
+    name: 'Visual-column',
+    component: VisualColumn
   }
 ])
 export class WatsonApp {

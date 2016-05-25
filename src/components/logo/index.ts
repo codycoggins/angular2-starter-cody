@@ -6,7 +6,7 @@ import { Component } from 'angular2/core';
   template: `
     <div className="items-center">
       <img src={{logoImage}}
-       height="70px" width="70px"/>
+         height="70px" width="70px"/>
     </div>
   `
 })

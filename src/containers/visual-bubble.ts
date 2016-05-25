@@ -1,14 +1,12 @@
 import { Component } from 'angular2/core';
-import { VisualizationStore } from '../services/visualization-store';
 import { ChatSessionStore } from '../services/chat-session-store';
-
 
 import {
   WatsonContainer
 } from '../components';
 
 @Component({
-  selector: 'visual-none',
+  selector: 'visual-bubble',
   directives: [ WatsonContainer ],
   styles: [`
     .visOverlayLabel {
@@ -31,23 +29,22 @@ import {
   template: `
   <div id="chart_div" >
     <span _ngcontent-nvs-8="" class="visOverlayLabel h2 center">
-    When a visualization or supplement is part of your question,
-    it will appear here.<br/>
-    <span class="h5">Ask your question in the dialog area or View All My Favorites</span>
+    Example Visual Bubble<br/>
+    <span class="h5">This is a placeholder</span>
     </span>
-    <!-- <img
+    <img
     style="-webkit-filter: grayscale(100%);filter: grayscale(100%);"
-    src="{{visualizationStore.imagePath}}"/>-->
+    src="{{ChatSessionStore.imagePath}}"/>
   </div>
 
 
   `
 })
-export class VisualNone {
-  visualizationStore: VisualizationStore;
+export class VisualBubble {
+  ChatSessionStore: ChatSessionStore;
 
-  constructor(visualizationStore: VisualizationStore ) {
-    console.log('VisualNone constructor() ');
-    this.visualizationStore = visualizationStore;
+  constructor(ChatSessionStore: ChatSessionStore ) {
+    console.log('VisualBubble constructor() ');
+    this.ChatSessionStore = ChatSessionStore;
   };
 }
