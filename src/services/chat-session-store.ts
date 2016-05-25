@@ -54,11 +54,35 @@ export class ChatSessionStore {
     }
 
     set visualData(visualData: any[]) {
+      console.log ('set data: \n' + JSON.stringify( visualData) + '\n');
       this._visualData = visualData;
     }
 
     get visualData (){
       return this._visualData;
+    }
+
+    dataInColumnHTML(): string {
+      let data: any[][] = this._visualData;
+      if (data == null || data.length === 0) {
+        return '<div style="display: none;">No Data returned</div>';
+      }
+      let html: string = '';
+      html = html + '<table>';
+      for (let i: number = 0; i < data.length; i++) {
+        html = html + '<tr>';
+        let tag: string = 'td' ;
+        if (i === 0) { tag = 'th'; }
+
+        for (let j: number = 0; j < data[i].length; j++) {
+          html = html + '<' + tag + '>' + data[i][j] + '</' + tag + '>';
+        }
+        html = html + '</tr>';
+      }
+
+      html = html + '</table>';
+      return html;
+
     }
 
     loadInitialData() {

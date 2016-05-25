@@ -41,3 +41,21 @@ autoinput {
   font-weight: bold;
   text-decoration: underline;
 }
+
+table {
+border-collapse: collapse;
+}
+table, th, td {
+  border: 1px solid #075698;
+}
+th, td {
+  padding: 15px;
+
+}
+th {
+  color: #fff;
+  background-color: #075698;
+}
+tr:nth-child(even) {
+  background-color: #075698;
+}

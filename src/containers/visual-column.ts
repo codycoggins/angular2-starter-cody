@@ -25,26 +25,24 @@ import {
     #chart_div {
       position: relative;
     }
+
   `],
   template: `
   <div id="chart_div" >
     <span _ngcontent-nvs-8="" class="visOverlayLabel h2 center">
-    Example Visual Column<br/>
-    <span class="h5">This is a placeholder</span>
+    Visual Column
     </span>
-    <img
-    style="-webkit-filter: grayscale(100%);filter: grayscale(100%);"
-    src="{{ChatSessionStore.imagePath}}"/>
+    <div innerHTML="{{chatSessionStore.dataInColumnHTML()}}"></div>
   </div>
 
 
   `
 })
 export class VisualColumn {
-  ChatSessionStore: ChatSessionStore;
+  chatSessionStore: ChatSessionStore;
 
-  constructor(ChatSessionStore: ChatSessionStore ) {
+  constructor(chatSessionStore: ChatSessionStore ) {
     console.log('VisualColumn constructor() ');
-    this.ChatSessionStore = ChatSessionStore;
+    this.chatSessionStore = chatSessionStore;
   };
 }
