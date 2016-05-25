@@ -56,24 +56,24 @@ import {
         <div class="italic bold h1 flex-auto">Project NLS</div>
         <div style="" class="flex">
           <app-navigator-item [mr]=true class="">
-            <a [routerLink]="['Visual-none']"
-              class="navbar-link text-decoration-none">Home</a>
-          </app-navigator-item>
-          <app-navigator-item [mr]=true class="">
             <a [routerLink]="['Visual-bar']"
-              class="navbar-link text-decoration-none">Bar Chart</a>
+              class="navbar-link text-decoration-none" style="color: #fff;">Bar Chart</a>
           </app-navigator-item>
           <app-navigator-item [mr]=true class="">
             <a [routerLink]="['Visual-map']"
-              class="navbar-link text-decoration-none">Map</a>
+              class="navbar-link text-decoration-none" style="color: #fff;">Map</a>
           </app-navigator-item>
           <app-navigator-item [mr]=true class="">
             <a [routerLink]="['Visual-column']"
-              class="navbar-link text-decoration-none">Column Chart</a>
+              class="navbar-link text-decoration-none" style="color: #fff;">Column Chart</a>
           </app-navigator-item>
           <app-navigator-item [mr]=true class="">
             <a [routerLink]="['Visual-list']"
-              class="navbar-link text-decoration-none">List</a>
+              class="navbar-link text-decoration-none" style="color: #fff;">List</a>
+          </app-navigator-item>
+          <app-navigator-item [mr]=true class="">
+            <a [routerLink]="['Visual-none']"
+              class="navbar-link text-decoration-none">Home</a>
           </app-navigator-item>
           <app-navigator-item [mr]=true class="">
             <a [routerLink]="['Visual-none']"
