@@ -61,8 +61,8 @@ export class ChatSessionService {
     }
 
     recordSessionIDs(initConversation: IinitConversation) {
-      console.log('recordSessionIDs('
-        + JSON.stringify(initConversation) + ')') ;
+      // console.log('recordSessionIDs('
+      //   + JSON.stringify(initConversation) + ')') ;
       this.conversationId = initConversation.id.toString();
       this.clientId = initConversation.clientId.toString();
       console.log('extracted conversation_id: ' + initConversation.id);

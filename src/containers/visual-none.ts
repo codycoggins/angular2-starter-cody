@@ -28,9 +28,11 @@ import {
   `],
   template: `
   <div id="chart_div" >
-    <span _ngcontent-nvs-8="" class="visOverlayLabel h2 center">When a visualization or supplement is part of your question,
+    <span _ngcontent-nvs-8="" class="visOverlayLabel h2 center">
+    When a visualization or supplement is part of your question,
     it will appear here.<br/>
-    <span class="h5">Ask your question in the dialog area or View All My Favorites</span></span>
+    <span class="h5">Ask your question in the dialog area or View All My Favorites</span>
+    </span>
     <img
     style="-webkit-filter: grayscale(100%);filter: grayscale(100%);"
     src="{{visualizationStore.imagePath}}"/>

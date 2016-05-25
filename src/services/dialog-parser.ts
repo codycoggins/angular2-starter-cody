@@ -191,7 +191,7 @@ export class DialogParser {
       parsed = this.removeBrsWithinUls(parsed);
       // console.log('after removeBrsWithinUls:\n' + parsed);
       parsed = this.addLinkTargets(parsed);
-      console.log('after addLinkTargets:\n' + parsed);
+      // console.log('after addLinkTargets:\n' + parsed);
       return parsed;
     };
 

@@ -21,11 +21,11 @@ export class BarChart1 implements OnInit {
   data;
   chartType;
   constructor() {
-      console.log('BarChart1.constructor()');
+      // console.log('BarChart1.constructor()');
   }
 
   ngOnInit() {
-    console.log('BarChart1.ngOnInit()');
+    // console.log('BarChart1.ngOnInit()');
 
     this.options = {
       chart: {

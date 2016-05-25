@@ -43,7 +43,7 @@ export class ChatSessionStore {
         obs.subscribe(
                 res => {
                     console.log ('Initializing Chat');
-                    // console.log ('addChat returned json ' + res.json());
+                    console.log ('\nOrchestration Layer Initialization returned:\n ' + res.json());
                     let resJson: IinitConversation = <IinitConversation> res.json();
                     if (resJson == null || resJson.id == null) {
                       console.log
@@ -87,7 +87,7 @@ export class ChatSessionStore {
         // manage the reponse from the server
         obs.subscribe(
                 res => {
-                    console.log ('addChat returned text ' + res.text());
+                    console.log ('\nOrchestration Layer returned: \n' + res.text());
                     // console.log ('addChat returned json ' + res.json());
                     let resJson: OLMessage = <OLMessage> res.json();
                     if (resJson == null ) {
@@ -124,7 +124,7 @@ export class ChatSessionStore {
       if (watsonText.match(/<mct\:hide>visual_barchart<\/mct\:hide>/)) {
         this.visualizationStore.addImage (this.visualizationStore.visBarchart1)  ;
       }
-      console.log('  formatReponse raw input:\n\n' + watsonText + '\n');
+      // console.log('  formatReponse raw input:\n\n' + watsonText + '\n');
       let processedText: string = this.dialogParser.parse( watsonText);
       // // if (processedText.length === 0) {
       // //   processedText =
