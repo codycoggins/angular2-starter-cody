@@ -74,7 +74,7 @@ export class DialogParser {
       return text.replace(
         /<mct\:input>([^]*?)<\/mct\:input>/g,
         '<autoinput onclick=\"var el = document.querySelector(\'#chatInput\'); '
-        + 'el.value=\'$1\'; var bu = document.querySelector(\'button\'); bu.click();\"> $1</autoinput>'
+        + 'el.value=\'$1\'; var bu = document.querySelector(\'#chatButton\'); bu.click();\"> $1</autoinput>'
       );
     };
 
@@ -112,7 +112,7 @@ export class DialogParser {
         .replace(
           /<mct\:item>([^]*?)<\/mct\:item>/g,
           '<li><autoinput onclick=\"var el = document.querySelector(\'#chatInput\'); '
-          + 'el.value=\'$1\'; var bu = document.querySelector(\'button\'); bu.click();\"> $1</autoinput></li>'
+          + 'el.value=\'$1\'; var bu = document.querySelector(\'#chatButton\'); bu.click();\"> $1</autoinput></li>'
         );
 
     };
