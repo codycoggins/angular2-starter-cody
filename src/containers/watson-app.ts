@@ -14,6 +14,7 @@ import { VisualColumn } from './visual-column';
 import { VisualList } from './visual-list';
 import { VisualMap } from './visual-map';
 import { VisualPie } from './visual-pie';
+import { VisualBullet } from './visual-bullet';
 
 import {
   WatsonContainer,
@@ -47,47 +48,46 @@ import {
   ],
   template: `
     <div id="wrapper" class="fit" style="height:100%">
-      <app-navigator class="fit">
-
-        <app-navigator-item [mr]=true class="flex-none">
-          <company-logo></company-logo>
-        </app-navigator-item>
-
-        <div class="italic bold h1 flex-auto">Project NLS</div>
-        <div style="" class="flex">
-          <app-navigator-item [mr]=true class="">
-            <a [routerLink]="['Visual-bar']"
-              class="navbar-link text-decoration-none" style="color: #fff;">Bar Chart</a>
-          </app-navigator-item>
-          <app-navigator-item [mr]=true class="">
-            <a [routerLink]="['Visual-map']"
-              class="navbar-link text-decoration-none" style="color: #fff;">Map</a>
-          </app-navigator-item>
-          <app-navigator-item [mr]=true class="">
-            <a [routerLink]="['Visual-column']"
-              class="navbar-link text-decoration-none" style="color: #fff;">Column Chart</a>
-          </app-navigator-item>
-          <app-navigator-item [mr]=true class="">
-            <a [routerLink]="['Visual-list']"
-              class="navbar-link text-decoration-none" style="color: #fff;">List</a>
-          </app-navigator-item>
-          <app-navigator-item [mr]=true class="">
-            <a [routerLink]="['Visual-none']"
-              class="navbar-link text-decoration-none">Home</a>
-          </app-navigator-item>
-          <app-navigator-item [mr]=true class="">
-            <a [routerLink]="['Visual-none']"
-              class="navbar-link text-decoration-none">My Favorites</a>
-          </app-navigator-item>
-        </div>
-      </app-navigator>
 
       <div id="app-area" class=""
        style="height:100%; margin:0; auto -100px; width: 100%;">
        <div id="main-page-container" class="flex flex-wrap justify-between">
            <chat id="chat-container" class="col col-4 top-0"></chat>
+
+
            <div id="visualization-container" class="flex-auto top-0 p1"
              style="min-height:300px">
+             <app-navigator class="fit">
+
+
+               <div class="italic bold h1 flex-auto">&nbsp;</div>
+               <div style="" class="flex">
+                 <app-navigator-item [mr]=true class="">
+                   <a [routerLink]="['Visual-bar']"
+                     class="navbar-link text-decoration-none" style="color: #fff;">Bar Chart</a>
+                 </app-navigator-item>
+                 <app-navigator-item [mr]=true class="">
+                   <a [routerLink]="['Visual-map']"
+                     class="navbar-link text-decoration-none" style="color: #fff;">Map</a>
+                 </app-navigator-item>
+                 <app-navigator-item [mr]=true class="">
+                   <a [routerLink]="['Visual-column']"
+                     class="navbar-link text-decoration-none" style="color: #fff;">Column Chart</a>
+                 </app-navigator-item>
+                 <app-navigator-item [mr]=true class="">
+                   <a [routerLink]="['Visual-list']"
+                     class="navbar-link text-decoration-none" style="color: #fff;">List</a>
+                 </app-navigator-item>
+                 <app-navigator-item [mr]=true class="">
+                   <a [routerLink]="['Visual-none']"
+                     class="navbar-link text-decoration-none">Home</a>
+                 </app-navigator-item>
+                 <app-navigator-item [mr]=true class="">
+                   <a [routerLink]="['Visual-none']"
+                     class="navbar-link text-decoration-none">My Favorites</a>
+                 </app-navigator-item>
+               </div>
+             </app-navigator>
 
                 <router-outlet></router-outlet>
 
@@ -141,6 +141,11 @@ import {
     path: '/visual-column',
     name: 'Visual-column',
     component: VisualColumn
+  },
+  {
+    path: '/visual-bullet',
+    name: 'Visual-bullet',
+    component: VisualBullet
   }
 ])
 export class WatsonApp {

@@ -29,6 +29,13 @@
 @import 'basscss-border';
 @import 'basscss-hide';
 
+
+html *
+{
+   font-family: Helvetica Neue,Helvetica, Arial, sans-serif !important;
+   color: #333333;
+}
+
 .navbar-link {
   color: #0B3D88;
   font-weight: bold;

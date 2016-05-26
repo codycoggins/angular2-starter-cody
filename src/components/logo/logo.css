@@ -1,3 +1,10 @@
 .logo {
-  width: 128px;
+  width: 74px;
+  margin-top: 20px;
+}
+
+.logoDiv {
+  min-width: 400px;
+  height: 120px;
+  /*background-color: #79C3E5;*/
 }

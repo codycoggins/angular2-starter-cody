@@ -12,16 +12,26 @@
     selector: 'chat-input',
     styles: [`
     #chatInput {
+      // font-family: Helvetica, sans-serif;
       border-width: 0;
-      height:31px;
+      height:40px;
       padding:5px;
       width: 330px;
-      margin: 0;
+      margin-right: 0;
+      font-family: Helvetica Regular, Helvetica, Arial, sans-serif;
+      font-size: 18px;
+      color: #BBB;
     }
+
+    #chatInput::selection {
+      color: #0B3D88;
+    }
+
     #chatButton {
       color: black;
+      height: 40px;
       background:#54C6E4;
-      padding:5px;
+      padding: 8px;
       cursor: pointer;
       font-weight: bold;
       width: 50px;
@@ -38,7 +48,7 @@
     />
     <span #chatButton (click)="send(inputBox.value);inputBox.value='';"
      id="chatButton"
-     class="right-0"
+     class="right-0 center"
      >ASK</span>
     `
  })

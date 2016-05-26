@@ -8,6 +8,7 @@ import { Observable} from 'rxjs/Observable';
 import { ChatItem } from '../../services/chat-item';
 import { ChatSessionStore} from '../../services/chat-session-store';
 import { ChatInput } from '../chat-input';
+import { CompanyLogo } from '../logo';
 
 // comment
 @Component({
@@ -19,6 +20,7 @@ import { ChatInput } from '../chat-input';
       display: flex;
       color: #fff;
       background-color: #0B3D88;
+      padding: 20px;
     }
 
     .watson-footer {
@@ -141,6 +143,7 @@ import { ChatInput } from '../chat-input';
   `],
   template: `
     <div class="clearfix fit p2" style="560px">
+      <company-logo></company-logo>
        <div #chatLog id="chatLog" class="fit overflow-auto">
           <div *ngFor="let chatItem of chatSessionStore.allChatItems | async"
             class="{{chatItem.isWatson ? 'watson-icon' : 'user-icon'}}">
@@ -151,10 +154,10 @@ import { ChatInput } from '../chat-input';
           </div>
        </div>
     </div>
-    <chat-input class="p2 flex"></chat-input>
+    <chat-input class="flex"></chat-input>
     <div class="watson-footer center p2">Insights powered by Nielsen</div>
   `,
-  directives: [Chat, ChatInput]
+  directives: [Chat, ChatInput, CompanyLogo]
 })
 
 export class Chat {

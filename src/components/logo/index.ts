@@ -4,12 +4,12 @@ import { Component } from 'angular2/core';
   selector: 'company-logo',
   styles: [require('./logo.css')],
   template: `
-    <div className="items-center">
-      <img src={{logoImage}}
-         height="70px" width="70px"/>
+    <div class="logoDiv center items-center">
+      <img src={{logoImage}} class="logo"
+         height="75px" width="75px"/>
     </div>
   `
 })
 export class CompanyLogo {
-  logoImage = require('../../assets/watson_logo_large.png');
+  logoImage = require('../../assets/unilever-logo.png');
 };
