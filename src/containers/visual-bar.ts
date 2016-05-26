@@ -1,18 +1,17 @@
-import { Component, Inject, Injectable  } from 'angular2/core';
-import { VisualizationStore } from '../services/visualization-store';
+import { Component, Inject, Injectable, OnInit  } from 'angular2/core';
+import { NvD3Watson } from '../components/visualization/nvd3-watson';
+declare var d3: any;
+
+import { ChatSessionStore } from '../services/chat-session-store';
 
 import {
   WatsonContainer,
-  AppNavigator,
-  AppNavigatorItem,
-  CompanyLogo,
-  Chat,
-  BarChart1
+  CompanyLogo
 } from '../components';
 
 @Component({
   selector: 'visual-bar',
-  directives: [ WatsonContainer, BarChart1 ],
+  directives: [ WatsonContainer, NvD3Watson ],
   styles: [`
     .visOverlayLabel {
       position: absolute;
@@ -35,17 +34,54 @@ import {
   `],
   template: `
   <div id="chart_div" >
-    <span _ngcontent-nvs-8="" class="visOverlayLabel center h2">Example Bar Chart Visualization</span>
-    <bar-chart1></bar-chart1>
+    <!--<span class="visOverlayLabel center h2">Example Bar Chart Visualization</span>-->
+    <nvd3-watson [options]="options" [data]="data"></nvd3-watson>
   </div>
   `
 })
-export class VisualBar {
-  visualizationStore: VisualizationStore;
 
-  constructor(visualizationStore: VisualizationStore ) {
+export class VisualBar {
+  options;
+  data;
+  chartType;
+  chatSessionStore: ChatSessionStore;
+
+  constructor(chatSessionStore: ChatSessionStore ) {
     console.log('Visualization constructor() ');
-    this.visualizationStore = visualizationStore;
+    this.chatSessionStore =  chatSessionStore;
   };
 
+
+  ngOnInit() {
+    // console.log('BarChart2.ngOnInit()');
+
+    this.options = {
+      chart: {
+        type: 'discreteBarChart',
+        height: 600,
+        margin : {
+          top: 20,
+          right: 20,
+          bottom: 40,
+          left: 55
+        },
+        x: function(d){ return d.SUBBRAND; },
+        y: function(d){ return d.SHRCYA; },
+        useInteractiveGuideline: true,
+        staggerLabels: true,
+        xAxis: {
+          axisLabel: 'Sub-Brand'
+        },
+        yAxis: {
+          axisLabel: 'SHRCYA',
+          // tickFormat: function(d){
+          //   return d3.format('.02f')(d);
+          // },
+          axisLabelDistance: -10
+        }
+      }
+    };
+
+    this.data =  this.chatSessionStore.translatedData();
+  }
 }

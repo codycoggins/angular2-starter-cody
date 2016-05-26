@@ -13,8 +13,6 @@ import {VisualizationStore} from './visualization-store';
 
 @Injectable()
 export class ChatSessionStore {
-
-
     private _allChatItems: BehaviorSubject<List<ChatItem>> =
       new BehaviorSubject(List([]));
 
@@ -46,6 +44,8 @@ export class ChatSessionStore {
       this._visualType = visualType;
       let routeName: string = visualType.replace('visual', 'Visual').replace('_', '-');
       console.log ('Routing to ' + routeName);
+      // make sure we are at none before we start a new one.
+      this.router.navigate( ['Visual-none'] );
       this.router.navigate( [routeName] );
     }
 
@@ -76,7 +76,7 @@ export class ChatSessionStore {
       }
       // let newJson: string = '';
       let headers = [ ];
-      newJson = ' [ { \'key\': \'BarChart1\', \'values\': [ ';
+      newJson = ' [ { \"key\": \"BarChart1\", \"values\": [ ';
       for (let i = 0; i < data.length; i++) {
 
         if (i === 0) {
@@ -93,7 +93,7 @@ export class ChatSessionStore {
             if (j > 0) {
               newJson = newJson + ',\n';
             }
-            newJson = newJson + '\'' + headers[j] + '\'\: \'' + data[i][j] + '\'';
+            newJson = newJson + '\"' + headers[j] + '\"\: \"' + data[i][j] + '\"';
           }
           newJson = newJson + '}';
         }
