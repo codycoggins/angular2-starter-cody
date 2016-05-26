@@ -78,7 +78,9 @@ export class VisualBar {
           //   return d3.format('.02f')(d);
           // },
           axisLabelDistance: -10
-        }
+        },
+        // hardcoding y axis domain to fix bug.  not optimal.
+        yDomain: [-1, 1]
       }
     };
 
