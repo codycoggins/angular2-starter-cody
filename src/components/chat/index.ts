@@ -18,12 +18,12 @@ import { ChatInput } from '../chat-input';
       min-width: 400px;
       display: flex;
       color: #fff;
-      background-color: #075698;
+      background-color: #0B3D88;
     }
 
     .watson-footer {
       color: #fff;
-      background-color: #075698;
+      background-color: #0B3D88;
     }
 
     #chatLog {
@@ -48,12 +48,12 @@ import { ChatInput } from '../chat-input';
       padding:15px;
       margin:1em 0 3em;
       color:#fff;
-      background:#075698; /* default background for browsers without gradient support */
+      background:#0B3D88; /* default background for browsers without gradient support */
       /* css3 */
-      background:-webkit-gradient(linear, 0 0, 0 100%, from(#2e88c4), to(#075698));
-      background:-moz-linear-gradient(#2e88c4, #075698);
-      background:-o-linear-gradient(#2e88c4, #075698);
-      background:linear-gradient(#2e88c4, #075698);
+      background:-webkit-gradient(linear, 0 0, 0 100%, from(#2e88c4), to(#0B3D88));
+      background:-moz-linear-gradient(#2e88c4, #0B3D88);
+      background:-o-linear-gradient(#2e88c4, #0B3D88);
+      background:linear-gradient(#2e88c4, #0B3D88);
       -webkit-border-radius:10px;
       -moz-border-radius:10px;
       border-radius:10px;
@@ -61,14 +61,14 @@ import { ChatInput } from '../chat-input';
 
     .dialog.watson {
       margin-right:50px;
-      color:#075698;
+      color:#0B3D88;
       background:#fff;
     }
 
     .dialog.user {
       margin-right:50px;
       color:#fff;
-      background:#075698;
+      background:#0B3D88;
     }
 
     .dialog:after {
@@ -99,7 +99,7 @@ import { ChatInput } from '../chat-input';
       bottom:auto;
       left:auto;
       border-width:10px 0 10px 20px;
-      border-color:transparent #075698;
+      border-color:transparent #0B3D88;
     }
     .watson-icon{
       position: relative;
@@ -117,7 +117,7 @@ import { ChatInput } from '../chat-input';
       width: 40px;
       padding-top: 7px;
       background:#fff;
-      color: #075698;
+      color: #0B3D88;
     }
     .user-icon{
       position: relative;
@@ -134,7 +134,7 @@ import { ChatInput } from '../chat-input';
       height: 33px;
       width: 40px;
       padding-top: 7px;
-      background:#075698;
+      background:#0B3D88;
       color: #fff;
     }
 

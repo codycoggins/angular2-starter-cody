@@ -30,13 +30,13 @@
 @import 'basscss-hide';
 
 .navbar-link {
-  color: #075698;
+  color: #0B3D88;
   font-weight: bold;
 }
 
 
 autoinput {
-  color: #075698;
+  color: #0B3D88;
   cursor: pointer;
   font-weight: bold;
   text-decoration: underline;
@@ -46,7 +46,7 @@ table {
 border-collapse: collapse;
 }
 table, th, td {
-  border: 1px solid #075698;
+  border: 1px solid #0B3D88;
 }
 th, td {
   padding: 15px;
@@ -54,8 +54,8 @@ th, td {
 }
 th {
   color: #fff;
-  background-color: #075698;
+  background-color: #0B3D88;
 }
 tr:nth-child(even) {
-  background-color: #075698;
+  background-color: #79C3E5;
 }

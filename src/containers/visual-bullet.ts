@@ -6,7 +6,7 @@ import {
 } from '../components';
 
 @Component({
-  selector: 'visual-list',
+  selector: 'visual-bullet',
   directives: [ WatsonContainer ],
   styles: [`
     .visOverlayLabel {
@@ -25,45 +25,44 @@ import {
     #chart_div {
       position: relative;
     }
-
   `],
   template: `
   <div id="chart_div" >
-    <!--<span class="visOverlayLabel h2 center">
-    Visual List
-    </span>-->
-    <div innerHTML="{{ dataInListHTML() }}"></div>
+    <!-- <span _ngcontent-nvs-8="" class="visOverlayLabel h2 center">
+    Example Visual Bullet<br/>
+    <span class="h5">This is a placeholder</span>
+    </span> -->
+    <div innerHTML="{{ dataInBulletHTML() }}"></div>
   </div>
+
 
   `
 })
-export class VisualList {
+export class VisualBullet {
   chatSessionStore: ChatSessionStore;
 
   constructor(chatSessionStore: ChatSessionStore ) {
-    console.log('VisualList constructor() ');
+    console.log('VisualColumn constructor() ');
     this.chatSessionStore = chatSessionStore;
   };
 
-  dataInListHTML(): string {
+  dataInBulletHTML(): string {
     let data: any[][] = this.chatSessionStore.visualData;
     if (data == null || data.length === 0) {
       return '<div style="display: none;">No Data returned</div>';
     }
     let html: string = '';
-    html = html + '<table>';
+    html = html + '<ol>';
     for (let i: number = 0; i < data.length; i++) {
-      html = html + '<tr>';
-      let tag: string = 'td' ;
-      if (i === 0) { tag = 'th'; }
-
-      for (let j: number = 0; j < data[i].length; j++) {
-        html = html + '<' + tag + '>' + data[i][j] + '</' + tag + '>';
+      html = html + '<li>' + data[i][0] + '</li>';
+      if (i > 0) { html = html + '<ol>'; }
+      for (let j: number = 1; j < data[i].length; j++) {
+        html = html + '<li>' + data[i][j] + '</li>';
       }
-      html = html + '</tr>';
+      if (i > 0) { html = html + '<ol>'; }
     }
 
-    html = html + '</table>';
+    html = html + '</ol>';
     return html;
 
   }

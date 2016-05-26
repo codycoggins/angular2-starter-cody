@@ -5,7 +5,7 @@ import { Component } from 'angular2/core';
   styles: [`
     nav {
       background-color: #fff;
-      color: #075698;
+      color: #0B3D88;
     }
   `],
   template: `

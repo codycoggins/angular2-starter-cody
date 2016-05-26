@@ -37,7 +37,7 @@ import {
 `
     chat {
       min-width: 400px;
-      background-color: #7AD3EA;
+      background-color: #79C3E5;
     }
     #visualization-container {
       min-width: 600px;

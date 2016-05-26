@@ -12,7 +12,7 @@ import { BarChart1 } from './barchart1';
   styles: [`
     .visOverlayLabel {
       position: absolute;
-      color: #075698;
+      color: #0B3D88;
       background-color: lightgray;
       z-index: 10;
       left: 170px;
