@@ -32,8 +32,8 @@
 
 html *
 {
-   font-family: Helvetica Neue,Helvetica, Arial, sans-serif !important;
-   color: #333333;
+   font-family: Helvetica Neue, Helvetica, Arial, sans-serif !important;
+   color: #333;
 }
 
 .navbar-link {
@@ -65,4 +65,11 @@ th {
 }
 tr:nth-child(even) {
   background-color: #79C3E5;
+}
+
+visual-map {
+  position: relative;
+  min-height: 500px;
+  width: 100%;
+  height: 100%
 }

@@ -114,7 +114,8 @@ module.exports = {
       loaders.eot,
       loaders.woff,
       loaders.woff2,
-      loaders.ttf
+      loaders.ttf,
+      loaders.json
     ],
     noParse: [ /zone\.js\/dist\/.+/, /angular2\/bundles\/.+/ ]
   },

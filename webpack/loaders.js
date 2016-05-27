@@ -46,6 +46,12 @@ exports.png = {
   exclude: /node_modules/
 }
 
+exports.json = {
+  test: /\.(json)$/,
+  loader: 'file?name=[path][name].[ext]',
+  exclude: /node_modules/
+}
+
 function makeUrlLoader (pattern) {
   // console.log ('webpack/loader.js: makeUrlLoader(' + pattern + ')');
   return {

@@ -68,7 +68,9 @@ export class VisualBar {
         x: function(d){ return d.SUBBRAND; },
         y: function(d){ return d.SHRCYA; },
         useInteractiveGuideline: true,
+        showValues: true,
         staggerLabels: true,
+        transitionDuration: 350,
         xAxis: {
           axisLabel: 'Sub-Brand'
         },
