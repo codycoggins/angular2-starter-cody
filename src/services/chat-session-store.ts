@@ -18,6 +18,9 @@ export class ChatSessionStore {
 
     private _visualType: string = 'visual_none';
     private _visualData: any[];
+    public intent: string;
+    public profile: OLProfile;
+
     dialogParser: DialogParser;
     chatSessionService: ChatSessionService;
     visualizationStore: VisualizationStore;
@@ -165,6 +168,10 @@ export class ChatSessionStore {
                       console.log('WARNING: no data returned from Dialog Service');
                       return;
                     }
+                    this.intent = resJson.profile.CLASSIFIER_CLASS_0;
+                    this.profile = resJson.profile;
+                    this.visualData = resJson.data;
+
                     for (let i: number = 0; i < resJson.response.length; i++) {
                       // what is issue with next line?
                       // if (resJson.response[i].length > 0) {
@@ -175,7 +182,6 @@ export class ChatSessionStore {
                              this._allChatItems.getValue().push( chatResponse  ));
                       // }
                     }
-                    this.visualData = resJson.data;
                   },
                   err => {
                       console.log (err);

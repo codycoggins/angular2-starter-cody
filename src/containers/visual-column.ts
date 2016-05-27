@@ -1,4 +1,4 @@
-import { Component } from 'angular2/core';
+import { Component, OnInit } from 'angular2/core';
 import { ChatSessionStore } from '../services/chat-session-store';
 
 import {
@@ -37,13 +37,17 @@ import {
 
   `
 })
-export class VisualColumn {
+export class VisualColumn implements OnInit {
   chatSessionStore: ChatSessionStore;
 
   constructor(chatSessionStore: ChatSessionStore ) {
     console.log('VisualColumn constructor() ');
     this.chatSessionStore = chatSessionStore;
   };
+
+  ngOnInit () {
+    
+  }
 
   dataInColumnHTML(): string {
     let data: any[][] = this.chatSessionStore.visualData;

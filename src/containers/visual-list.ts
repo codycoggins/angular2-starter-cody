@@ -1,4 +1,4 @@
-import { Component } from 'angular2/core';
+import { Component, OnInit } from 'angular2/core';
 import { ChatSessionStore } from '../services/chat-session-store';
 
 import {
@@ -37,7 +37,7 @@ import {
 
   `
 })
-export class VisualList {
+export class VisualList implements OnInit {
   chatSessionStore: ChatSessionStore;
 
   constructor(chatSessionStore: ChatSessionStore ) {
@@ -45,6 +45,10 @@ export class VisualList {
     this.chatSessionStore = chatSessionStore;
   };
 
+  ngOnInit () {
+
+  }
+  
   dataInListHTML(): string {
     let data: any[][] = this.chatSessionStore.visualData;
     if (data == null || data.length === 0) {

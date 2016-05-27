@@ -1,4 +1,4 @@
-import { Component } from 'angular2/core';
+import { Component, OnInit } from 'angular2/core';
 import { ChatSessionStore } from '../services/chat-session-store';
 // import { topojson } from 'ts-topojson';
 // import { Base } from 'Topojson';
@@ -35,29 +35,29 @@ import {
     }
   `],
   template: `
-  <div id="chart_div" class="border">
-    <span _ngcontent-nvs-8='' class='visOverlayLabel h2 center'>
-    Example Visual Map<br/>
-
-    </span>
-
+  <div id="chart_div" class="">
+    <!--<svg id="svg1" width="100%" height="100%" viewBox="0 0 640 480" preserveAspectRatio="xMaxYMax"></svg>-->
   </div>
-
 
   `
 })
-export class VisualMap {
-  ChatSessionStore: ChatSessionStore;
-
+export class VisualMap implements OnInit {
+  chatSessionStore: ChatSessionStore;
+  intent: string;
   mapDataUS: string  = require('../data/us.json');
 
-  constructor(ChatSessionStore: ChatSessionStore ) {
+  constructor(chatSessionStore: ChatSessionStore ) {
     console.log('visualMap constructor() ');
 
-    console.log('us.json\n' + this.mapDataUS);
-    this.ChatSessionStore = ChatSessionStore;
-    this.draw();
+    this.chatSessionStore = chatSessionStore;
+    this.intent = this.chatSessionStore.intent;
+
   };
+
+  ngOnInit () {
+    console.log('visualMap ngOnInit');
+    this.draw();
+  }
 
   draw() {
 
@@ -67,15 +67,23 @@ export class VisualMap {
     let centered;
     let path = d3.geo.path();
     console.log('about to create svg');
-    let svg = d3.select('body').append('svg')
-        .attr('width', width)
-        .attr('height', height)
-        .attr('background-color', 'red');
+
+    let svg = d3.select('#chart_div')
+      .append('svg')
+      .attr('viewBox', '0 0 640 480')
+      .attr('width', '640px')
+      .attr('height', '480px')
+      .append('g')
+      .attr('viewBox', '0 0 640 480')
+      .attr('width', '640px')
+      .attr('height', '480px')
+      .style('fill', 'steelblue');
 
     let colorScale = d3.scale.category20b(1000);
     function colorByFIPS (fips) {
          return colorScale(Math.floor(fips % 500));
     };
+
 
     console.log('loading US map... ');
     d3.json(this.mapDataUS, function(error, topology) {
@@ -85,6 +93,9 @@ export class VisualMap {
           .data(topojson.feature(topology, topology.objects.counties).features)
         .enter().append('path')
           .attr('d', path)
+          .attr('transform', 'scale(0.75)')
+          // .attr('position', 'absolute')
+          // .attr('top', '0')
           .style({
                   fill: function(d, i) {
                     // console.log(JSON.stringify(d.id));
@@ -93,15 +104,22 @@ export class VisualMap {
                   stroke: function(d, i) {
                     return colorByFIPS(d.id);
                   }
-                })
-           .on('click', function(d){
-             console.log ('You clicked ' + d.id);
-           } );
+                });
+          //  .on('click', function(d){
+          //    console.log ('You clicked ' + d.id);
+          //  } );
 
            // onclick led to the clicked function
     });
+    // function sizeChange() {
+    // if (svg  == null) { console.log('svg is null'); }
+    // if (chartDiv == null) { console.log('chartDiv is null'); } else {console.log('chartDiv ok ready to scale, width= ' + chartDiv.attr('width')); }
+    // svg.attr('transform', 'scale(' + chartDiv.attr('width') / 900 + ')');
+    // svg.attr('height', chartDiv.attr('width')  * 0.618);
 
-  }
+    // svg.attr('transform', '0.4');
+    // svg.attr('height', '300');
+  // }
 
 
 
@@ -131,4 +149,5 @@ export class VisualMap {
   // }
 
 
+  }
 }

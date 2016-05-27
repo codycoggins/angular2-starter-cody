@@ -20,11 +20,12 @@
       margin-right: 0;
       font-family: Helvetica Regular, Helvetica, Arial, sans-serif;
       font-size: 18px;
-      color: #BBB;
+
     }
 
     #chatInput::selection {
       color: #0B3D88;
+      background-color: #79C3E5; 
     }
 
     #chatButton {

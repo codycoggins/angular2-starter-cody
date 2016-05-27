@@ -1,4 +1,4 @@
-import { Component } from 'angular2/core';
+import { Component, OnInit } from 'angular2/core';
 import { VisualizationStore } from '../services/visualization-store';
 import { ChatSessionStore } from '../services/chat-session-store';
 
