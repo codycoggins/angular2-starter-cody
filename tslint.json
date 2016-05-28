@@ -44,7 +44,7 @@
     "quotemark": [true, "single"],
     "radix": true,
     "semicolon": true,
-    "triple-equals": [true, "allow-null-check"],
+
     "use-strict": true,
     "variable-name": "allow-leading-underscore",
     "whitespace": [true,

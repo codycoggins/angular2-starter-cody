@@ -1,5 +1,7 @@
 import { Component, OnInit } from 'angular2/core';
 import { ChatSessionStore } from '../services/chat-session-store';
+import { OLMessage, OLProfile} from '../services/chat-session-service';
+
 // import { topojson } from 'ts-topojson';
 // import { Base } from 'Topojson';
 
@@ -48,15 +50,16 @@ export class VisualMap implements OnInit {
   dataPathRegion: string = require('../data/regions.json');
   dataPathStateHash: string = require('../data/states_hash_reverse.json');
 
-  dataObject;
+  dataMessage: any;
+  dataObject: any;
 
   constructor(chatSessionStore: ChatSessionStore ) {
     console.log('visualMap constructor() ');
 
     this.chatSessionStore = chatSessionStore;
     this.intent = this.chatSessionStore.intent;
-    this.dataObject = this.chatSessionStore.translatedData();
-    this.dataObject = this.retranslate (this.dataObject);
+    this.dataMessage = this.chatSessionStore.translatedData();
+    this.dataObject = this.retranslate (this.dataMessage);
   };
 
   retranslate (someData: any): any {

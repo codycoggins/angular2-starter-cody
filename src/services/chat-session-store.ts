@@ -44,6 +44,10 @@ export class ChatSessionStore {
     }
 
     set visualType(visualType: string) {
+      // special case to fix wrong visual type on social_feedback
+      if (this.intent == 'social_feedback') {
+        visualType = 'visual_bar';
+      }
       this._visualType = visualType;
       let routeName: string = visualType.replace('visual', 'Visual').replace('_', '-');
       console.log ('Routing to ' + routeName);
@@ -98,11 +102,17 @@ export class ChatSessionStore {
             if (j > 0) {
               newJson = newJson + ',\n';
             }
-            newJson = newJson + '\"' + headers[j] + '\"\: \"' + data[i][j] + '\"';
+            if (headers[j] == 'MESSAGE_BODY') {
+              // special case, UUENCODE
+              newJson = newJson + '\"' + headers[j] + '\"\: \"' + encodeURIComponent( data[i][j])  + '\"';
+            } else {
+              newJson = newJson + '\"' + headers[j] + '\"\: \"' + data[i][j] + '\"';
+            }
           }
           newJson = newJson + '}';
         }
       }
+
 
       newJson = newJson + '\n] } ]';
       console.log('translatedData: \n' + newJson);

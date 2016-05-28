@@ -1,5 +1,7 @@
 import { Component, Inject, Injectable, OnInit  } from 'angular2/core';
 import { NvD3Watson } from '../components/visualization/nvd3-watson';
+import { OLMessage, OLProfile} from '../services/chat-session-service';
+
 declare var d3: any;
 
 import { ChatSessionStore } from '../services/chat-session-store';
@@ -42,8 +44,8 @@ import {
 
 export class VisualBar implements OnInit  {
   options;
-  data;
-  dataRough;
+  data: any;
+  dataRough: any;
   chartType;
   chatSessionStore: ChatSessionStore;
 
@@ -140,7 +142,42 @@ export class VisualBar implements OnInit  {
 
     } else if (intent === 'social_feedback') {
       // Question 24
+      console.log ('\n SOCIAL FEEDBACK \n');
       this.dataRough = this.processSocialFeedback (this.dataRough);
+      xFunction = function(d){ return d.SENTIMENT_POLARITY; };
+      yFunction = function(d){ return d.COUNT; };
+
+      this.options = {
+        chart: {
+          type: 'discreteBarChart',
+          height: 600,
+          margin : {
+            top: 20,
+            right: 20,
+            bottom: 40,
+            left: 55
+          },
+          x: xFunction,
+          y: yFunction,
+          useInteractiveGuideline: true,
+          showValues: true,
+          staggerLabels: true,
+          transitionDuration: 350,
+          xAxis: {
+            axisLabel: 'Sentiment'
+          },
+          yAxis: {
+            axisLabel: 'Count',
+            // tickFormat: function(d){
+            //   return d3.format('.02f')(d);
+            // },
+            axisLabelDistance: -10
+          },
+          // hardcoding y axis domain to fix bug.  not optimal.
+          // yDomain: [-1, 1]
+        }
+      };
+
     } else {
       console.log ('I did not recognize the intent \'' + intent + '\'.');
     }
@@ -150,7 +187,24 @@ export class VisualBar implements OnInit  {
 
   }
 
-  processSocialFeedback (dataIn) {
-    return dataIn;
-  }
+  processSocialFeedback (dataIn: any): any {
+
+    if (dataIn == null) { return null; };
+    let socialSummary: any = dataIn[0].values;
+    let POSITIVE: number = 0;
+    let NEGATIVE: number = 0;
+    for (let row in dataIn[0].values) {
+      if (row['SENTIMENT_POLARITY'] == 'POSITIVE') { POSITIVE ++ ; } else
+      if (row['SENTIMENT_POLARITY'] == 'NEGATIVE') { NEGATIVE ++ ; } else {
+        console.log ('unknown SENTIMENT_POLARITY ' + (<any> row).SENTIMENT_POLARITY);
+      }
+    }
+
+    return [ { "key": "Sentiment Polarity", "values": [
+        {"SENTIMENT_POLARITY": "POSITIVE",
+        "COUNT": POSITIVE },
+        {"SENTIMENT_POLARITY": "NEGATIVE",
+        "COUNT": NEGATIVE }
+      ]}];
+    }
 }
