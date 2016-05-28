@@ -44,7 +44,8 @@ import {
 export class VisualMap implements OnInit {
   chatSessionStore: ChatSessionStore;
   intent: string;
-  mapDataUS: string  = require('../data/us.json');
+  mapDataUS: string  = require('../data/USA.json');
+  regionData: string = require('../data/regions.json');
 
   constructor(chatSessionStore: ChatSessionStore ) {
     console.log('visualMap constructor() ');
@@ -81,16 +82,22 @@ export class VisualMap implements OnInit {
 
     let colorScale = d3.scale.category20b(1000);
     function colorByFIPS (fips) {
+        //  console.log ('unit:' + fips);
          return colorScale(Math.floor(fips % 500));
     };
 
+    let regionDataMap;
+    d3.json(this.regionData, function(error, regionDataLoad) {
+      if (error) throw error;
+      regionDataMap = regionDataLoad;
+    });
 
     console.log('loading US map... ');
     d3.json(this.mapDataUS, function(error, topology) {
       if (error) throw error;
       console.log('... map loaded.');
       svg.selectAll('path')
-          .data(topojson.feature(topology, topology.objects.counties).features)
+          .data(topojson.feature(topology, topology.objects.units).features)
         .enter().append('path')
           .attr('d', path)
           .attr('transform', 'scale(0.75)')
@@ -99,6 +106,8 @@ export class VisualMap implements OnInit {
           .style({
                   fill: function(d, i) {
                     // console.log(JSON.stringify(d.id));
+                    // console.log (JSON.stringify(d));
+                    console.log ('id:' + d.id + ', name:' + d.properties.name);
                     return colorByFIPS(d.id);
                   },
                   stroke: function(d, i) {
