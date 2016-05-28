@@ -48,7 +48,9 @@ export class ChatSessionStore {
       let routeName: string = visualType.replace('visual', 'Visual').replace('_', '-');
       console.log ('Routing to ' + routeName);
       // make sure we are at none before we start a new one.
-      this.router.navigate( ['Visual-none'] );
+      if (visualType !== 'Visual-none') {
+        this.router.navigate( ['Visual-none'] );
+      }
       this.router.navigate( [routeName] );
     }
 
@@ -103,7 +105,7 @@ export class ChatSessionStore {
       }
 
       newJson = newJson + '\n] } ]';
-      console.log(newJson);
+      console.log('translatedData: \n' + newJson);
       return JSON.parse(newJson);
 
     }
@@ -112,7 +114,8 @@ export class ChatSessionStore {
     loadInitialData() {
         // put the request to the server.
         let obs: Observable<any> = this.chatSessionService.initiateChat();
-
+        // make sure we are on the starting page
+        this.visualType = 'Visual-none';
         // manage the reponse from the server
         obs.subscribe(
                 res => {

@@ -44,16 +44,31 @@ import {
 export class VisualMap implements OnInit {
   chatSessionStore: ChatSessionStore;
   intent: string;
-  mapDataUS: string  = require('../data/USA.json');
-  regionData: string = require('../data/regions.json');
+  mapPathUSA: string  = require('../data/USA.json');
+  dataPathRegion: string = require('../data/regions.json');
+  dataPathStateHash: string = require('../data/states_hash_reverse.json');
+
+  dataObject;
 
   constructor(chatSessionStore: ChatSessionStore ) {
     console.log('visualMap constructor() ');
 
     this.chatSessionStore = chatSessionStore;
     this.intent = this.chatSessionStore.intent;
-
+    this.dataObject = this.chatSessionStore.translatedData();
+    this.dataObject = this.retranslate (this.dataObject);
   };
+
+  retranslate (someData: any): any {
+    if (someData == null) { return null; };
+    let myData: any = someData[0].values;
+    let dict = {};
+    myData.forEach(function(x) {
+        dict[x.REGION] = x.SHRCYA;
+        console.log(x.REGION + ', ' + x.SHRCYA);
+    });
+    return dict;
+  }
 
   ngOnInit () {
     console.log('visualMap ngOnInit');
@@ -61,7 +76,7 @@ export class VisualMap implements OnInit {
   }
 
   draw() {
-
+    let dataObject: any = this.dataObject;
     let width = 960,
         height = 500;
 
@@ -80,20 +95,66 @@ export class VisualMap implements OnInit {
       .attr('height', '480px')
       .style('fill', 'steelblue');
 
-    let colorScale = d3.scale.category20b(1000);
-    function colorByFIPS (fips) {
+    let colorScale = d3.scale.category20b(100);
+
+    function colorByState (state: string) {
         //  console.log ('unit:' + fips);
-         return colorScale(Math.floor(fips % 500));
+        let region: string = stateAbbrevToRegion(  stateToAbbrev (state));
+        if (region == null || region == '') {
+          return 'white';
+        }
+        let val: number = regionToNumber(region);
+        return colorScale(Math.floor((val + 1) * 50) % 100);
     };
 
     let regionDataMap;
-    d3.json(this.regionData, function(error, regionDataLoad) {
+    d3.json(this.dataPathRegion, function(error, regionDataLoad) {
       if (error) throw error;
       regionDataMap = regionDataLoad;
     });
 
+    function stateAbbrevToRegion (stateAbbrev: string) {
+      let result: string = regionDataMap[stateAbbrev];
+      if (result == null) { console.log ('no region found for ' + stateAbbrev); }
+      console.log ('stateAbbrevToRegion(' + stateAbbrev + ') =' + result );
+      return result;
+    }
+
+
+    let stateHash;
+    d3.json(this.dataPathStateHash, function(error, stateHashLoad) {
+      if (error) throw error;
+      stateHash = stateHashLoad;
+    });
+
+    function stateToAbbrev (state: string): string {
+      console.log ('stateToAbbrev(' + state + ') =' + stateHash[state]);
+      return stateHash[state];
+    }
+
+    function regionToNumber (region: string): number {
+      let result = dataObject[region];
+      console.log ('regionToNumber(' + region + ') =' + result);
+      return Number( result);
+    }
+
+    // function getRowByKey(code: string) {
+    //   let myData: any = data;
+    //   let result =  myData.filter(
+    //     function ( mydata) {
+    //       return (myData.REGION == code);
+    //     }
+    //   );
+    //   if (result == null || result == []) {
+    //       console.log ('getRowByKey (' + code + ') = nothing' );
+    //   }
+    //   console.log ('getRowByKey (' + code + ') = ' + JSON.stringify(result) );
+    //   return result;
+    // };
+
+
     console.log('loading US map... ');
-    d3.json(this.mapDataUS, function(error, topology) {
+    d3.json(this.mapPathUSA, function(error, topology) {
       if (error) throw error;
       console.log('... map loaded.');
       svg.selectAll('path')
@@ -108,11 +169,12 @@ export class VisualMap implements OnInit {
                     // console.log(JSON.stringify(d.id));
                     // console.log (JSON.stringify(d));
                     console.log ('id:' + d.id + ', name:' + d.properties.name);
-                    return colorByFIPS(d.id);
+                    return colorByState(d.properties.name);
                   },
-                  stroke: function(d, i) {
-                    return colorByFIPS(d.id);
-                  }
+                  stroke: 'black'
+                  // function(d, i) {
+                  //   return colorByState(d.properties.name);
+                  // }
                 });
           //  .on('click', function(d){
           //    console.log ('You clicked ' + d.id);
