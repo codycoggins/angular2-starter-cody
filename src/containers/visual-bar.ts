@@ -193,10 +193,10 @@ export class VisualBar implements OnInit  {
     let socialSummary: any = dataIn[0].values;
     let POSITIVE: number = 0;
     let NEGATIVE: number = 0;
-    for (let row in dataIn[0].values) {
-      if (row['SENTIMENT_POLARITY'] == 'POSITIVE') { POSITIVE ++ ; } else
-      if (row['SENTIMENT_POLARITY'] == 'NEGATIVE') { NEGATIVE ++ ; } else {
-        console.log ('unknown SENTIMENT_POLARITY ' + (<any> row).SENTIMENT_POLARITY);
+    for (let myRow in dataIn[0].values) {
+      if (myRow["SENTIMENT_POLARITY"] == 'POSITIVE') { POSITIVE ++ ; } else
+      if (myRow["SENTIMENT_POLARITY"] == 'NEGATIVE') { NEGATIVE ++ ; } else {
+        console.log ('unknown SENTIMENT_POLARITY ' + myRow["SENTIMENT_POLARITY"]);
       }
     }
 
