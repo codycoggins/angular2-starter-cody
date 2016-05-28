@@ -100,7 +100,41 @@ export class VisualBar implements OnInit  {
 
     } else if (intent === 'channel_performance') {
       // Question 3
+      // Question 2,5,6
+      // for question 2:
+      xFunction = function(d){ return d.NEWCHANNEL; };
+      yFunction = function(d){ return d.SHRCYA; };
 
+      this.options = {
+        chart: {
+          type: 'discreteBarChart',
+          height: 600,
+          margin : {
+            top: 20,
+            right: 20,
+            bottom: 40,
+            left: 55
+          },
+          x: xFunction,
+          y: yFunction,
+          useInteractiveGuideline: true,
+          showValues: true,
+          staggerLabels: true,
+          transitionDuration: 350,
+          xAxis: {
+            axisLabel: 'Channel'
+          },
+          yAxis: {
+            axisLabel: 'SHRCYA',
+            // tickFormat: function(d){
+            //   return d3.format('.02f')(d);
+            // },
+            axisLabelDistance: -10
+          },
+          // hardcoding y axis domain to fix bug.  not optimal.
+          yDomain: [-1, 1]
+        }
+      };
     } else if (intent === 'dollar_opportunity') {
       // Question 22
 
