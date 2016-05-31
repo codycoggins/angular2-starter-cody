@@ -4,7 +4,7 @@ import { OLMessage, OLProfile} from '../services/chat-session-service';
 
 declare var d3: any;
 
-import { ChatSessionStore } from '../services/chat-session-store';
+import { ChatSessionStore, ITranslatedData } from '../services/chat-session-store';
 
 import {
   WatsonContainer,
@@ -187,19 +187,25 @@ export class VisualBar implements OnInit  {
 
   }
 
-  processSocialFeedback (dataIn: any): any {
+  processSocialFeedback (dataIn: [ITranslatedData]): [ITranslatedData] {
 
+    console.log('VisualBar.processSocialFeedback()');
     if (dataIn == null) { return null; };
     let socialSummary: any = dataIn[0].values;
     let POSITIVE: number = 0;
     let NEGATIVE: number = 0;
-    for (let myRow in dataIn[0].values) {
+    console.log ('  received ' + dataIn[0].values.length + ' data points.');
+    for (let i = 0; i <  dataIn[0].values.length; i++) {
+      let myRow: any = dataIn[0].values[i];
+      console.log ('myRow=' + JSON.stringify(myRow));
+      console.log ('SENTIMENT:' + myRow["SENTIMENT_POLARITY"]);
       if (myRow["SENTIMENT_POLARITY"] == 'POSITIVE') { POSITIVE ++ ; } else
       if (myRow["SENTIMENT_POLARITY"] == 'NEGATIVE') { NEGATIVE ++ ; } else {
         console.log ('unknown SENTIMENT_POLARITY ' + myRow["SENTIMENT_POLARITY"]);
       }
     }
-
+    console.log("NEGATIVE COUNT: " + NEGATIVE);
+    console.log("POSITIVE COUNT: " + POSITIVE);
     return [ { "key": "Sentiment Polarity", "values": [
         {"SENTIMENT_POLARITY": "POSITIVE",
         "COUNT": POSITIVE },

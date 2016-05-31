@@ -76,8 +76,10 @@ export class ChatSessionStore {
     }
 
 
-    translatedData() {
+    translatedData(): [ITranslatedData] {
       let data: any[][] = this._visualData;
+      let result: ITranslatedData = <ITranslatedData> {"key": "BarChart1", values: []};
+
       let newJson: string ;
       if (data == null || data.length === 0) {
         console.log('translateData: WARNING null data');
@@ -85,7 +87,7 @@ export class ChatSessionStore {
       }
       // let newJson: string = '';
       let headers = [ ];
-      newJson = ' [ { \"key\": \"BarChart1\", \"values\": [ ';
+
       for (let i = 0; i < data.length; i++) {
 
         if (i === 0) {
@@ -94,29 +96,23 @@ export class ChatSessionStore {
               console.log ('header ' + j + headers[j]);
             }
         } else {
-          if (i > 1) {
-            newJson = newJson + ',\n';
-           }
-          newJson = newJson + '\n{';
+          let newItem: any = {};
           for (let j = 0; j < data[i].length; j++) {
-            if (j > 0) {
-              newJson = newJson + ',\n';
-            }
             if (headers[j] == 'MESSAGE_BODY') {
               // special case, UUENCODE
-              newJson = newJson + '\"' + headers[j] + '\"\: \"' + encodeURIComponent( data[i][j])  + '\"';
+
+              newItem[headers[j]] = encodeURIComponent( data[i][j]);
             } else {
-              newJson = newJson + '\"' + headers[j] + '\"\: \"' + data[i][j] + '\"';
+              newItem[headers[j]] = data[i][j];
             }
           }
-          newJson = newJson + '}';
+          result.values.push(newItem);
         }
       }
 
-
-      newJson = newJson + '\n] } ]';
-      console.log('translatedData: \n' + newJson);
-      return JSON.parse(newJson);
+      console.log('translatedData: \n' + JSON.stringify(result) );
+      // return newJson;
+      return [result];
 
     }
 
@@ -243,4 +239,10 @@ export class ChatSessionStore {
       return processedText;
     }
 
+}
+
+
+export interface ITranslatedData {
+    key: string;
+    values: any[];
 }
