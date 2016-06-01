@@ -109,12 +109,13 @@ export class VisualMap implements OnInit {
 
     function colorByState (state: string) {
         //  console.log ('unit:' + fips);
+        console.log('colorByState(' + state + ')');
         let region: string = stateAbbrevToRegion(  stateToAbbrev (state));
         if (region == null || region == '') {
           return 'white';
         }
         let val: number = regionToNumber(region);
-        return colorScale(Math.floor((val + 1) * 50) % 100);
+        return colorScale(val);
     };
 
     let regionDataMap;
