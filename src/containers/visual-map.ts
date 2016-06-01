@@ -37,6 +37,7 @@ import {
     }
   `],
   template: `
+  <div class="visual-title">{{chartTitle}}</div>
   <div id="chart_div" class="">
     <!--<svg id="svg1" width="100%" height="100%" viewBox="0 0 640 480" preserveAspectRatio="xMaxYMax"></svg>-->
   </div>
@@ -46,6 +47,8 @@ import {
 export class VisualMap implements OnInit {
   chatSessionStore: ChatSessionStore;
   intent: string;
+  chartTitle: string = 'Region Performance';
+
   mapPathUSA: string  = require('../data/USA.json');
   dataPathRegion: string = require('../data/regions.json');
   dataPathStateHash: string = require('../data/states_hash_reverse.json');
@@ -89,16 +92,20 @@ export class VisualMap implements OnInit {
 
     let svg = d3.select('#chart_div')
       .append('svg')
-      .attr('viewBox', '0 0 640 480')
-      .attr('width', '640px')
-      .attr('height', '480px')
+      .attr('viewBox', '0 0 960 500')
+      .attr('width', '960px')
+      .attr('height', '500px')
       .append('g')
-      .attr('viewBox', '0 0 640 480')
-      .attr('width', '640px')
-      .attr('height', '480px')
-      .style('fill', 'steelblue');
+      .attr('viewBox', '0 0 960 500')
+      .attr('width', '960x')
+      .attr('height', '500px')
+      .style('fill', 'steelblue')
+      .style('stroke', 'black');
 
-    let colorScale = d3.scale.category20b(100);
+    // let colorScale = d3.scale.category20b(100);
+    let colorScale = d3.scale.linear()
+        .domain([-1, 0, 1])
+        .range(["red", "white", "blue"]);
 
     function colorByState (state: string) {
         //  console.log ('unit:' + fips);
@@ -164,7 +171,7 @@ export class VisualMap implements OnInit {
           .data(topojson.feature(topology, topology.objects.units).features)
         .enter().append('path')
           .attr('d', path)
-          .attr('transform', 'scale(0.75)')
+          .attr('transform', 'scale(1.00)')
           // .attr('position', 'absolute')
           // .attr('top', '0')
           .style({

@@ -73,3 +73,16 @@ visual-map {
   width: 100%;
   height: 100%
 }
+
+.visualization-container {
+  padding-left: 40px;
+  padding-right: 40px;
+}
+
+.visual-title {
+  font-size: 24px;
+  font-family: Helvetica Light;
+  border-top: 1px solid #E1E1E1;
+  color: #333;
+  padding-top: 35px;
+}

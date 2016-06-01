@@ -55,7 +55,7 @@ import {
            <chat id="chat-container" class="col col-4 top-0"></chat>
 
 
-           <div id="visualization-container" class="flex-auto top-0 p1"
+           <div id="visualization-container" class="flex-auto visualization-container"
              style="min-height:300px">
              <app-navigator class="fit">
 
