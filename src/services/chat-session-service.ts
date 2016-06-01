@@ -73,6 +73,60 @@ export class ChatSessionService {
         console.error(err);
       }
     }
+
+    // PUT /api/updateDialogProfile/client/{clientID}
+    // formerly returned Observable<List<ChatItem>>
+    updateDialogProfile (key: string, value: string)  {
+        console.log ('ChatSessionService.updateDialogProfile (key = ' + key + ', value= ' + value + ')');
+
+        let newChatI: ChatItem = new ChatItem(key + ' = ' + value, true);
+        let obs = this.addUserChatItem(newChatI);
+        obs.subscribe(
+                res => {
+                  console.log (res);
+                }
+              );
+
+        // now set profile variable
+        // const params = new URLSearchParams();
+        let body: string = '{\"' + key + '\": \"' + value + '\"}';
+
+        // if this is the first post for the application, only supply input
+        let apiPath: string =  '/api/updateDialogProfile/client/'
+          + this.clientId ;
+        // if not first time, provide dialog and conversation IDs
+        if (this.clientId != null && this.conversationId != null) {
+          console.log ('PUT ' + this.apiHostName + apiPath );
+          console.log ('body= ' + body);
+          // payload should be:  JSON.stringify(newChatItem)
+          let obs2 = this.http.put(this.apiHostName + apiPath , body,
+            {headers: this.headers }).share() ;
+          obs2.subscribe(
+                    res => {
+                      console.log (res);
+                    }
+                  );
+        }
+
+        // post returns Observable<Response>
+    }
+
+    // getDialogProfile (key: string, value: string) : Observable <Response> {
+    //
+    //     // const params = new URLSearchParams();
+    //     let body: string = '{' + key + ',' + value + '}';
+    //     // if this is the first post for the application, only supply input
+    //     let apiPath: string =  '/api/updateDialogProfile/client/'
+    //       + this.clientId + '/id/' + this.conversationId;
+    //     // if not first time, provide dialog and conversation IDs
+    //     if (this.clientId != null && this.conversationId != null) {
+    //       console.log ('POST ' + this.apiHostName + apiPath );
+    //       // payload should be:  JSON.stringify(newChatItem)
+    //       return this.http.post(this.apiHostName + apiPath , body,
+    //         {headers: this.headers }).share();
+    //     }
+    //     // post returns Observable<Response>
+    // }
 }
 
 

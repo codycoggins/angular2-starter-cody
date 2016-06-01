@@ -76,6 +76,38 @@ export class ChatSessionStore {
     }
 
 
+    // set dir to -1 for min, +1 for max
+    // returns column 0 value of the min/max row
+    // evalueated by columnNum.
+    // column numbers start with 0
+    findMinMax ( columnNum: number, dir: number ): any {
+      // return column 0 for the row with maximum columnNum
+
+      let data: any = this._visualData;
+      let maxVal: number = 0;
+      let returnKey;
+      // returns column 0 value of the min/max row
+      // evalueated by columnNum;
+      for (let i = 0; i < data.length; i++) {
+
+        if (i === 0) {
+          // Skip; header row
+        } else {
+          let newNum: number = data[i][columnNum] * dir;
+            if (newNum > maxVal || newNum == maxVal) {
+              maxVal = newNum;
+              returnKey = data[i][0];
+            }
+        }
+      }
+      return returnKey;
+    }
+
+
+    updateDialogProfile (key: string, value: string) {
+        this.chatSessionService.updateDialogProfile (key, value);
+    }
+
     translatedData(): [ITranslatedData] {
       let data: any[][] = this._visualData;
       let result: ITranslatedData = <ITranslatedData> {"key": "BarChart1", values: []};

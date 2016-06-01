@@ -35,6 +35,11 @@ import {
       width: 100%;
       height: 100%
     }
+
+    path:hover {
+      fill: red;
+    }
+
   `],
   template: `
   <div class="visual-title">{{chartTitle}}</div>
@@ -78,6 +83,12 @@ export class VisualMap implements OnInit {
 
   ngOnInit () {
     console.log('visualMap ngOnInit');
+    if (this.chatSessionStore.intent == 'region_performance') {
+      let region = this.chatSessionStore.findMinMax(6, -1);
+      console.log ('The region in decline is ' + region);
+      this.chatSessionStore.updateDialogProfile('region', region);
+      this.chatSessionStore.updateDialogProfile('ui_region', region);
+    }
     this.draw();
   }
 
@@ -88,7 +99,7 @@ export class VisualMap implements OnInit {
 
     let centered;
     let path = d3.geo.path();
-    console.log('about to create svg');
+    // console.log('about to create svg');
 
     let svg = d3.select('#chart_div')
       .append('svg')
@@ -105,11 +116,11 @@ export class VisualMap implements OnInit {
     // let colorScale = d3.scale.category20b(100);
     let colorScale = d3.scale.linear()
         .domain([-1, 0, 1])
-        .range(["red", "white", "blue"]);
+        .range(["red", "white", "green"]);
 
     function colorByState (state: string) {
         //  console.log ('unit:' + fips);
-        console.log('colorByState(' + state + ')');
+        // console.log('colorByState(' + state + ')');
         let region: string = stateAbbrevToRegion(  stateToAbbrev (state));
         if (region == null || region == '') {
           return 'white';
@@ -127,7 +138,7 @@ export class VisualMap implements OnInit {
     function stateAbbrevToRegion (stateAbbrev: string) {
       let result: string = regionDataMap[stateAbbrev];
       if (result == null) { console.log ('no region found for ' + stateAbbrev); }
-      console.log ('stateAbbrevToRegion(' + stateAbbrev + ') =' + result );
+      // console.log ('stateAbbrevToRegion(' + stateAbbrev + ') =' + result );
       return result;
     }
 
@@ -139,13 +150,13 @@ export class VisualMap implements OnInit {
     });
 
     function stateToAbbrev (state: string): string {
-      console.log ('stateToAbbrev(' + state + ') =' + stateHash[state]);
+      // console.log ('stateToAbbrev(' + state + ') =' + stateHash[state]);
       return stateHash[state];
     }
 
     function regionToNumber (region: string): number {
       let result = dataObject[region];
-      console.log ('regionToNumber(' + region + ') =' + result);
+      // console.log ('regionToNumber(' + region + ') =' + result);
       return Number( result);
     }
 
@@ -179,7 +190,7 @@ export class VisualMap implements OnInit {
                   fill: function(d, i) {
                     // console.log(JSON.stringify(d.id));
                     // console.log (JSON.stringify(d));
-                    console.log ('id:' + d.id + ', name:' + d.properties.name);
+                    // console.log ('id:' + d.id + ', name:' + d.properties.name);
                     return colorByState(d.properties.name);
                   },
                   stroke: 'black'

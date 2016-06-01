@@ -88,10 +88,7 @@ import {
                  </app-navigator-item>
                </div>
              </app-navigator>
-
-                <router-outlet></router-outlet>
-
-             </div>
+            <router-outlet></router-outlet>
        </div>
 
       </div>
