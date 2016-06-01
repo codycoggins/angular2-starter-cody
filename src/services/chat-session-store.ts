@@ -169,7 +169,7 @@ export class ChatSessionStore {
                       + JSON.stringify( res.json()));
                     this.chatSessionService.recordSessionIDs(resJson);
                     for (let i: number = 0; i < resJson.response.length; i++) {
-                      if (resJson.response[i].length > 0) {
+                      if (resJson.response[i].trim().length > 0 ) {
                         let chatResponse: ChatItem = new ChatItem(
                           this.formatReponse(resJson.response[i]),
                            true);
