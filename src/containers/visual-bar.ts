@@ -104,7 +104,7 @@ export class VisualBar implements OnInit  {
               );
       // end of subbrand substition code.
 
-      xFunction = function(d){ return <string> d.SUBBRAND; };
+      xFunction = function(d){ return <string> d.LEVEL; };
       yFunction = function(d){ return <number> d.SHRCYA; };
 
       this.options = {
@@ -123,7 +123,7 @@ export class VisualBar implements OnInit  {
           useInteractiveGuideline: true,
           showValues: true,
           staggerLabels: true,
-          transitionDuration: 350,
+          transitionDuration: 500,
           xAxis: {
             axisLabel: 'Sub-Brand'
           },
@@ -197,7 +197,7 @@ export class VisualBar implements OnInit  {
           useInteractiveGuideline: true,
           showValues: true,
           staggerLabels: true,
-          transitionDuration: 350,
+          transitionDuration: 500,
           xAxis: {
             axisLabel: 'Channel'
           },
@@ -243,7 +243,7 @@ export class VisualBar implements OnInit  {
           useInteractiveGuideline: true,
           showValues: true,
           staggerLabels: true,
-          transitionDuration: 350,
+          transitionDuration: 500,
           xAxis: {
             axisLabel: 'Sentiment'
           },

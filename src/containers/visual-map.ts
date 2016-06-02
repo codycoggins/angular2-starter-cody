@@ -44,12 +44,32 @@ import {
       fill: red;
     }
 
+    .regionLabel {
+      position: absolute;
+      font-weight: bold;
+      font-size: 24px;
+      color: #0B3D88;
+      background-color: #79C3E5;
+      z-index: 10;
+      padding-left: 6px;
+      padding-right: 6px;
+      opacity: 0.75;
+    }
+
   `],
   template: `
   <div class="visual-title">{{chartTitle}}</div>
+
+  <span class="regionLabel" style="left: 170px;top: 250px;">West {{westInfo}}</span>
+  <span class="regionLabel" style="left: 550px;top: 250px;">MidWest {{midWestInfo}}</span>
+  <span class="regionLabel" style="left: 600px;top: 400px;">South {{southInfo}}</span>
+  <span class="regionLabel" style="left: 750px;top: 200px;">North East {{northEastInfo}}</span>
+
   <div id="chart_div" class="">
     <!--<svg id="svg1" width="100%" height="100%" viewBox="0 0 640 480" preserveAspectRatio="xMaxYMax"></svg>-->
   </div>
+
+
 
   `
 })
@@ -57,6 +77,12 @@ export class VisualMap implements OnInit {
   chatSessionStore: ChatSessionStore;
   intent: string;
   chartTitle: string = 'Region Performance';
+
+  // to be used for map labels
+  westInfo: string = '';
+  midWestInfo: string = '';
+  southInfo: string = '';
+  northEastInfo: string = '';
 
   mapPathUSA: string  = require('../data/USA.json');
   dataPathRegion: string = require('../data/regions.json');
@@ -113,6 +139,16 @@ export class VisualMap implements OnInit {
               );
     }
     this.draw();
+    this.setLabels();
+  }
+
+  setLabels() {
+    if (this.dataObject) {
+      this.westInfo = this.dataObject['West'];
+      this.southInfo = this.dataObject['South'];
+      this.northEastInfo = this.dataObject['North East'];
+      this.midWestInfo = this.dataObject['MidWest'];
+    }
   }
 
   draw() {
@@ -138,8 +174,8 @@ export class VisualMap implements OnInit {
 
     // let colorScale = d3.scale.category20b(100);
     let colorScale = d3.scale.linear()
-        .domain([-1, 0, 1])
-        .range(["red", "white", "green"]);
+        .domain([-1, -0.2, 0,  1])
+        .range(["red", "yellow", "white", "green"]);
 
     function colorByState (state: string) {
         //  console.log ('unit:' + fips);
