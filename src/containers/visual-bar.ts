@@ -1,5 +1,9 @@
 import { Component, Inject, Injectable, OnInit  } from 'angular2/core';
 import { NvD3Watson } from '../components/visualization/nvd3-watson';
+import {Observable} from 'rxjs/Observable';
+import {List} from 'immutable';
+
+import {ChatItem} from '../services/chat-item';
 import { OLMessage, OLProfile} from '../services/chat-session-service';
 
 declare var d3: any;
@@ -65,6 +69,32 @@ export class VisualBar implements OnInit  {
     let yFunction ;
     this.dataRough =  this.chatSessionStore.translatedData();
 
+    // code to determine subbrand causing decline
+    let subbrand = this.chatSessionStore.findMinMax(6, -1);
+    console.log ('The subbrand in decline is ' + subbrand);
+    this.chatSessionStore.updateDialogProfile('subbrand', subbrand);
+
+    let obs: Observable<any> = this.chatSessionStore.allChatItems;
+    obs.subscribe(
+            res => {
+                console.log ('VisualMap.ngOnInit() - Fixing text');
+                // console.log ('  This is the item I got: \n' + JSON.stringify(res) + '\n\n');
+                let allChatList: List<ChatItem>  = <List<ChatItem>> res;
+                let allChats: ChatItem[] = allChatList.toArray();
+                // console.log ('  length of list is: ' + allChats.length);
+                let myItem: ChatItem = allChats[allChats.length - 2];
+                console.log ('  found chat item: ' + JSON.stringify(myItem));
+
+                if ( !myItem.text.match( subbrand) && !myItem.text.match( subbrand.toUpperCase() )) {
+                  console.log ('  no match on ' + subbrand);
+                  myItem.text = myItem.text.replace('==> Subbrand name',   ' ' + subbrand.toUpperCase() + '.')  ;
+                } else {
+                  console.log ('  already contains ' + subbrand );
+                }
+              }
+            );
+    // end of subbrand substition code.
+
     if (intent === 'subbrand_performance') {
       // Question 2,5,6
       // for question 2:
@@ -85,7 +115,7 @@ export class VisualBar implements OnInit  {
             top: 20,
             right: 20,
             bottom: 40,
-            left: 55
+            left: 200
           },
           x: xFunction,
           y: yFunction,
@@ -123,6 +153,32 @@ export class VisualBar implements OnInit  {
         this.chartTitle = this.getRegion() + ' Region' + ' - ' + this.chartTitle;
       }
 
+      // code to determine channel causing decline
+      let channel = this.chatSessionStore.findMinMax(6, -1);
+      console.log ('The channel in decline is ' + channel);
+      this.chatSessionStore.updateDialogProfile('channel', channel);
+
+      // let obs2: Observable<any> = this.chatSessionStore.allChatItems;
+      // obs2.subscribe(
+      //         res => {
+      //             console.log ('VisualMap.ngOnInit() - Fixing text');
+      //             // console.log ('  This is the item I got: \n' + JSON.stringify(res) + '\n\n');
+      //             let allChatList: List<ChatItem>  = <List<ChatItem>> res;
+      //             let allChats: ChatItem[] = allChatList.toArray();
+      //             // console.log ('  length of list is: ' + allChats.length);
+      //             let myItem: ChatItem = allChats[allChats.length - 2];
+      //             console.log ('  found chat item: ' + JSON.stringify(myItem));
+      //
+      //             if ( !myItem.text.match( channel) && !myItem.text.match( channel.toUpperCase() )) {
+      //               console.log ('  no match on ' + channel);
+      //               myItem.text = myItem.text.replace('channel-Name==>',   ' ' + channel.toUpperCase() + '.')  ;
+      //             } else {
+      //               console.log ('  already contains ' + channel );
+      //             }
+      //           }
+      //         );
+      // // end of subbrand substition code.
+
       this.options = {
         chart: {
           type: 'multiBarHorizontalChart',
@@ -131,7 +187,7 @@ export class VisualBar implements OnInit  {
             top: 20,
             right: 20,
             bottom: 40,
-            left: 55
+            left: 200
           },
           x: xFunction,
           y: yFunction,
@@ -177,7 +233,7 @@ export class VisualBar implements OnInit  {
             top: 20,
             right: 20,
             bottom: 40,
-            left: 55
+            left: 200
           },
           x: xFunction,
           y: yFunction,

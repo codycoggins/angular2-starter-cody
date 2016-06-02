@@ -171,10 +171,13 @@ export class ChatSessionStore {
                     for (let i: number = 0; i < resJson.response.length; i++) {
                       if (resJson.response[i].trim().length > 0 ) {
                         let chatResponse: ChatItem = new ChatItem(
-                          this.formatReponse(resJson.response[i]),
-                           true);
-                           this._allChatItems.next(
-                             this._allChatItems.getValue().push( chatResponse  ));
+                           this.formatReponse(resJson.response[i]),
+                             true);
+                           console.log ('** managing new chat items.  length is ' + chatResponse.text.length );
+                          //  if ( chatResponse.text.length > 0) {
+                             this._allChatItems.next(
+                               this._allChatItems.getValue().push( chatResponse  ));
+                          //  }
                       }
                     }
                   },

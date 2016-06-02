@@ -96,10 +96,10 @@ export class VisualMap implements OnInit {
       obs.subscribe(
               res => {
                   console.log ('VisualMap.ngOnInit() - Fixing text');
-                  console.log ('  This is the item I got: \n' + JSON.stringify(res) + '\n\n');
+                  // console.log ('  This is the item I got: \n' + JSON.stringify(res) + '\n\n');
                   let allChatList: List<ChatItem>  = <List<ChatItem>> res;
                   let allChats: ChatItem[] = allChatList.toArray();
-                  console.log ('  length of list is: ' + allChats.length);
+                  // console.log ('  length of list is: ' + allChats.length);
                   let myItem: ChatItem = allChats[allChats.length - 2];
                   console.log ('  found chat item: ' + JSON.stringify(myItem));
 

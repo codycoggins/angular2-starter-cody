@@ -149,6 +149,7 @@ import { CompanyLogo } from '../logo';
             class="{{chatItem.isWatson ? 'watson-icon' : 'user-icon'}}">
             <div
               class="dialog {{chatItem.isWatson ? 'watson' : 'user'}}"
+              style="{{(chatItem.text.length)==0 ? 'display: none;' : ''}}"
               [innerHTML]="chatItem.text">
             </div>
           </div>
@@ -163,6 +164,7 @@ import { CompanyLogo } from '../logo';
 export class Chat {
   // chatText: string;
   newText: string;
+
   @ViewChild('chatLog') public chatLogElement: ElementRef;
 
   constructor(public elementRef: ElementRef,
