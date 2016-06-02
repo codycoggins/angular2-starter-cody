@@ -1,4 +1,8 @@
 import { Component, OnInit } from 'angular2/core';
+import {Observable} from 'rxjs/Observable';
+import {List} from 'immutable';
+
+import {ChatItem} from '../services/chat-item';
 import { ChatSessionStore } from '../services/chat-session-store';
 import { OLMessage, OLProfile} from '../services/chat-session-service';
 
@@ -87,6 +91,26 @@ export class VisualMap implements OnInit {
       let region = this.chatSessionStore.findMinMax(6, -1);
       console.log ('The region in decline is ' + region);
       this.chatSessionStore.updateDialogProfile('region', region);
+
+      let obs: Observable<any> = this.chatSessionStore.allChatItems;
+      obs.subscribe(
+              res => {
+                  console.log ('VisualMap.ngOnInit() - Fixing text');
+                  console.log ('  This is the item I got: \n' + JSON.stringify(res) + '\n\n');
+                  let allChatList: List<ChatItem>  = <List<ChatItem>> res;
+                  let allChats: ChatItem[] = allChatList.toArray();
+                  console.log ('  length of list is: ' + allChats.length);
+                  let myItem: ChatItem = allChats[allChats.length - 2];
+                  console.log ('  found chat item: ' + JSON.stringify(myItem));
+
+                  if ( !myItem.text.match( region) && !myItem.text.match( region.toUpperCase() )) {
+                    console.log ('  no match on ' + region);
+                    myItem.text = myItem.text.replace('brand is in', 'brand is in' + ' ' + region.toUpperCase() + '.')  ;
+                  } else {
+                    console.log ('  already contains ' + region );
+                  }
+                }
+              );
     }
     this.draw();
   }
