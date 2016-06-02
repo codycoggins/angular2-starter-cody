@@ -1,7 +1,9 @@
 import { Component, Inject, Injectable, OnInit  } from 'angular2/core';
-import { NvD3Watson } from '../components/visualization/nvd3-watson';
+import { RouteConfig, ROUTER_DIRECTIVES } from 'angular2/router';
 import {Observable} from 'rxjs/Observable';
 import {List} from 'immutable';
+
+import { NvD3Watson } from '../components/visualization/nvd3-watson';
 
 import {ChatItem} from '../services/chat-item';
 import { OLMessage, OLProfile} from '../services/chat-session-service';
@@ -12,12 +14,14 @@ import { ChatSessionStore, ITranslatedData } from '../services/chat-session-stor
 
 import {
   WatsonContainer,
+  AppNavigator,
+  AppNavigatorItem,
   CompanyLogo
 } from '../components';
 
 @Component({
   selector: 'visual-bar',
-  directives: [ WatsonContainer, NvD3Watson ],
+  directives: [ WatsonContainer, NvD3Watson, ROUTER_DIRECTIVES, AppNavigator, AppNavigatorItem ],
   styles: [`
     .visOverlayLabel {
       position: absolute;
@@ -42,6 +46,12 @@ import {
   <div id="chart_div" >
     <!--<span class="visOverlayLabel center h2">Example Bar Chart Visualization</span>-->
     <div class="visual-title">{{chartTitle}}</div>
+    <div style="{{chatSessionStore.intent=='social_feedback' ? '' : 'display: none;'}}">
+       <app-navigator-item [mr]=true class="">
+         <a [routerLink]="['Visual-list']"
+           class="navbar-link text-decoration-none">View Tweets</a>
+       </app-navigator-item>
+    </div>
     <nvd3-watson [options]="options" [data]="data"></nvd3-watson>
   </div>
   `
