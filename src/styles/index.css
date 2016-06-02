@@ -66,7 +66,9 @@ th {
 tr:nth-child(even) {
   background-color: #79C3E5;
 }
-
+td:not(:first-child) {
+  text-align: right;
+}
 visual-map, visual-bar, visual-list, visual-column, visual-pie {
   position: relative;
   display: inline-block;
