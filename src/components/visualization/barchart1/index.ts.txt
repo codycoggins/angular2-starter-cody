@@ -114,7 +114,7 @@ getData() {
  // Line chart data should be sent as an array of series objects.
  return [
    {
-      key: 'BarChart1',
+      key: 'Data',
       values: [
      {
        'SUBBRAND': 'SUAVE KIDS SBBR',

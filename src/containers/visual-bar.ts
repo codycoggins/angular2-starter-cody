@@ -125,7 +125,7 @@ export class VisualBar implements OnInit  {
 
       this.options = {
         chart: {
-          type: 'discreteBarChart',
+          type: 'multiBarHorizontalChart',
           height: 600,
           margin : {
             top: 20,
@@ -171,7 +171,7 @@ export class VisualBar implements OnInit  {
 
       this.options = {
         chart: {
-          type: 'discreteBarChart',
+          type: 'multiBarHorizontalChart',
           height: 600,
           margin : {
             top: 20,

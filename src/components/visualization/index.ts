@@ -4,11 +4,10 @@ import { Component, Inject, Injectable } from 'angular2/core';
 import { Directive, ElementRef, Input} from 'angular2/core';
 import { CORE_DIRECTIVES } from 'angular2/common';
 import { VisualizationStore } from '../../services/visualization-store';
-import { BarChart1 } from './barchart1';
 
 @Component({
   selector: 'visualization',
-    directives: [BarChart1],
+    // directives: [BarChart1],
   styles: [`
     .visOverlayLabel {
       position: absolute;
@@ -34,7 +33,7 @@ import { BarChart1 } from './barchart1';
         <!--<img
         style="-webkit-filter: grayscale(100%);filter: grayscale(100%);"
         src="{{visualizationStore.imagePath}}"/>-->
-        <bar-chart1></bar-chart1>
+        <!--<bar-chart1></bar-chart1>-->
       </div>
 
   `,

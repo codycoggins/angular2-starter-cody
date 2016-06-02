@@ -50,11 +50,11 @@ export class ChatSessionStore {
       }
       this._visualType = visualType;
       let routeName: string = visualType.replace('visual', 'Visual').replace('_', '-');
-      console.log ('Routing to ' + routeName);
+      console.log ('** Routing to ' + routeName + '**');
       // make sure we are at none before we start a new one.
-      if (visualType !== 'Visual-none') {
-        this.router.navigate( ['Visual-none'] );
-      }
+      // if (visualType !== 'Visual-none') {
+      //   this.router.navigate( ['Visual-none'] );
+      // }
       this.router.navigate( [routeName] );
     }
 
@@ -110,7 +110,7 @@ export class ChatSessionStore {
 
     translatedData(): [ITranslatedData] {
       let data: any[][] = this._visualData;
-      let result: ITranslatedData = <ITranslatedData> {"key": "BarChart1", values: []};
+      let result: ITranslatedData = <ITranslatedData> {"key": "Data", values: []};
 
       let newJson: string ;
       if (data == null || data.length === 0) {
@@ -242,6 +242,7 @@ export class ChatSessionStore {
         if (watsonText.match('<mct:hide>' + this.visualTypes[i] + '</mct:hide>')) {
           // this.visualizationStore.addImage (this.visualizationStore.visMap1)  ;
           // console.log ('match ' + this.visualTypes[i]);
+          this.visualType = 'visual_none';
           this.visualType = this.visualTypes[i];
           continue;
         } else {
