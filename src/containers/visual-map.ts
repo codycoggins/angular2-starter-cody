@@ -87,7 +87,6 @@ export class VisualMap implements OnInit {
       let region = this.chatSessionStore.findMinMax(6, -1);
       console.log ('The region in decline is ' + region);
       this.chatSessionStore.updateDialogProfile('region', region);
-      this.chatSessionStore.updateDialogProfile('ui_region', region);
     }
     this.draw();
   }
