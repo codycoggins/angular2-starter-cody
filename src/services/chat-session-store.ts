@@ -51,10 +51,6 @@ export class ChatSessionStore {
       this._visualType = visualType;
       let routeName: string = visualType.replace('visual', 'Visual').replace('_', '-');
       console.log ('** Routing to ' + routeName + '**');
-      // make sure we are at none before we start a new one.
-      // if (visualType !== 'Visual-none') {
-      //   this.router.navigate( ['Visual-none'] );
-      // }
       this.router.navigate( [routeName] );
     }
 
@@ -235,7 +231,7 @@ export class ChatSessionStore {
     }
 
     formatReponse (watsonText: string): string {
-      console.log('formatReponse()');
+      console.log('formatReponse(' + watsonText + ')');
       if (watsonText == null) {
           console.log('  null watsonText.');
           return '';

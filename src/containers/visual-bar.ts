@@ -69,31 +69,6 @@ export class VisualBar implements OnInit  {
     let yFunction ;
     this.dataRough =  this.chatSessionStore.translatedData();
 
-    // code to determine subbrand causing decline
-    let subbrand = this.chatSessionStore.findMinMax(6, -1);
-    console.log ('The subbrand in decline is ' + subbrand);
-    this.chatSessionStore.updateDialogProfile('subbrand', subbrand);
-
-    let obs: Observable<any> = this.chatSessionStore.allChatItems;
-    obs.subscribe(
-            res => {
-                console.log ('VisualMap.ngOnInit() - Fixing text');
-                // console.log ('  This is the item I got: \n' + JSON.stringify(res) + '\n\n');
-                let allChatList: List<ChatItem>  = <List<ChatItem>> res;
-                let allChats: ChatItem[] = allChatList.toArray();
-                // console.log ('  length of list is: ' + allChats.length);
-                let myItem: ChatItem = allChats[allChats.length - 2];
-                console.log ('  found chat item: ' + JSON.stringify(myItem));
-
-                if ( !myItem.text.match( subbrand) && !myItem.text.match( subbrand.toUpperCase() )) {
-                  console.log ('  no match on ' + subbrand);
-                  myItem.text = myItem.text.replace('==> Subbrand name',   ' ' + subbrand.toUpperCase() + '.')  ;
-                } else {
-                  console.log ('  already contains ' + subbrand );
-                }
-              }
-            );
-    // end of subbrand substition code.
 
     if (intent === 'subbrand_performance') {
       // Question 2,5,6
@@ -102,6 +77,32 @@ export class VisualBar implements OnInit  {
       if (this.getRegion().length > 0 ) {
         this.chartTitle = this.chartTitle + ' - ' + this.getRegion() + ' Region';
       }
+
+      // code to determine subbrand causing decline
+      let subbrand = this.chatSessionStore.findMinMax(6, -1);
+      console.log ('The subbrand in decline is ' + subbrand);
+      this.chatSessionStore.updateDialogProfile('subbrand', subbrand);
+
+      let obs: Observable<any> = this.chatSessionStore.allChatItems;
+      obs.subscribe(
+              res => {
+                  console.log ('VisualBar.ngOnInit() - intent subbrand_performance - Fixing text');
+                  // console.log ('  This is the item I got: \n' + JSON.stringify(res) + '\n\n');
+                  let allChatList: List<ChatItem>  = <List<ChatItem>> res;
+                  let allChats: ChatItem[] = allChatList.toArray();
+                  // console.log ('  length of list is: ' + allChats.length);
+                  let myItem: ChatItem = allChats[allChats.length - 2];
+                  console.log ('  found chat item: ' + JSON.stringify(myItem));
+
+                  if ( !myItem.text.match( subbrand) && !myItem.text.match( subbrand.toUpperCase() )) {
+                    console.log ('  no match on ' + subbrand);
+                    myItem.text = myItem.text.replace('==> Subbrand name',   ' ' + subbrand.toUpperCase() + '.')  ;
+                  } else {
+                    console.log ('  already contains ' + subbrand );
+                  }
+                }
+              );
+      // end of subbrand substition code.
 
       xFunction = function(d){ return <string> d.SUBBRAND; };
       yFunction = function(d){ return <number> d.SHRCYA; };
@@ -132,9 +133,9 @@ export class VisualBar implements OnInit  {
             //   return d3.format('.02f')(d);
             // },
             axisLabelDistance: -10
-          },
+          }
           // hardcoding y axis domain to fix bug.  not optimal.
-          yDomain: [-1, 1]
+          // yDomain: [-1, 1]
         }
       };
 
@@ -143,6 +144,7 @@ export class VisualBar implements OnInit  {
       // for question:
       xFunction = function(d){ return d.NEWCHANNEL; };
       yFunction = function(d){ return d.SHRCYA; };
+      console.log ('intent: channel_performance');
 
       this.chartTitle = 'Performance by Channel Overview';
       if (this.getBrand().length > 0 ) {
@@ -158,26 +160,27 @@ export class VisualBar implements OnInit  {
       console.log ('The channel in decline is ' + channel);
       this.chatSessionStore.updateDialogProfile('channel', channel);
 
-      // let obs2: Observable<any> = this.chatSessionStore.allChatItems;
-      // obs2.subscribe(
-      //         res => {
-      //             console.log ('VisualMap.ngOnInit() - Fixing text');
-      //             // console.log ('  This is the item I got: \n' + JSON.stringify(res) + '\n\n');
-      //             let allChatList: List<ChatItem>  = <List<ChatItem>> res;
-      //             let allChats: ChatItem[] = allChatList.toArray();
-      //             // console.log ('  length of list is: ' + allChats.length);
-      //             let myItem: ChatItem = allChats[allChats.length - 2];
-      //             console.log ('  found chat item: ' + JSON.stringify(myItem));
-      //
-      //             if ( !myItem.text.match( channel) && !myItem.text.match( channel.toUpperCase() )) {
-      //               console.log ('  no match on ' + channel);
-      //               myItem.text = myItem.text.replace('channel-Name==>',   ' ' + channel.toUpperCase() + '.')  ;
-      //             } else {
-      //               console.log ('  already contains ' + channel );
-      //             }
-      //           }
-      //         );
-      // // end of subbrand substition code.
+      // channel substition
+      let obs2: Observable<any> = this.chatSessionStore.allChatItems;
+      obs2.subscribe(
+              res => {
+                  console.log ('VisualBar.ngOnInit() - Fixing text');
+                  // console.log ('  This is the item I got: \n' + JSON.stringify(res) + '\n\n');
+                  let allChatList: List<ChatItem>  = <List<ChatItem>> res;
+                  let allChats: ChatItem[] = allChatList.toArray();
+                  // console.log ('  length of list is: ' + allChats.length);
+                  let myItem: ChatItem = allChats[allChats.length - 2];
+                  console.log ('  found chat item: ' + JSON.stringify(myItem));
+
+                  if ( !myItem.text.match( channel) && !myItem.text.match( channel.toUpperCase() )) {
+                    console.log ('  no match on ' + channel);
+                    myItem.text = myItem.text.replace('channel-Name==>',   ' ' + channel.toUpperCase() + '.')  ;
+                  } else {
+                    console.log ('  already contains ' + channel );
+                  }
+                }
+              );
+      // end of channel substition code.
 
       this.options = {
         chart: {
@@ -204,9 +207,9 @@ export class VisualBar implements OnInit  {
             //   return d3.format('.02f')(d);
             // },
             axisLabelDistance: -10
-          },
+          }
           // hardcoding y axis domain to fix bug.  not optimal.
-          yDomain: [-1, 1]
+          // yDomain: [-1, 1]
         }
       };
     } else if (intent === 'dollar_opportunity') {
