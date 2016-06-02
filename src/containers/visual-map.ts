@@ -173,8 +173,20 @@ export class VisualMap implements OnInit {
       .style('stroke', 'black');
 
     // let colorScale = d3.scale.category20b(100);
+
+    let minValue: number = this.chatSessionStore.findMinMaxVal(6, -1);
+    console.log ('minValue: ' + minValue);
+    let maxValue: number = this.chatSessionStore.findMinMaxVal(6,  1);
+    console.log ('maxValue: ' + maxValue);
+
+    // if (minValue > 0) { minValue = 0; }
+    // if (maxValue < 0) { maxValue = 0; }
+    let middleValue: number = (minValue + maxValue) / 2;
+    let warningValue: number = (middleValue + minValue ) / 2;
+
+    console.log (minValue, warningValue, middleValue,  maxValue);
     let colorScale = d3.scale.linear()
-        .domain([-1, -0.2, 0,  1])
+        .domain([minValue, warningValue, middleValue,  maxValue])
         .range(["red", "yellow", "white", "green"]);
 
     function colorByState (state: string) {

@@ -99,6 +99,33 @@ export class ChatSessionStore {
       return returnKey;
     }
 
+    findMinMaxVal ( columnNum: number, dir: number ): number {
+      // return the minimum/maximum value for a column
+      if (dir === 0 ) {
+        console.log('findMinMaxVal: ERROR dir cannot be 0');
+        return 0;
+      }
+      let data: any = this._visualData;
+      // seed with first data row
+      let maxVal: number = data[1][columnNum] * dir;
+      let returnVal: number = data[1][columnNum];
+      // returns column 0 value of the min/max row
+      // evalueated by columnNum;
+      for (let i = 0; i < data.length; i++) {
+
+        if (i === 0) {
+          // Skip; header row
+        } else {
+          let newNum: number = data[i][columnNum];
+          if ((newNum * dir) > maxVal || (newNum * dir) == maxVal) {
+            maxVal = newNum * dir;
+            returnVal = newNum;
+          }
+        }
+      }
+      return returnVal;
+    }
+
 
     updateDialogProfile (key: string, value: string) {
         this.chatSessionService.updateDialogProfile (key, value);
