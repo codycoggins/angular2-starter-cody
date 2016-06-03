@@ -51,7 +51,7 @@ import {
 
       <div id="app-area" class=""
        style="height:100%; margin:0; auto -100px; width: 100%;">
-       <div id="main-page-container" class="flex flex-wrap justify-between">
+       <div id="main-page-container" class="flex flex-wrap">
            <chat id="chat-container" class="col col-4 top-0"></chat>
 
 
@@ -127,6 +127,16 @@ import {
   {
     path: '/visual-list',
     name: 'Visual-list',
+    component: VisualList
+  },
+  {
+    path: '/Visual-list-positive',
+    name: 'Visual-list-positive',
+    component: VisualList
+  },
+  {
+    path: '/Visual-list-negative',
+    name: 'Visual-list-negative',
     component: VisualList
   },
   {

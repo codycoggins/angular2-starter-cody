@@ -56,12 +56,18 @@ table, th, td {
   border: 1px solid #0B3D88;
 }
 th, td {
-  padding: 15px;
-
+  padding: 4px;
 }
+
 th {
   color: #fff;
+  font-size: 12px;
   background-color: #0B3D88;
+  text-transform: capitalize;
+}
+
+td {
+  font-size: 12px;
 }
 tr:nth-child(even) {
   background-color: #79C3E5;
@@ -81,6 +87,9 @@ visual-map, visual-bar, visual-list, visual-column, visual-pie {
   background-color: #F5F5F5;
 }
 
+.visualization-container {
+  max-width: 1150px;
+}
 
 nav {
   padding-left: 40px;
@@ -88,10 +97,36 @@ nav {
   background-color: #FFF;
 }
 
+.tab {
+  display: inline;
+  padding: 0 10px;
+  border: 1px solid #E1E1E1;
+  border-radius: 4px 4px 0 0;
+  margin-right: 6px;
+  background-color: #F5F5F5;
+  padding: 10px;
+}
+
+.tab-selected {
+  display: inline;
+  border-top: 1px solid #E1E1E1;
+  border-left: 1px solid #E1E1E1;
+  border-right: 1px solid #E1E1E1;
+  border-radius: 4px 4px 0 0;
+  margin-right: 6px;
+  background-color: #F5F5F5;
+  padding: 10px;
+}
+
+/*.tab-container {
+  background-color: white;
+}*/
+
 .visual-title {
   font-size: 24px;
   font-family: Helvetica Light;
   border-top: 1px solid #E1E1E1;
   color: #333;
+  /*background-color: #FFF;*/
   padding-top: 35px;
 }

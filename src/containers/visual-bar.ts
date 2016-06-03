@@ -46,11 +46,15 @@ import {
   <div id="chart_div" >
     <!--<span class="visOverlayLabel center h2">Example Bar Chart Visualization</span>-->
     <div class="visual-title">{{chartTitle}}</div>
-    <div style="{{chatSessionStore.intent=='social_feedback' ? '' : 'display: none;'}}">
-       <app-navigator-item [mr]=true class="">
-         <a [routerLink]="['Visual-list']"
+    <div style="{{chatSessionStore.intent=='social_feedback' ? '' : 'display: none;'}}" class="tab-container">
+       <span class="tab-selected">
+         <a [routerLink]="['Visual-bar']"
+           class="navbar-link text-decoration-none">Graph</a>
+       </span>
+       <span class="tab">
+         <a [routerLink]="['Visual-list-positive']"
            class="navbar-link text-decoration-none">View Tweets</a>
-       </app-navigator-item>
+       </span>
     </div>
     <nvd3-watson [options]="options" [data]="data"></nvd3-watson>
   </div>
