@@ -27,7 +27,7 @@ import {
     }
   `],
   template: `
-  <div id="chart_div" >
+  <div id="chart_div" class="chart-div">
     <span _ngcontent-nvs-8="" class="visOverlayLabel h2 center">
     Example Visual Bubble<br/>
     <span class="h5">This is a placeholder</span>

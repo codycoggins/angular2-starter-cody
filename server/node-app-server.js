@@ -29,7 +29,7 @@ module.exports = (app) => {
   // basic authentication.  not production-ready
   // TODO: add more robust authentication after POC
   var basic = auth.basic({
-          realm: "Project NLS."
+          realm: "Project NLS"
       }, function (username, password, callback) { // Custom authentication method.
           console.log ('authentication: '+ username + ',' + password);
           callback(username === "nielsen" && password === "W@ts0n16");
@@ -51,7 +51,7 @@ module.exports = (app) => {
 
   // note: this regex exludes API
   app.use( express.static(distPath));
-  app.get( '*', auth.connect(basic));
+  app.use( '*', auth.connect(basic));
   app.get('*', (req, res) =>res.sendFile(path.join(distPath, indexFileName)));;
 
 }

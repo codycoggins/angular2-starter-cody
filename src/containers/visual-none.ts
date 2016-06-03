@@ -29,7 +29,7 @@ import {
     }
   `],
   template: `
-  <div id="chart_div" >
+  <div id="chart_div" class="chart-div">
     <span _ngcontent-nvs-8="" class="visOverlayLabel h2 center">
     When a visualization or supplement is part of your question,
     it will appear here.<br/>

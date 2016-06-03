@@ -34,7 +34,6 @@ import {
 
   `],
   template: `
-  <div class="visual-title">{{chartTitle}}</div>
   <div style="{{chatSessionStore.intent=='social_feedback' ? '' : 'display: none;'}}" class="tab-container">
      <span class="tab">
        <a [routerLink]="['Visual-bar']"
@@ -46,8 +45,9 @@ import {
      </span>
   </div>
 
-  <br />
-  <div id="chart_div" >
+  <div class="visual-title">{{chartTitle}}</div>
+
+  <div id="chart_div" class="chart-div">
     <!--<span class="visOverlayLabel h2 center">
     Visual List
     </span>-->

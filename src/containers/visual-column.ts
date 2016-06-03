@@ -30,7 +30,7 @@ import {
 
   `],
   template: `
-  <div id="chart_div" >
+  <div id="chart_div" class="chart-div">
     <!--<span class="visOverlayLabel h2 center">
     Visual Column
     </span>-->
