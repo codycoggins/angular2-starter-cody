@@ -44,7 +44,7 @@ export class VisualBubble implements OnInit {
   chatSessionStore: ChatSessionStore;
 
   constructor(chatSessionStore: ChatSessionStore ) {
-    console.log('VisualColumn constructor() ');
+    console.log('VisualBubble constructor() ');
     this.chatSessionStore = chatSessionStore;
   };
 

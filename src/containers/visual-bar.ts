@@ -308,8 +308,8 @@ export class VisualBar implements OnInit  {
     console.log ('  received ' + dataIn[0].values.length + ' data points.');
     for (let i = 0; i <  dataIn[0].values.length; i++) {
       let myRow: any = dataIn[0].values[i];
-      console.log ('myRow=' + JSON.stringify(myRow));
-      console.log ('SENTIMENT:' + myRow["SENTIMENT_POLARITY"]);
+      // console.log ('myRow=' + JSON.stringify(myRow));
+      // console.log ('SENTIMENT:' + myRow["SENTIMENT_POLARITY"]);
       if (myRow["SENTIMENT_POLARITY"] == 'POSITIVE') { POSITIVE ++ ; } else
       if (myRow["SENTIMENT_POLARITY"] == 'NEGATIVE') { NEGATIVE ++ ; } else {
         console.log ('unknown SENTIMENT_POLARITY ' + myRow["SENTIMENT_POLARITY"]);

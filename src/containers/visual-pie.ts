@@ -45,11 +45,11 @@ export class VisualPie  implements OnInit  {
   chatSessionStore: ChatSessionStore;
 
   constructor(chatSessionStore: ChatSessionStore ) {
-    console.log('VisualColumn constructor() ');
+    console.log('VisualPie constructor() ');
     this.chatSessionStore = chatSessionStore;
   };
 
   ngOnInit() {
-    
+
   }
 }

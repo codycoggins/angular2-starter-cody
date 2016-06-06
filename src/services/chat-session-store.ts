@@ -126,7 +126,6 @@ export class ChatSessionStore {
       return returnVal;
     }
 
-
     updateDialogProfile (key: string, value: string) {
         this.chatSessionService.updateDialogProfile (key, value);
     }
@@ -136,6 +135,7 @@ export class ChatSessionStore {
       let result: ITranslatedData = <ITranslatedData> {"key": "Data", values: []};
 
       let newJson: string ;
+
       if (data == null || data.length === 0) {
         console.log('translateData: WARNING null data');
         return null;
@@ -170,7 +170,6 @@ export class ChatSessionStore {
       return [result];
 
     }
-
 
     loadInitialData() {
         // put the request to the server.

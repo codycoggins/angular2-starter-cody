@@ -42,12 +42,12 @@ export class VisualBullet implements OnInit  {
   chatSessionStore: ChatSessionStore;
 
   constructor(chatSessionStore: ChatSessionStore ) {
-    console.log('VisualColumn constructor() ');
+    console.log('VisualBullet constructor() ');
     this.chatSessionStore = chatSessionStore;
   };
 
   ngOnInit () {
-    
+
   }
 
   dataInBulletHTML(): string {
