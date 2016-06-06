@@ -204,7 +204,14 @@ export class ChatSessionStore {
                     }
                   },
                   err => {
+                      console.log ("ChatSessionStore: Error in communicating with Orchestration Layer.");
                       console.log (err);
+                      let chatResponse: ChatItem = new ChatItem(
+                         'I am not currently able to commnicate with the server. The system may be under maintenence  Please try again later.',
+                           true);
+                        //  if ( chatResponse.text.length > 0) {
+                           this._allChatItems.next(
+                             this._allChatItems.getValue().push( chatResponse  ));
                     }
                   );
         return obs;
@@ -248,6 +255,8 @@ export class ChatSessionStore {
                              this._allChatItems.getValue().push( chatResponse  ));
                       // }
                     }
+
+
                   },
                   err => {
                       console.log (err);
