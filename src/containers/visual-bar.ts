@@ -8,6 +8,8 @@ import { NvD3Watson } from '../components/visualization/nvd3-watson';
 import {ChatItem} from '../services/chat-item';
 import { OLMessage, OLProfile} from '../services/chat-session-service';
 
+
+
 declare var d3: any;
 
 import { ChatSessionStore, ITranslatedData } from '../services/chat-session-store';
@@ -16,7 +18,8 @@ import {
   WatsonContainer,
   AppNavigator,
   AppNavigatorItem,
-  CompanyLogo
+  CompanyLogo,
+  Legend
 } from '../components';
 
 @Component({
@@ -190,7 +193,7 @@ export class VisualBar implements OnInit  {
 
                   if ( !myItem.text.match( channel) && !myItem.text.match( channel.toUpperCase() )) {
                     console.log ('  no match on ' + channel);
-                    myItem.text = myItem.text.replace('channel-Name==>',   ' ' + channel.toUpperCase() + '.')  ;
+                    myItem.text = myItem.text.replace('var_channel',   ' ' + channel.toUpperCase() + '.')  ;
                   } else {
                     console.log ('  already contains ' + channel );
                   }

@@ -12,7 +12,8 @@ import { OLMessage, OLProfile} from '../services/chat-session-service';
 declare let g, d3, topojson: any;
 
 import {
-  WatsonContainer
+  WatsonContainer,
+  Legend
 } from '../components';
 
 @Component({
@@ -131,7 +132,7 @@ export class VisualMap implements OnInit {
 
                   if ( !myItem.text.match( region) && !myItem.text.match( region.toUpperCase() )) {
                     console.log ('  no match on ' + region);
-                    myItem.text = myItem.text.replace('brand is in', 'brand is in' + ' ' + region.toUpperCase() + '.')  ;
+                    myItem.text = myItem.text.replace('var_region', region.toUpperCase())  ;
                   } else {
                     console.log ('  already contains ' + region );
                   }

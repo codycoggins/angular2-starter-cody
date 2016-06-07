@@ -12,21 +12,24 @@ import { OLMessage, OLProfile} from '../../services/chat-session-service';
 
 // comment
 @Component({
-  selector: 'diagnostic-widget',
+  selector: 'legend',
   styles: [`
+    .groupTitle {
+      font-weight: bold;
+    }
     .values {
       font-weight: bold;
     }
       `],
   template: `
     <span (click)="setHidden(!hidden);" class="underline bold" style="color: #0B3D88;">
-      {{hidden ? 'Show Diagnostics' : 'Hide Diagnostics'}}
+      {{hidden ? 'Show legends' : 'Hide legends'}}
     </span>
-    <div class="diagnostic" style="display: {{ hidden ? 'None' : 'Block' }};">
+    <div class="legend" style="display: {{ hidden ? 'None' : 'Block' }};">
 
-      <p class="h3 bold">Diagnostic Information</p>
+      <p class="h3 bold">legend Information</p>
       <div>question: <span class="values">{{getProfileItem('original_question')}}</span></div>
-      <div>intent: {{getIntent()}}</div>
+
       <div>retailer: <span class="values">{{getProfileItem('retailer')}}</span></div>
       <div>ui_region: <span class="values">{{getProfileItem('ui_region')}}</span></div>
       <div>region: <span class="values">{{getProfileItem('region')}}</span></div>
@@ -38,12 +41,13 @@ import { OLMessage, OLProfile} from '../../services/chat-session-service';
       <div>profile_prompts: <span class="values">{{getProfileItem('profile_prompts')}}</span></div>
       <div>brand: <span class="values">{{getProfileItem('brand')}}</span></div>
       <div>data: {{ showData() }} ... </div>
+
     </div>
   `,
   directives: []
 })
 
-export class DiagnosticWidget {
+export class Legend {
   // chatText: string;
   hidden: boolean = true;
   profile: OLProfile = <OLProfile> {};
@@ -74,7 +78,7 @@ export class DiagnosticWidget {
     return JSON.stringify(this.chatSessionStore.visualData).slice(0, 400).replace('\],', '\],\n');
   }
   ngAfterViewChecked() {
-      // console.log('DiagnosticWidget: ngAfterViewChecked');
+      // console.log('Legend: ngAfterViewChecked');
       // this.profile = JSON.parse(JSON.stringify(this.chatSessionStore.profile));
       // console.log('this.profile: \n ' + JSON.stringify(this.profile) + '\n');
   }
