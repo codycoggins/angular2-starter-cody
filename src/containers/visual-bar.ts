@@ -112,7 +112,7 @@ export class VisualBar implements OnInit  {
 
                   if ( !myItem.text.match( subbrand) && !myItem.text.match( subbrand.toUpperCase() )) {
                     console.log ('  no match on ' + subbrand);
-                    myItem.text = myItem.text.replace('==> Subbrand name',   ' ' + subbrand.toUpperCase() + '.')  ;
+                    myItem.text = myItem.text.replace('var_subbrand',   ' ' + subbrand.toUpperCase() + '.')  ;
                   } else {
                     console.log ('  already contains ' + subbrand );
                   }

@@ -21,14 +21,15 @@ import {
   AppNavigator,
   AppNavigatorItem,
   CompanyLogo,
-  Chat
+  Chat,
+  DiagnosticWidget
   } from '../components';
 
 @Component({
   selector: 'watson-app',
   directives: [
     ROUTER_DIRECTIVES, AppNavigator, AppNavigatorItem, Chat,
-    WatsonContainer, CompanyLogo
+    WatsonContainer, CompanyLogo, DiagnosticWidget
   ],
   // Global styles imported in the app component.
   encapsulation: ViewEncapsulation.None,
@@ -89,6 +90,8 @@ import {
                </div>
              </app-navigator>
             <router-outlet></router-outlet>
+            <br />
+            <diagnostic-widget class="block border rounded p1 m1 "></diagnostic-widget>
        </div>
 
       </div>

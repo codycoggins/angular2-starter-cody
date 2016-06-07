@@ -139,7 +139,7 @@ import { CompanyLogo } from '../logo';
       background:#0B3D88;
       color: #fff;
     }
-
+    
   `],
   template: `
     <div class="clearfix fit p2" style="560px">

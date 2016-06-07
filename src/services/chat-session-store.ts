@@ -16,10 +16,11 @@ export class ChatSessionStore {
     private _allChatItems: BehaviorSubject<List<ChatItem>> =
       new BehaviorSubject(List([]));
 
+    private _fullResponse: any = {};
     private _visualType: string = 'visual_none';
-    private _visualData: any[];
-    public intent: string;
-    public profile: OLProfile;
+    private _visualData: any[] = <any[]>{};
+    public intent: string = '';
+    public profile: OLProfile = <OLProfile> {};
 
     dialogParser: DialogParser;
     chatSessionService: ChatSessionService;
@@ -180,7 +181,7 @@ export class ChatSessionStore {
         obs.subscribe(
                 res => {
                     console.log ('Initializing Chat');
-                    console.log ('\nOrchestration Layer Initialization returned:\n ' + res.json());
+                    console.log ('\nOrchestration Layer Initialization returned:\n ' + JSON.stringify(res.json()));
                     let resJson: IinitConversation = <IinitConversation> res.json();
                     if (resJson == null || resJson.id == null) {
                       console.log
@@ -241,6 +242,7 @@ export class ChatSessionStore {
                       console.log('WARNING: no data returned from Dialog Service');
                       return;
                     }
+                    this._fullResponse = res;
                     this.intent = resJson.profile.CLASSIFIER_CLASS_0;
                     this.profile = resJson.profile;
                     this.visualData = resJson.data;
@@ -255,7 +257,7 @@ export class ChatSessionStore {
                              this._allChatItems.getValue().push( chatResponse  ));
                       // }
                     }
-
+                    this.updateVisual(resJson.mcthides);
 
                   },
                   err => {
@@ -265,24 +267,23 @@ export class ChatSessionStore {
         return obs;
     }
 
+    updateVisual(mcthides: string[]) {
+      if (mcthides.length > 0 && mcthides[0].length > 0) {
+            this.visualType = 'visual_none';
+            this.visualType = mcthides[0];
+      } else {
+        console.log ('chatSessionStore: updateVisual: no mcthides values detected.');
+      }
+    }
+
     formatReponse (watsonText: string): string {
       console.log('formatReponse(' + watsonText + ')');
       if (watsonText == null) {
           console.log('  null watsonText.');
           return '';
       }
-      for (let i: number = 0; i < this.visualTypes.length; i++)  {
-        // console.log('try ' + this.visualTypes[i]);
-        if (watsonText.match('<mct:hide>' + this.visualTypes[i] + '</mct:hide>')) {
-          // this.visualizationStore.addImage (this.visualizationStore.visMap1)  ;
-          // console.log ('match ' + this.visualTypes[i]);
-          this.visualType = 'visual_none';
-          this.visualType = this.visualTypes[i];
-          continue;
-        } else {
-          // console.log ('formatReponse: no match for visuals.');
-        }
-      }
+
+
       // console.log('  formatReponse raw input:\n\n' + watsonText + '\n');
       let processedText: string = this.dialogParser.parse( watsonText);
       // // if (processedText.length === 0) {
