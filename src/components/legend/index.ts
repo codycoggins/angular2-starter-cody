@@ -14,10 +14,27 @@ import { OLMessage, OLProfile} from '../../services/chat-session-service';
 @Component({
   selector: 'legend',
   styles: [`
-    .groupTitle {
-      font-size: 18px;
+    .legend {
+      flex-wrap: wrap;
+      flex: 1 1 auto;
+      justify-content: space-around;
+      width: 100%;
+      min-width: 600px;
     }
-    .values {
+    .legend-item {
+      // flex-grow: 0;
+      width: 25%;
+      display: inline-block;
+      margin-bottom: 20px;
+    }
+
+    .item-title {
+      font-weight: bold;
+      font-size: 16px;
+      display: block;
+    }
+
+    .item-value {
       font-size: 14px;
     }
       `],
@@ -25,13 +42,14 @@ import { OLMessage, OLProfile} from '../../services/chat-session-service';
     <!-- span (click)="setHidden(!hidden);" class="underline bold" style="color: #0B3D88;">
       {{hidden ? 'Show legends' : 'Hide legends'}}
     </span-->
-    <div class="legend" style="display: {{ hidden ? 'None' : 'Block' }};">
+    <div class="legend flex flex-wrap" style="display: {{ hidden ? 'None' : 'Block' }};">
 
-      <p class="h3 bold">Legend</p>
-      <div><span class="groupTitle">Markets</span> <span class="values">{{getProfileItem('region')}}</span></div>
-      <div><span class="groupTitle">Products</span> <span class="values">{{getProfileItem('brand')}}</span></div>
-      <div><span class="groupTitle">Periods</span> <span class="values">52 W/E 12/26/2015</span></div>
-      <div><span class="groupTitle">Share Basis</span> <span class="values">Shampoo</span></div>
+      <p class="bold">Legend</p>
+      <div class="legend-item"><span class="item-title">Markets</span> <span class="item-value">{{getMarket()}}</span></div>
+      <div class="legend-item"><span class="item-title">Products</span> <span class="item-value">{{getProfileItem('brand')}}</span></div>
+      <div class="legend-item"><span class="item-title">Periods</span> <span class="item-value">52 W/E 12/26/2015</span></div>
+      <div class="legend-item"><span class="item-title">Fact</span> <span class="item-value">Shr CYA</span></div>
+      <div class="legend-item"><span class="item-title">Share Basis</span> <span class="item-value">Shampoo</span></div>
     </div>
   `,
   directives: []
@@ -52,6 +70,14 @@ export class Legend {
     this.hidden =  hidden;
   }
 
+  getMarket() {
+    if (this.getIntent() == 'region_performance' ) {
+      return 'all regions';
+    } else {
+      return this.getProfileItem('region');
+    }
+  }
+
   getIntent() {
     return this.chatSessionStore.intent;
   }
@@ -67,6 +93,7 @@ export class Legend {
   showData () {
     return JSON.stringify(this.chatSessionStore.visualData).slice(0, 400).replace('\],', '\],\n');
   }
+
   ngAfterViewChecked() {
       // console.log('Legend: ngAfterViewChecked');
       // this.profile = JSON.parse(JSON.stringify(this.chatSessionStore.profile));

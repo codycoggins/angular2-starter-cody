@@ -63,10 +63,13 @@ export class DialogParser {
     //          + ' visual to the right</div>' );
     //   }
     //  }
+    return text.replace(
+      /<mct\:hide>([^]*?)<\/mct\:hide>/g,
+      '' );
 
-     return text.replace(
-       /<mct\:hide>visual_([^]*?)<\/mct\:hide>/g,
-       '<div class=\"VisualReference dialog watson\">Please see the $1 visual to the right</div>' );
+    //  return text.replace(
+    //    /<mct\:hide>visual_([^]*?)<\/mct\:hide>/g,
+    //    '<div class=\"VisualReference dialog watson\">Please see the $1 visual to the right</div>' );
    }
 
     parseMctInputTag(text: string): string {

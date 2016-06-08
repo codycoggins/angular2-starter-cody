@@ -19,6 +19,7 @@ export class ChatSessionStore {
     private _fullResponse: any = {};
     private _visualType: string = 'visual_none';
     private _visualData: any[] = <any[]>{};
+    private _mcthides: string[] = [];
     public intent: string = '';
     public profile: OLProfile = <OLProfile> {};
 
@@ -72,6 +73,13 @@ export class ChatSessionStore {
       return this._visualData;
     }
 
+    get mcthides(): string[] {
+      return this._mcthides;
+    }
+
+    set mcthides (newHides: string[]) {
+      this._mcthides = newHides;
+    }
 
     // set dir to -1 for min, +1 for max
     // returns column 0 value of the min/max row
@@ -244,10 +252,11 @@ export class ChatSessionStore {
                       return;
                     }
                     this._fullResponse = res;
+                    this.mcthides = resJson.mcthides;
                     this.intent = resJson.profile.CLASSIFIER_CLASS_0;
                     this.profile = resJson.profile;
                     this.visualData = resJson.data;
-
+                    this.checkIgnoreRegion(resJson.mcthides);
                     this.manageProfileVariables ();
 
                     for (let i: number = 0; i < resJson.response.length; i++) {
@@ -270,17 +279,20 @@ export class ChatSessionStore {
         return obs;
     }
 
-    updateVisual(mcthides: string[]) {
-      if (mcthides.length > 0 && mcthides[0].length > 0) {
-            this.visualType = 'visual_none';
-            this.visualType = mcthides[0];
-            if (mcthides.length > 1) {
+    checkIgnoreRegion(mcthides: string[]) {
+      if (mcthides.length > 1 && mcthides[0].length > 0) {
               if (mcthides[1].match ('ignore_region')) {
                 // special case for question 1, skip growth and decline just get results
                 this.profile.performance_level = 'ignore_region';
               }
 
-            }
+      }
+    }
+
+    updateVisual(mcthides: string[]) {
+      if (mcthides.length > 0 && mcthides[0].length > 0) {
+            this.visualType = 'visual_none';
+            this.visualType = mcthides[0];
       } else {
         console.log ('chatSessionStore: updateVisual: no mcthides values detected.');
       }
@@ -333,16 +345,21 @@ export class ChatSessionStore {
       // . I'll pick up the performance_level variable to test for decline or growth
       let direction: number = -1;
       if (this.profile.performance_level == 'growth') {
+        console.log('manageProfileVariables: performance_level is growth');
         direction = 1;
       } else if (this.profile.performance_level == 'decline') {
+        console.log('manageProfileVariables: performance_level is decline');
         direction = -1;
       } else if (this.profile.performance_level == 'ignore_region') {
+        console.log('manageProfileVariables: performance_level is ignore_region');
+
         // special case for question 1 ignore growth or decline just return results.
         direction = 0;
         return;
       } else {
         console.log ('manageProfileVariables: unknown performance_level: \"' + this.profile.performance_level + '\"');
       }
+
       if (this.intent == 'region_performance') {
         console.log ('manageProfileVariables()  processing intent region_performance');
         let region: string = this.findMinMax(6, direction);
