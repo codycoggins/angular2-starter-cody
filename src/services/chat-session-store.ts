@@ -47,7 +47,7 @@ export class ChatSessionStore {
     set visualType(visualType: string) {
       // special case to fix wrong visual type on social_feedback
       if (this.intent == 'social_feedback') {
-        visualType = 'visual_bar';
+        visualType = 'visual_pie';
       }
       this._visualType = visualType;
       let routeName: string = visualType.replace('visual', 'Visual').replace('_', '-');
