@@ -18,7 +18,7 @@ import {
 
 @Component({
   selector: 'visual-map',
-  directives: [ WatsonContainer ],
+  directives: [ WatsonContainer, Legend ],
   styles: [`
     .visOverlayLabel {
       position: absolute;
@@ -69,6 +69,7 @@ import {
   <div id="chart_div" class="">
     <!--<svg id="svg1" width="100%" height="100%" viewBox="0 0 640 480" preserveAspectRatio="xMaxYMax"></svg>-->
   </div>
+  <legend></legend>
 
 
 

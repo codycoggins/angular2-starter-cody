@@ -15,10 +15,10 @@ import { OLMessage, OLProfile} from '../../services/chat-session-service';
   selector: 'legend',
   styles: [`
     .groupTitle {
-      font-weight: bold;
+      font-size: 18px;
     }
     .values {
-      font-weight: bold;
+      font-size: 14px;
     }
       `],
   template: `
@@ -27,21 +27,11 @@ import { OLMessage, OLProfile} from '../../services/chat-session-service';
     </span>
     <div class="legend" style="display: {{ hidden ? 'None' : 'Block' }};">
 
-      <p class="h3 bold">legend Information</p>
-      <div>question: <span class="values">{{getProfileItem('original_question')}}</span></div>
-
-      <div>retailer: <span class="values">{{getProfileItem('retailer')}}</span></div>
-      <div>ui_region: <span class="values">{{getProfileItem('ui_region')}}</span></div>
-      <div>region: <span class="values">{{getProfileItem('region')}}</span></div>
-      <div>channel: <span class="values">{{getProfileItem('channel')}}</span></div>
-      <div>sub_brand: <span class="values">{{getProfileItem('sub_brand')}}</span></div>
-      <div>visual_type: <span class="values">{{getProfileItem('visual_type')}}</span></div>
-      <!-- <div>mcthides: {{getMctHides()}}</div> -->
-      <div>performance_level: <span class="values">{{getProfileItem('performance_level')}}</span></div>
-      <div>profile_prompts: <span class="values">{{getProfileItem('profile_prompts')}}</span></div>
-      <div>brand: <span class="values">{{getProfileItem('brand')}}</span></div>
-      <div>data: {{ showData() }} ... </div>
-
+      <p class="h3 bold">Legend</p>
+      <div><span class="groupTitle">Markets</span> <span class="values">{{getProfileItem('region')}}</span></div>
+      <div><span class="groupTitle">Products</span> <span class="values">{{getProfileItem('brand')}}</span></div>
+      <div><span class="groupTitle">Periods</span> <span class="values">52 W/E 12/26/2015</span></div>
+      <div><span class="groupTitle">Share Basis</span> <span class="values">Shampoo</span></div>
     </div>
   `,
   directives: []
@@ -49,7 +39,7 @@ import { OLMessage, OLProfile} from '../../services/chat-session-service';
 
 export class Legend {
   // chatText: string;
-  hidden: boolean = true;
+  hidden: boolean = false;
   profile: OLProfile = <OLProfile> {};
 
   constructor(public elementRef: ElementRef,

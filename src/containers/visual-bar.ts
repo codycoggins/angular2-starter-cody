@@ -24,7 +24,7 @@ import {
 
 @Component({
   selector: 'visual-bar',
-  directives: [ WatsonContainer, NvD3Watson, ROUTER_DIRECTIVES, AppNavigator, AppNavigatorItem ],
+  directives: [ WatsonContainer, NvD3Watson, ROUTER_DIRECTIVES, AppNavigator, AppNavigatorItem, Legend ],
   styles: [`
     .visOverlayLabel {
       position: absolute;
@@ -62,7 +62,9 @@ import {
     <div class="visual-title">{{chartTitle}}</div>
 
     <nvd3-watson [options]="options" [data]="data"></nvd3-watson>
+    <legend></legend>
   </div>
+
   `
 })
 

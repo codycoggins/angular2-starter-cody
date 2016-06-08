@@ -139,5 +139,9 @@ nav {
 
 .legend {
   background-color: #E8E8E8;
-
+  display: block;
+  padding-top: 30px;
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-bottom: 40px;
 }

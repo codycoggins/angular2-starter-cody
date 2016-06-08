@@ -91,7 +91,6 @@ import {
              </app-navigator>
             <router-outlet></router-outlet>
             <br />
-            <diagnostic-widget class="block border rounded p1 m1 "></diagnostic-widget>
        </div>
 
       </div>
