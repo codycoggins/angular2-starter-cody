@@ -150,7 +150,7 @@ export class ChatSessionStore {
         if (i === 0) {
             for (let j = 0; j < data[i].length; j++) {
               headers[j] = data[0][j] ;
-              console.log ('header ' + j + headers[j]);
+              // console.log ('header ' + j + headers[j]);
             }
         } else {
           let newItem: any = {};
@@ -289,24 +289,9 @@ export class ChatSessionStore {
 
       // console.log('  formatReponse raw input:\n\n' + watsonText + '\n');
       let processedText: string = this.dialogParser.parse( watsonText);
-      // // if (processedText.length === 0) {
-      // //   processedText =
-      // //     'I do not understand your question, can you ask a different way?';
-      // // }
-      // processedText = processedText.replace(
-      //   'Yes/No',
-      //   '<ul><li><a>Yes</a></li><li><a>Yes</a></li></ul>');
-      //
-      // processedText = processedText.replace(
-      //   /Yes.*No/,
-      //   '<ul><li><a><b>Yes</b></a></li><li><a>Yes</a></li></ul>');
-      // let re: RegExp = /mct\:/gi;
-      // processedText = processedText.replace(re, 'mct-');
-      // processedText = processedText.replace('=====================', '');
-      // re = /\<br\>/gi;
-      // processedText = processedText.replace(re, '<li>');
-      // processedText = processedText.replace('\n\n', '<br>');
-      // // processedText = processedText.replace('<br>','<li>');
+
+      processedText = this.substituteProfileVariables(processedText);
+
       return processedText;
     }
 
@@ -314,49 +299,58 @@ export class ChatSessionStore {
 // {"retailer":"","subbrand_channel_perf":"","channel":"","sub_brand":"","subbrand_retailer_perf":"",
 //  "performance_level":"decline","region":"","brand":"SUAVE"}
     substituteProfileVariables (watsonText: string): string {
+
       let r: string = watsonText;
-      r = r.replace('var_region', this.profile['region'].toUpperCase())  ;
-      r = r.replace('var_subbrand', this.profile['sub_brand'].toUpperCase())  ;
-      r = r.replace('var_performance_level', this.profile['performance_level'].toUpperCase())  ;
-      r = r.replace('var_channel', this.profile['channel'].toUpperCase())  ;
-      r = r.replace('var_retailer', this.profile['retailer'].toUpperCase())  ;
-      r = r.replace('var_subbrand_channel_perf', this.profile['subbrand_channel_perf'].toUpperCase())  ;
-      r = r.replace('var_subbrand_retailer_perf', this.profile['subbrand_retailer_perf'].toUpperCase())  ;
+      r = r.replace('var_region', this.safeGetProfileVar('region'))  ;
+      r = r.replace('var_subbrand', this.safeGetProfileVar('sub_brand'))  ;
+      r = r.replace('var_performance_level', this.safeGetProfileVar('performance_level'));
+      r = r.replace('var_channel', this.safeGetProfileVar('channel'));
+      r = r.replace('var_retailer', this.safeGetProfileVar('retailer'));
+      r = r.replace('var_subbrand_channel_perf', this.safeGetProfileVar('subbrand_channel_perf'));
+      r = r.replace('var_subbrand_retailer_perf', this.safeGetProfileVar('subbrand_retailer_perf'));
+      console.log ('substituteProfileVariables(' + watsonText + ') = ' + r );
       return r;
     }
 
+    safeGetProfileVar ( key: string): string {
+      if (this.profile[key] && this.profile[key].length > 0) {
+        return this.profile[key].toUpperCase();
+      } else {
+        return '(var_' + key + ')';
+      }
+
+    }
+
     manageProfileVariables () {
+      console.log ('manageProfileVariables()');
       if (this.intent == 'region_performance') {
+        console.log ('manageProfileVariables()  processing intent region_performance');
         let region: string = this.findMinMax(6, -1);
         console.log ('The region in decline is ' + region);
         this.updateDialogProfile('region', region);
 
-        // let obs: Observable<any> = this.allChatItems;
-        // obs.subscribe(
-        //         res => {
-        //             console.log ('VisualMap.ngOnInit() - Fixing text');
-        //             // console.log ('  This is the item I got: \n' + JSON.stringify(res) + '\n\n');
-        //             let allChatList: List<ChatItem>  = <List<ChatItem>> res;
-        //             let allChats: ChatItem[] = allChatList.toArray();
-        //             // console.log ('  length of list is: ' + allChats.length);
-        //             let myItem: ChatItem = allChats[allChats.length - 2];
-        //             console.log ('  found chat item: ' + JSON.stringify(myItem));
-        //
-        //             if ( !myItem.text.match( region) && !myItem.text.match( region.toUpperCase() )) {
-        //               console.log ('  no match on ' + region);
-        //               myItem.text = myItem.text.replace('var_region', region.toUpperCase())  ;
-        //             } else {
-        //               console.log ('  already contains ' + region );
-        //             }
-        //           }
-        //         );
       } else if (this.intent == 'retailer_performance') {
         let retailer: string = this.findMinMax(6, -1);
         console.log ('The retailer causing the decline is ' + retailer);
         this.updateDialogProfile('retailer', retailer);
-      }
+
+      } else  if (this.intent === 'subbrand_performance') {
+        // code to determine subbrand causing decline
+        let subbrand = this.findMinMax(6, -1);
+        console.log ('The subbrand in decline is ' + subbrand);
+        this.updateDialogProfile('sub_brand', subbrand);
+
+      } else if (this.intent === 'channel_performance') {
+        // code to determine channel causing decline
+        let channel = this.findMinMax(6, -1);
+        console.log ('The channel in decline is ' + channel);
+        this.updateDialogProfile('channel', channel);
+
+    } else {
+      console.log ('manageProfileVariables()  did not find a matching intent, so no profile variable processing has been done.');
 
     }
+  }
 }
 
 export interface ITranslatedData {

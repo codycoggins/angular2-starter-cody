@@ -99,31 +99,7 @@ export class VisualBar implements OnInit  {
         this.chartTitle = this.chartTitle + ' - ' + this.getRegion() + ' Region';
       }
 
-      // code to determine subbrand causing decline
-      let subbrand = this.chatSessionStore.findMinMax(6, -1);
-      console.log ('The subbrand in decline is ' + subbrand);
-      this.chatSessionStore.updateDialogProfile('subbrand', subbrand);
 
-      let obs: Observable<any> = this.chatSessionStore.allChatItems;
-      obs.subscribe(
-              res => {
-                  console.log ('VisualBar.ngOnInit() - intent subbrand_performance - Fixing text');
-                  // console.log ('  This is the item I got: \n' + JSON.stringify(res) + '\n\n');
-                  let allChatList: List<ChatItem>  = <List<ChatItem>> res;
-                  let allChats: ChatItem[] = allChatList.toArray();
-                  // console.log ('  length of list is: ' + allChats.length);
-                  let myItem: ChatItem = allChats[allChats.length - 2];
-                  console.log ('  found chat item: ' + JSON.stringify(myItem));
-
-                  if ( !myItem.text.match( subbrand) && !myItem.text.match( subbrand.toUpperCase() )) {
-                    console.log ('  no match on ' + subbrand);
-                    myItem.text = myItem.text.replace('var_subbrand',   ' ' + subbrand.toUpperCase() + '.')  ;
-                  } else {
-                    console.log ('  already contains ' + subbrand );
-                  }
-                }
-              );
-      // end of subbrand substition code.
 
       xFunction = function(d){ return <string> d.LEVEL; };
       yFunction = function(d){ return <number> d.SHRCYA; };
@@ -176,32 +152,6 @@ export class VisualBar implements OnInit  {
         this.chartTitle = this.getRegion() + ' Region' + ' - ' + this.chartTitle;
       }
 
-      // code to determine channel causing decline
-      let channel = this.chatSessionStore.findMinMax(6, -1);
-      console.log ('The channel in decline is ' + channel);
-      this.chatSessionStore.updateDialogProfile('channel', channel);
-
-      // channel substition
-      let obs2: Observable<any> = this.chatSessionStore.allChatItems;
-      obs2.subscribe(
-              res => {
-                  console.log ('VisualBar.ngOnInit() - Fixing text');
-                  // console.log ('  This is the item I got: \n' + JSON.stringify(res) + '\n\n');
-                  let allChatList: List<ChatItem>  = <List<ChatItem>> res;
-                  let allChats: ChatItem[] = allChatList.toArray();
-                  // console.log ('  length of list is: ' + allChats.length);
-                  let myItem: ChatItem = allChats[allChats.length - 2];
-                  console.log ('  found chat item: ' + JSON.stringify(myItem));
-
-                  if ( !myItem.text.match( channel) && !myItem.text.match( channel.toUpperCase() )) {
-                    console.log ('  no match on ' + channel);
-                    myItem.text = myItem.text.replace('var_channel',   ' ' + channel.toUpperCase() + '.')  ;
-                  } else {
-                    console.log ('  already contains ' + channel );
-                  }
-                }
-              );
-      // end of channel substition code.
 
       this.options = {
         chart: {
