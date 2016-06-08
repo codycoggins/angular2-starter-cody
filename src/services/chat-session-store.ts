@@ -128,6 +128,7 @@ export class ChatSessionStore {
     }
 
     updateDialogProfile (key: string, value: string) {
+        this.profile[key] = value;
         this.chatSessionService.updateDialogProfile (key, value);
     }
 
@@ -247,6 +248,8 @@ export class ChatSessionStore {
                     this.profile = resJson.profile;
                     this.visualData = resJson.data;
 
+                    this.manageProfileVariables ();
+
                     for (let i: number = 0; i < resJson.response.length; i++) {
                       // what is issue with next line?
                       // if (resJson.response[i].length > 0) {
@@ -307,8 +310,54 @@ export class ChatSessionStore {
       return processedText;
     }
 
-}
+// For reference these are the profile variables:
+// {"retailer":"","subbrand_channel_perf":"","channel":"","sub_brand":"","subbrand_retailer_perf":"",
+//  "performance_level":"decline","region":"","brand":"SUAVE"}
+    substituteProfileVariables (watsonText: string): string {
+      let r: string = watsonText;
+      r = r.replace('var_region', this.profile['region'].toUpperCase())  ;
+      r = r.replace('var_subbrand', this.profile['sub_brand'].toUpperCase())  ;
+      r = r.replace('var_performance_level', this.profile['performance_level'].toUpperCase())  ;
+      r = r.replace('var_channel', this.profile['channel'].toUpperCase())  ;
+      r = r.replace('var_retailer', this.profile['retailer'].toUpperCase())  ;
+      r = r.replace('var_subbrand_channel_perf', this.profile['subbrand_channel_perf'].toUpperCase())  ;
+      r = r.replace('var_subbrand_retailer_perf', this.profile['subbrand_retailer_perf'].toUpperCase())  ;
+      return r;
+    }
 
+    manageProfileVariables () {
+      if (this.intent == 'region_performance') {
+        let region: string = this.findMinMax(6, -1);
+        console.log ('The region in decline is ' + region);
+        this.updateDialogProfile('region', region);
+
+        // let obs: Observable<any> = this.allChatItems;
+        // obs.subscribe(
+        //         res => {
+        //             console.log ('VisualMap.ngOnInit() - Fixing text');
+        //             // console.log ('  This is the item I got: \n' + JSON.stringify(res) + '\n\n');
+        //             let allChatList: List<ChatItem>  = <List<ChatItem>> res;
+        //             let allChats: ChatItem[] = allChatList.toArray();
+        //             // console.log ('  length of list is: ' + allChats.length);
+        //             let myItem: ChatItem = allChats[allChats.length - 2];
+        //             console.log ('  found chat item: ' + JSON.stringify(myItem));
+        //
+        //             if ( !myItem.text.match( region) && !myItem.text.match( region.toUpperCase() )) {
+        //               console.log ('  no match on ' + region);
+        //               myItem.text = myItem.text.replace('var_region', region.toUpperCase())  ;
+        //             } else {
+        //               console.log ('  already contains ' + region );
+        //             }
+        //           }
+        //         );
+      } else if (this.intent == 'retailer_performance') {
+        let retailer: string = this.findMinMax(6, -1);
+        console.log ('The retailer causing the decline is ' + retailer);
+        this.updateDialogProfile('retailer', retailer);
+      }
+
+    }
+}
 
 export interface ITranslatedData {
     key: string;

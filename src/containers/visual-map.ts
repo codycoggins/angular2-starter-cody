@@ -18,7 +18,7 @@ import {
 
 @Component({
   selector: 'visual-map',
-  directives: [ WatsonContainer ],
+  directives: [ WatsonContainer, Legend ],
   styles: [`
     .visOverlayLabel {
       position: absolute;
@@ -69,6 +69,7 @@ import {
   <div id="chart_div" class="">
     <!--<svg id="svg1" width="100%" height="100%" viewBox="0 0 640 480" preserveAspectRatio="xMaxYMax"></svg>-->
   </div>
+  <legend></legend>
 
 
 
@@ -114,31 +115,7 @@ export class VisualMap implements OnInit {
 
   ngOnInit () {
     console.log('visualMap ngOnInit');
-    if (this.chatSessionStore.intent == 'region_performance') {
-      let region = this.chatSessionStore.findMinMax(6, -1);
-      console.log ('The region in decline is ' + region);
-      this.chatSessionStore.updateDialogProfile('region', region);
-
-      let obs: Observable<any> = this.chatSessionStore.allChatItems;
-      obs.subscribe(
-              res => {
-                  console.log ('VisualMap.ngOnInit() - Fixing text');
-                  // console.log ('  This is the item I got: \n' + JSON.stringify(res) + '\n\n');
-                  let allChatList: List<ChatItem>  = <List<ChatItem>> res;
-                  let allChats: ChatItem[] = allChatList.toArray();
-                  // console.log ('  length of list is: ' + allChats.length);
-                  let myItem: ChatItem = allChats[allChats.length - 2];
-                  console.log ('  found chat item: ' + JSON.stringify(myItem));
-
-                  if ( !myItem.text.match( region) && !myItem.text.match( region.toUpperCase() )) {
-                    console.log ('  no match on ' + region);
-                    myItem.text = myItem.text.replace('var_region', region.toUpperCase())  ;
-                  } else {
-                    console.log ('  already contains ' + region );
-                  }
-                }
-              );
-    }
+  
     this.draw();
     this.setLabels();
   }
