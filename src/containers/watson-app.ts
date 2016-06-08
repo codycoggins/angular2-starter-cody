@@ -67,12 +67,16 @@ import {
                      class="navbar-link text-decoration-none" style="color: #fff;">Bar Chart</a>
                  </app-navigator-item>
                  <app-navigator-item [mr]=true class="">
+                   <a [routerLink]="['Visual-pie']"
+                     class="navbar-link text-decoration-none" style="color: #fff;">Visual Pie</a>
+                 </app-navigator-item>
+                 <app-navigator-item [mr]=true class="">
                    <a [routerLink]="['Visual-map']"
                      class="navbar-link text-decoration-none" style="color: #fff;">Map</a>
                  </app-navigator-item>
                  <app-navigator-item [mr]=true class="">
                    <a [routerLink]="['Visual-column']"
-                     class="navbar-link text-decoration-none" style="color: #fff;">Column Chart</a>
+                     class="navbar-link text-decoration-none" style="color: #fff; text-align:left;">Column Chart</a>
                  </app-navigator-item>
                  <app-navigator-item [mr]=true class="">
                    <a [routerLink]="['Visual-list']"
