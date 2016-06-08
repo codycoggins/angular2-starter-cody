@@ -16,10 +16,11 @@ export class ChatSessionStore {
     private _allChatItems: BehaviorSubject<List<ChatItem>> =
       new BehaviorSubject(List([]));
 
+    private _fullResponse: any = {};
     private _visualType: string = 'visual_none';
-    private _visualData: any[];
-    public intent: string;
-    public profile: OLProfile;
+    private _visualData: any[] = <any[]>{};
+    public intent: string = '';
+    public profile: OLProfile = <OLProfile> {};
 
     dialogParser: DialogParser;
     chatSessionService: ChatSessionService;
@@ -99,8 +100,35 @@ export class ChatSessionStore {
       return returnKey;
     }
 
+    findMinMaxVal ( columnNum: number, dir: number ): number {
+      // return the minimum/maximum value for a column
+      if (dir === 0 ) {
+        console.log('findMinMaxVal: ERROR dir cannot be 0');
+        return 0;
+      }
+      let data: any = this._visualData;
+      // seed with first data row
+      let maxVal: number = data[1][columnNum] * dir;
+      let returnVal: number = data[1][columnNum];
+      // returns column 0 value of the min/max row
+      // evalueated by columnNum;
+      for (let i = 0; i < data.length; i++) {
+
+        if (i === 0) {
+          // Skip; header row
+        } else {
+          let newNum: number = data[i][columnNum];
+          if ((newNum * dir) > maxVal || (newNum * dir) == maxVal) {
+            maxVal = newNum * dir;
+            returnVal = newNum;
+          }
+        }
+      }
+      return returnVal;
+    }
 
     updateDialogProfile (key: string, value: string) {
+        this.profile[key] = value;
         this.chatSessionService.updateDialogProfile (key, value);
     }
 
@@ -109,6 +137,7 @@ export class ChatSessionStore {
       let result: ITranslatedData = <ITranslatedData> {"key": "Data", values: []};
 
       let newJson: string ;
+
       if (data == null || data.length === 0) {
         console.log('translateData: WARNING null data');
         return null;
@@ -121,7 +150,7 @@ export class ChatSessionStore {
         if (i === 0) {
             for (let j = 0; j < data[i].length; j++) {
               headers[j] = data[0][j] ;
-              console.log ('header ' + j + headers[j]);
+              // console.log ('header ' + j + headers[j]);
             }
         } else {
           let newItem: any = {};
@@ -144,7 +173,6 @@ export class ChatSessionStore {
 
     }
 
-
     loadInitialData() {
         // put the request to the server.
         let obs: Observable<any> = this.chatSessionService.initiateChat();
@@ -154,7 +182,7 @@ export class ChatSessionStore {
         obs.subscribe(
                 res => {
                     console.log ('Initializing Chat');
-                    console.log ('\nOrchestration Layer Initialization returned:\n ' + res.json());
+                    console.log ('\nOrchestration Layer Initialization returned:\n ' + JSON.stringify(res.json()));
                     let resJson: IinitConversation = <IinitConversation> res.json();
                     if (resJson == null || resJson.id == null) {
                       console.log
@@ -178,7 +206,14 @@ export class ChatSessionStore {
                     }
                   },
                   err => {
+                      console.log ("ChatSessionStore: Error in communicating with Orchestration Layer.");
                       console.log (err);
+                      let chatResponse: ChatItem = new ChatItem(
+                         'I am not currently able to commnicate with the server. The system may be under maintenence  Please try again later.',
+                           true);
+                        //  if ( chatResponse.text.length > 0) {
+                           this._allChatItems.next(
+                             this._allChatItems.getValue().push( chatResponse  ));
                     }
                   );
         return obs;
@@ -208,9 +243,12 @@ export class ChatSessionStore {
                       console.log('WARNING: no data returned from Dialog Service');
                       return;
                     }
+                    this._fullResponse = res;
                     this.intent = resJson.profile.CLASSIFIER_CLASS_0;
                     this.profile = resJson.profile;
                     this.visualData = resJson.data;
+
+                    this.manageProfileVariables ();
 
                     for (let i: number = 0; i < resJson.response.length; i++) {
                       // what is issue with next line?
@@ -222,6 +260,8 @@ export class ChatSessionStore {
                              this._allChatItems.getValue().push( chatResponse  ));
                       // }
                     }
+                    this.updateVisual(resJson.mcthides);
+
                   },
                   err => {
                       console.log (err);
@@ -230,49 +270,88 @@ export class ChatSessionStore {
         return obs;
     }
 
+    updateVisual(mcthides: string[]) {
+      if (mcthides.length > 0 && mcthides[0].length > 0) {
+            this.visualType = 'visual_none';
+            this.visualType = mcthides[0];
+      } else {
+        console.log ('chatSessionStore: updateVisual: no mcthides values detected.');
+      }
+    }
+
     formatReponse (watsonText: string): string {
       console.log('formatReponse(' + watsonText + ')');
       if (watsonText == null) {
           console.log('  null watsonText.');
           return '';
       }
-      for (let i: number = 0; i < this.visualTypes.length; i++)  {
-        // console.log('try ' + this.visualTypes[i]);
-        if (watsonText.match('<mct:hide>' + this.visualTypes[i] + '</mct:hide>')) {
-          // this.visualizationStore.addImage (this.visualizationStore.visMap1)  ;
-          // console.log ('match ' + this.visualTypes[i]);
-          this.visualType = 'visual_none';
-          this.visualType = this.visualTypes[i];
-          continue;
-        } else {
-          // console.log ('formatReponse: no match for visuals.');
-        }
-      }
+
+
       // console.log('  formatReponse raw input:\n\n' + watsonText + '\n');
       let processedText: string = this.dialogParser.parse( watsonText);
-      // // if (processedText.length === 0) {
-      // //   processedText =
-      // //     'I do not understand your question, can you ask a different way?';
-      // // }
-      // processedText = processedText.replace(
-      //   'Yes/No',
-      //   '<ul><li><a>Yes</a></li><li><a>Yes</a></li></ul>');
-      //
-      // processedText = processedText.replace(
-      //   /Yes.*No/,
-      //   '<ul><li><a><b>Yes</b></a></li><li><a>Yes</a></li></ul>');
-      // let re: RegExp = /mct\:/gi;
-      // processedText = processedText.replace(re, 'mct-');
-      // processedText = processedText.replace('=====================', '');
-      // re = /\<br\>/gi;
-      // processedText = processedText.replace(re, '<li>');
-      // processedText = processedText.replace('\n\n', '<br>');
-      // // processedText = processedText.replace('<br>','<li>');
+
+      processedText = this.substituteProfileVariables(processedText);
+
       return processedText;
     }
 
-}
+// For reference these are the profile variables:
+// {"retailer":"","subbrand_channel_perf":"","channel":"","sub_brand":"","subbrand_retailer_perf":"",
+//  "performance_level":"decline","region":"","brand":"SUAVE"}
+    substituteProfileVariables (watsonText: string): string {
 
+      let r: string = watsonText;
+      r = r.replace('var_region', this.safeGetProfileVar('region'))  ;
+      r = r.replace('var_subbrand', this.safeGetProfileVar('sub_brand'))  ;
+      r = r.replace('var_performance_level', this.safeGetProfileVar('performance_level'));
+      r = r.replace('var_channel', this.safeGetProfileVar('channel'));
+      r = r.replace('var_retailer', this.safeGetProfileVar('retailer'));
+      r = r.replace('var_subbrand_channel_perf', this.safeGetProfileVar('subbrand_channel_perf'));
+      r = r.replace('var_subbrand_retailer_perf', this.safeGetProfileVar('subbrand_retailer_perf'));
+      console.log ('substituteProfileVariables(' + watsonText + ') = ' + r );
+      return r;
+    }
+
+    safeGetProfileVar ( key: string): string {
+      if (this.profile[key] && this.profile[key].length > 0) {
+        return this.profile[key].toUpperCase();
+      } else {
+        return '(var_' + key + ')';
+      }
+
+    }
+
+    manageProfileVariables () {
+      console.log ('manageProfileVariables()');
+      if (this.intent == 'region_performance') {
+        console.log ('manageProfileVariables()  processing intent region_performance');
+        let region: string = this.findMinMax(6, -1);
+        console.log ('The region in decline is ' + region);
+        this.updateDialogProfile('region', region);
+
+      } else if (this.intent == 'retailer_performance') {
+        let retailer: string = this.findMinMax(6, -1);
+        console.log ('The retailer causing the decline is ' + retailer);
+        this.updateDialogProfile('retailer', retailer);
+
+      } else  if (this.intent === 'subbrand_performance') {
+        // code to determine subbrand causing decline
+        let subbrand = this.findMinMax(6, -1);
+        console.log ('The subbrand in decline is ' + subbrand);
+        this.updateDialogProfile('sub_brand', subbrand);
+
+      } else if (this.intent === 'channel_performance') {
+        // code to determine channel causing decline
+        let channel = this.findMinMax(6, -1);
+        console.log ('The channel in decline is ' + channel);
+        this.updateDialogProfile('channel', channel);
+
+    } else {
+      console.log ('manageProfileVariables()  did not find a matching intent, so no profile variable processing has been done.');
+
+    }
+  }
+}
 
 export interface ITranslatedData {
     key: string;

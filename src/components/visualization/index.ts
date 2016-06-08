@@ -28,7 +28,7 @@ import { VisualizationStore } from '../../services/visualization-store';
   `],
   template: `
 
-      <div id="chart_div" >
+      <div id="chart_div" class="chart-div">
         <span _ngcontent-nvs-8="" class="visOverlayLabel">Example Visualization</span>
         <!--<img
         style="-webkit-filter: grayscale(100%);filter: grayscale(100%);"

@@ -27,7 +27,7 @@ import {
     }
   `],
   template: `
-  <div id="chart_div" >
+  <div id="chart_div" class="chart-div">
     <span _ngcontent-nvs-8="" class="visOverlayLabel h2 center">
     Example Visual Bubble<br/>
     <span class="h5">This is a placeholder</span>
@@ -44,7 +44,7 @@ export class VisualBubble implements OnInit {
   chatSessionStore: ChatSessionStore;
 
   constructor(chatSessionStore: ChatSessionStore ) {
-    console.log('VisualColumn constructor() ');
+    console.log('VisualBubble constructor() ');
     this.chatSessionStore = chatSessionStore;
   };
 

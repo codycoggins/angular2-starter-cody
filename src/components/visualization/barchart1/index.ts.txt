@@ -86,7 +86,7 @@ translateData(data) {
     if (i === 0) {
         for (let j = 0; j < data[i].length; j++) {
           headers[j] = data[0][j] ;
-          console.log ('header ' + j + headers[j]);
+//          console.log ('header ' + j + headers[j]);   
         }
     } else {
       if (i > 1) {

@@ -1,5 +1,7 @@
 import { Component, OnInit } from 'angular2/core';
 import { ChatSessionStore } from '../services/chat-session-store';
+import { RouteConfig, ROUTER_DIRECTIVES } from 'angular2/router';
+
 
 import {
   WatsonContainer
@@ -28,7 +30,7 @@ import {
 
   `],
   template: `
-  <div id="chart_div" >
+  <div id="chart_div" class="chart-div">
     <!--<span class="visOverlayLabel h2 center">
     Visual Column
     </span>-->
@@ -46,7 +48,7 @@ export class VisualColumn implements OnInit {
   };
 
   ngOnInit () {
-    
+
   }
 
   dataInColumnHTML(): string {

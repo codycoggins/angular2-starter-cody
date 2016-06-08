@@ -27,7 +27,7 @@ import {
     }
   `],
   template: `
-  <div id="chart_div" >
+  <div id="chart_div" class="chart-div">
     <!-- <span _ngcontent-nvs-8="" class="visOverlayLabel h2 center">
     Example Visual Bullet<br/>
     <span class="h5">This is a placeholder</span>
@@ -42,12 +42,12 @@ export class VisualBullet implements OnInit  {
   chatSessionStore: ChatSessionStore;
 
   constructor(chatSessionStore: ChatSessionStore ) {
-    console.log('VisualColumn constructor() ');
+    console.log('VisualBullet constructor() ');
     this.chatSessionStore = chatSessionStore;
   };
 
   ngOnInit () {
-    
+
   }
 
   dataInBulletHTML(): string {

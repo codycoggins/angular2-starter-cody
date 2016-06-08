@@ -1,10 +1,14 @@
 import { Component, Inject, Injectable, OnInit  } from 'angular2/core';
-import { NvD3Watson } from '../components/visualization/nvd3-watson';
+import { RouteConfig, ROUTER_DIRECTIVES } from 'angular2/router';
 import {Observable} from 'rxjs/Observable';
 import {List} from 'immutable';
 
+import { NvD3Watson } from '../components/visualization/nvd3-watson';
+
 import {ChatItem} from '../services/chat-item';
 import { OLMessage, OLProfile} from '../services/chat-session-service';
+
+
 
 declare var d3: any;
 
@@ -12,12 +16,15 @@ import { ChatSessionStore, ITranslatedData } from '../services/chat-session-stor
 
 import {
   WatsonContainer,
-  CompanyLogo
+  AppNavigator,
+  AppNavigatorItem,
+  CompanyLogo,
+  Legend
 } from '../components';
 
 @Component({
   selector: 'visual-bar',
-  directives: [ WatsonContainer, NvD3Watson ],
+  directives: [ WatsonContainer, NvD3Watson, ROUTER_DIRECTIVES, AppNavigator, AppNavigatorItem, Legend ],
   styles: [`
     .visOverlayLabel {
       position: absolute;
@@ -39,11 +46,25 @@ import {
 
   `],
   template: `
-  <div id="chart_div" >
+  <div style="{{chatSessionStore.intent=='social_feedback' ? '' : 'display: none;'}}" class="tab-container">
+     <span class="tab-selected">
+       <a [routerLink]="['Visual-bar']"
+         class="navbar-link text-decoration-none">Graph</a>
+     </span>
+     <span class="tab">
+       <a [routerLink]="['Visual-list-positive']"
+         class="navbar-link text-decoration-none">View Tweets</a>
+     </span>
+  </div>
+
+  <div id="chart_div" class="chart-div">
     <!--<span class="visOverlayLabel center h2">Example Bar Chart Visualization</span>-->
     <div class="visual-title">{{chartTitle}}</div>
+
     <nvd3-watson [options]="options" [data]="data"></nvd3-watson>
+    <legend></legend>
   </div>
+
   `
 })
 
@@ -78,31 +99,7 @@ export class VisualBar implements OnInit  {
         this.chartTitle = this.chartTitle + ' - ' + this.getRegion() + ' Region';
       }
 
-      // code to determine subbrand causing decline
-      let subbrand = this.chatSessionStore.findMinMax(6, -1);
-      console.log ('The subbrand in decline is ' + subbrand);
-      this.chatSessionStore.updateDialogProfile('subbrand', subbrand);
 
-      let obs: Observable<any> = this.chatSessionStore.allChatItems;
-      obs.subscribe(
-              res => {
-                  console.log ('VisualBar.ngOnInit() - intent subbrand_performance - Fixing text');
-                  // console.log ('  This is the item I got: \n' + JSON.stringify(res) + '\n\n');
-                  let allChatList: List<ChatItem>  = <List<ChatItem>> res;
-                  let allChats: ChatItem[] = allChatList.toArray();
-                  // console.log ('  length of list is: ' + allChats.length);
-                  let myItem: ChatItem = allChats[allChats.length - 2];
-                  console.log ('  found chat item: ' + JSON.stringify(myItem));
-
-                  if ( !myItem.text.match( subbrand) && !myItem.text.match( subbrand.toUpperCase() )) {
-                    console.log ('  no match on ' + subbrand);
-                    myItem.text = myItem.text.replace('==> Subbrand name',   ' ' + subbrand.toUpperCase() + '.')  ;
-                  } else {
-                    console.log ('  already contains ' + subbrand );
-                  }
-                }
-              );
-      // end of subbrand substition code.
 
       xFunction = function(d){ return <string> d.LEVEL; };
       yFunction = function(d){ return <number> d.SHRCYA; };
@@ -155,32 +152,6 @@ export class VisualBar implements OnInit  {
         this.chartTitle = this.getRegion() + ' Region' + ' - ' + this.chartTitle;
       }
 
-      // code to determine channel causing decline
-      let channel = this.chatSessionStore.findMinMax(6, -1);
-      console.log ('The channel in decline is ' + channel);
-      this.chatSessionStore.updateDialogProfile('channel', channel);
-
-      // channel substition
-      let obs2: Observable<any> = this.chatSessionStore.allChatItems;
-      obs2.subscribe(
-              res => {
-                  console.log ('VisualBar.ngOnInit() - Fixing text');
-                  // console.log ('  This is the item I got: \n' + JSON.stringify(res) + '\n\n');
-                  let allChatList: List<ChatItem>  = <List<ChatItem>> res;
-                  let allChats: ChatItem[] = allChatList.toArray();
-                  // console.log ('  length of list is: ' + allChats.length);
-                  let myItem: ChatItem = allChats[allChats.length - 2];
-                  console.log ('  found chat item: ' + JSON.stringify(myItem));
-
-                  if ( !myItem.text.match( channel) && !myItem.text.match( channel.toUpperCase() )) {
-                    console.log ('  no match on ' + channel);
-                    myItem.text = myItem.text.replace('channel-Name==>',   ' ' + channel.toUpperCase() + '.')  ;
-                  } else {
-                    console.log ('  already contains ' + channel );
-                  }
-                }
-              );
-      // end of channel substition code.
 
       this.options = {
         chart: {
@@ -292,8 +263,8 @@ export class VisualBar implements OnInit  {
     console.log ('  received ' + dataIn[0].values.length + ' data points.');
     for (let i = 0; i <  dataIn[0].values.length; i++) {
       let myRow: any = dataIn[0].values[i];
-      console.log ('myRow=' + JSON.stringify(myRow));
-      console.log ('SENTIMENT:' + myRow["SENTIMENT_POLARITY"]);
+      // console.log ('myRow=' + JSON.stringify(myRow));
+      // console.log ('SENTIMENT:' + myRow["SENTIMENT_POLARITY"]);
       if (myRow["SENTIMENT_POLARITY"] == 'POSITIVE') { POSITIVE ++ ; } else
       if (myRow["SENTIMENT_POLARITY"] == 'NEGATIVE') { NEGATIVE ++ ; } else {
         console.log ('unknown SENTIMENT_POLARITY ' + myRow["SENTIMENT_POLARITY"]);

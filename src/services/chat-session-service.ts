@@ -84,6 +84,9 @@ export class ChatSessionService {
         obs.subscribe(
                 res => {
                   console.log (res);
+                },
+                err => {
+                  console.log (err);
                 }
               );
 
@@ -104,6 +107,9 @@ export class ChatSessionService {
           obs2.subscribe(
                     res => {
                       console.log (res);
+                    },
+                    err => {
+                      console.log (err);
                     }
                   );
         }
@@ -147,6 +153,7 @@ export interface OLMessage {
     clientId: number;
     response: string[];
     mctinputs: string[];
+    mcthides: string[];
     dialogId: string;
     cnversationId: number; // this is the conversation_id
 }

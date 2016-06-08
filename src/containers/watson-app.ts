@@ -21,14 +21,15 @@ import {
   AppNavigator,
   AppNavigatorItem,
   CompanyLogo,
-  Chat
+  Chat,
+  DiagnosticWidget
   } from '../components';
 
 @Component({
   selector: 'watson-app',
   directives: [
     ROUTER_DIRECTIVES, AppNavigator, AppNavigatorItem, Chat,
-    WatsonContainer, CompanyLogo
+    WatsonContainer, CompanyLogo, DiagnosticWidget
   ],
   // Global styles imported in the app component.
   encapsulation: ViewEncapsulation.None,
@@ -51,7 +52,7 @@ import {
 
       <div id="app-area" class=""
        style="height:100%; margin:0; auto -100px; width: 100%;">
-       <div id="main-page-container" class="flex flex-wrap justify-between">
+       <div id="main-page-container" class="flex flex-wrap">
            <chat id="chat-container" class="col col-4 top-0"></chat>
 
 
@@ -93,6 +94,7 @@ import {
                </div>
              </app-navigator>
             <router-outlet></router-outlet>
+            <br />
        </div>
 
       </div>
@@ -131,6 +133,16 @@ import {
   {
     path: '/visual-list',
     name: 'Visual-list',
+    component: VisualList
+  },
+  {
+    path: '/Visual-list-positive',
+    name: 'Visual-list-positive',
+    component: VisualList
+  },
+  {
+    path: '/Visual-list-negative',
+    name: 'Visual-list-negative',
     component: VisualList
   },
   {

@@ -8,7 +8,8 @@ import { Observable} from 'rxjs/Observable';
 import { ChatItem } from '../../services/chat-item';
 import { ChatSessionStore} from '../../services/chat-session-store';
 import { ChatInput } from '../chat-input';
-import { CompanyLogo } from '../logo';
+import  {CompanyLogo}  from '../logo';
+import {DiagnosticWidget } from '../diagnostic-widget';
 
 // comment
 @Component({
@@ -157,8 +158,9 @@ import { CompanyLogo } from '../logo';
     </div>
     <chat-input class="flex"></chat-input>
     <div class="watson-footer center p2">Insights powered by Nielsen</div>
+    <diagnostic-widget class="block p1 m1 "></diagnostic-widget>
   `,
-  directives: [Chat, ChatInput, CompanyLogo]
+  directives: [ChatInput, CompanyLogo, DiagnosticWidget]
 })
 
 export class Chat {
