@@ -22,9 +22,9 @@ import { OLMessage, OLProfile} from '../../services/chat-session-service';
     }
       `],
   template: `
-    <span (click)="setHidden(!hidden);" class="underline bold" style="color: #0B3D88;">
+    <!-- span (click)="setHidden(!hidden);" class="underline bold" style="color: #0B3D88;">
       {{hidden ? 'Show legends' : 'Hide legends'}}
-    </span>
+    </span-->
     <div class="legend" style="display: {{ hidden ? 'None' : 'Block' }};">
 
       <p class="h3 bold">Legend</p>
