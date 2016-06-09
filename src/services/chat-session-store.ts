@@ -19,6 +19,7 @@ export class ChatSessionStore {
     private _fullResponse: any = {};
     private _visualType: string = 'visual_none';
     private _visualData: any[] = <any[]>{};
+    private _mcthides: string[] = [];
     public intent: string = '';
     public profile: OLProfile = <OLProfile> {};
 
@@ -72,6 +73,13 @@ export class ChatSessionStore {
       return this._visualData;
     }
 
+    get mcthides(): string[] {
+      return this._mcthides;
+    }
+
+    set mcthides (newHides: string[]) {
+      this._mcthides = newHides;
+    }
 
     // set dir to -1 for min, +1 for max
     // returns column 0 value of the min/max row
@@ -244,10 +252,11 @@ export class ChatSessionStore {
                       return;
                     }
                     this._fullResponse = res;
+                    this.mcthides = resJson.mcthides;
                     this.intent = resJson.profile.CLASSIFIER_CLASS_0;
                     this.profile = resJson.profile;
                     this.visualData = resJson.data;
-
+                    this.checkIgnoreRegion(resJson.mcthides);
                     this.manageProfileVariables ();
 
                     for (let i: number = 0; i < resJson.response.length; i++) {
@@ -268,6 +277,16 @@ export class ChatSessionStore {
                     }
                   );
         return obs;
+    }
+
+    checkIgnoreRegion(mcthides: string[]) {
+      if (mcthides.length > 1 && mcthides[0].length > 0) {
+              if (mcthides[1].match ('ignore_region')) {
+                // special case for question 1, skip growth and decline just get results
+                this.profile.performance_level = 'ignore_region';
+              }
+
+      }
     }
 
     updateVisual(mcthides: string[]) {
@@ -323,27 +342,46 @@ export class ChatSessionStore {
 
     manageProfileVariables () {
       console.log ('manageProfileVariables()');
+      // . I'll pick up the performance_level variable to test for decline or growth
+      let direction: number = -1;
+      if (this.profile.performance_level == 'growth') {
+        console.log('manageProfileVariables: performance_level is growth');
+        direction = 1;
+      } else if (this.profile.performance_level == 'decline') {
+        console.log('manageProfileVariables: performance_level is decline');
+        direction = -1;
+      } else if (this.profile.performance_level == 'ignore_region') {
+        console.log('manageProfileVariables: performance_level is ignore_region');
+
+        // special case for question 1 ignore growth or decline just return results.
+        direction = 0;
+        return;
+      } else {
+        console.log ('manageProfileVariables: unknown performance_level: \"' + this.profile.performance_level + '\"');
+      }
+
       if (this.intent == 'region_performance') {
         console.log ('manageProfileVariables()  processing intent region_performance');
-        let region: string = this.findMinMax(6, -1);
-        console.log ('The region in decline is ' + region);
+        let region: string = this.findMinMax(6, direction);
+        console.log ('The region in ' + this.profile.performance_level + ' is ' + region);
         this.updateDialogProfile('region', region);
 
       } else if (this.intent == 'retailer_performance') {
-        let retailer: string = this.findMinMax(6, -1);
-        console.log ('The retailer causing the decline is ' + retailer);
+        let retailer: string = this.findMinMax(6, direction);
+        console.log ('The retailer causing the ' + this.profile.performance_level + '  is ' + retailer);
         this.updateDialogProfile('retailer', retailer);
 
       } else  if (this.intent === 'subbrand_performance') {
         // code to determine subbrand causing decline
-        let subbrand = this.findMinMax(6, -1);
-        console.log ('The subbrand in decline is ' + subbrand);
+
+        let subbrand = this.findMinMax(6, direction);
+        console.log ('The subbrand in ' + this.profile.performance_level + '  is ' + subbrand);
         this.updateDialogProfile('sub_brand', subbrand);
 
       } else if (this.intent === 'channel_performance') {
         // code to determine channel causing decline
-        let channel = this.findMinMax(6, -1);
-        console.log ('The channel in decline is ' + channel);
+        let channel = this.findMinMax(6, direction);
+        console.log ('The channel in ' + this.profile.performance_level + '  is ' + channel);
         this.updateDialogProfile('channel', channel);
 
     } else {

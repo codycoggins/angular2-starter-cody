@@ -1,7 +1,7 @@
 
 ---
 applications:
-- name: watson-nielsen-ui3
+- name: watson-nielsen-ui-dev
   command: npm install && npm start
   path: .
   memory: 2048M

@@ -30,7 +30,7 @@ module.exports = (app) => {
   // TODO: add more robust authentication after POC
   console.log ("__dirname = " + __dirname);
   var basic = auth.basic({
-          realm: "Project NLS",
+          realm: "Project NLS.",
           file: __dirname + "/users.htpasswd" // username === "nielsen" && password === "W@ts0n16"
       }
   );
