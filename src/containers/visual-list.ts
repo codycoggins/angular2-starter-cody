@@ -78,7 +78,7 @@ import {
 export class VisualList implements OnInit {
   chatSessionStore: ChatSessionStore;
   page: number = 0;
-  rowsPerPage: number = 50;
+  rowsPerPage: number = 20;
   totalRows: number = 0;
   // chartTitle: string = 'Table';
   constructor(chatSessionStore: ChatSessionStore ) {
@@ -159,7 +159,7 @@ export class VisualList implements OnInit {
 
         for (let j: number = 0; j < data[i].length; j++) {
           // check for groupings
-          let skip: boolean = (i > 0) && !this.isBlankOrZero(data[i][j]) && (data[i][j] == data[i - 1][j]);
+          let skip: boolean = (i > 0) && !this.isBlankOrZero(data[i][j]) && (data[i][j] == data[i - 1][j]) && (i != ( this.page * this.rowsPerPage) + 1);
           let rowSpan = this.getRowSpan(data, i, j, 1);
 
           if (!skip) {
