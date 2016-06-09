@@ -1,5 +1,3 @@
-/// <reference path="../../typings/main/ambient/d3/d3.cloud.layout.d.ts" />
-
 
 import { Component, OnInit } from 'angular2/core';
 import {Observable} from 'rxjs/Observable';
@@ -9,7 +7,7 @@ import {ChatItem} from '../services/chat-item';
 import { ChatSessionStore } from '../services/chat-session-store';
 import { OLMessage, OLProfile} from '../services/chat-session-service';
 import { ITranslatedData } from '../services/chat-session-store';
-//import * as e3 from '../../typings/main/ambient/d3/d3.cloud.layout.d.ts';
+// import * as e3 from '../../typings/main/ambient/d3/d3.cloud.layout.d.ts';
 
 // import { topojson } from 'ts-topojson';
 // import { Base } from 'Topojson';
@@ -86,13 +84,13 @@ import {
     chatSessionStore: ChatSessionStore;
     color: any;
     positive: boolean = false;
-    negative:boolean = false;
+    negative: boolean = false;
 
     constructor(chatSessionStore: ChatSessionStore ) {
       console.log('VisualPie constructor() ');
       this.chatSessionStore = chatSessionStore;
       this.color = d3.scale.linear()
-              .domain([0,1,2,3,4,5,6,10,15,20,100])
+              .domain([0, 1, 2, 3, 4, 5, 6, 10, 15, 20, 100])
               .range(["#ddd", "#ccc", "#bbb", "#aaa", "#999", "#888", "#777", "#666", "#555", "#444", "#333", "#222"]);
     };
 
@@ -117,36 +115,36 @@ import {
     }
 
 drawWordCloud() {
-  let frequency_list = [{"text":"suave","size":50},
-{"text":"hair","size":46},
-{"text":"shampoo","size":22},
-{"text":"perfect","size":10},
-{"text":"conditioner","size":10},
-{"text":"cut","size":10},
-{"text":"long","size":7},
-{"text":"cut","size":10},
-{"text":"look","size":6},
-{"text":"pantene","size":5},
-{"text":"suaveshinyhair","size":5},
-{"text":"@shznakl","size":5},
-{"text":"ad","size":5},
-{"text":"professionals","size":5},
-{"text":"products","size":5},
-{"text":"disappointment","size":5},
-{"text":"random","size":5},
-{"text":"moroccan","size":5},
-{"text":"stupid","size":5},
-{"text":"@jvigil56","size":4},
-{"text":"smells","size":4},
-{"text":"tease","size":4},
-{"text":"@jvigil56","size":4},
-{"text":"poofy","size":4},
-{"text":"volume","size":3},
-{"text":"deal","size":3},
-{"text":"savings","size":3},
-{"text":"coupon","size":3},
-{"text":"@deshartsock","size":3},
-{"text":"wedding","size":3}];
+  let frequency_list = [{"text": "suave", "size":  50},
+{"text": "hair", "size":  46},
+{"text": "shampoo", "size": 22},
+{"text": "perfect", "size": 10},
+{"text": "conditioner", "size": 10},
+{"text": "cut", "size": 10},
+{"text": "long", "size": 7},
+{"text": "cut", "size": 10},
+{"text": "look", "size": 6},
+{"text": "pantene", "size": 5},
+{"text": "suaveshinyhair", "size": 5},
+{"text": "@shznakl", "size": 5},
+{"text": "ad", "size": 5},
+{"text": "professionals", "size": 5},
+{"text": "products", "size": 5},
+{"text": "disappointment", "size": 5},
+{"text": "random", "size": 5},
+{"text": "moroccan", "size": 5},
+{"text": "stupid", "size": 5},
+{"text": "@jvigil56", "size": 4},
+{"text": "smells", "size": 4},
+{"text": "tease", "size": 4},
+{"text": "@jvigil56", "size": 4},
+{"text": "poofy", "size": 4},
+{"text": "volume", "size": 3},
+{"text": "deal", "size": 3},
+{"text": "savings", "size": 3},
+{"text": "coupon", "size": 3},
+{"text": "@deshartsock", "size": 3},
+{"text": "wedding", "size": 3}];
 
   d3.layout.cloud().size([800, 300])
             .words(frequency_list)
@@ -160,7 +158,7 @@ draw(words) {
 
   let color: any;
   color = d3.scale.linear()
-          .domain([0,1,2,3,4,5,6,10,15,20,100])
+          .domain([0, 1, 2, 3, 4, 5, 6, 10, 15, 20, 100])
           .range(["#ddd", "#ccc", "#bbb", "#aaa", "#999", "#888", "#777", "#666", "#555", "#444", "#333", "#222"]);
    d3.select("#word-cloud").append("svg")
            .attr("width", 850)
@@ -217,18 +215,18 @@ draw(words) {
       .attr('d', arc)
       .on("click", function(d){
         console.log(d.data.key);
-        if(d.data.key == 'Positive') {
+        if (d.data.key == 'Positive') {
           this.positive =  true;
           this.negative = false;
               // document.getElementById('positive-sentiments-table').style.display = 'hide';
            document.getElementById('negative-sentiments-table').style.display = 'none';
            document.getElementById('positive-sentiments-table').style.display = 'block';
-          //this.dataInColumnHTML(d.data.key);
+          // this.dataInColumnHTML(d.data.key);
         } else
-        if(d.data.key == 'Negative') {
+        if (d.data.key == 'Negative') {
           this.positive =  false;
           this.negative = true;
-          //document.getElementById('negative-sentiments-table').style.display = 'hide';
+          // document.getElementById('negative-sentiments-table').style.display = 'hide';
           document.getElementById('positive-sentiments-table').style.display = 'none';
             document.getElementById('negative-sentiments-table').style.display = 'block';
           }

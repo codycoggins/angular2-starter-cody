@@ -39,7 +39,7 @@ import {
 `
     chat {
       min-width: 400px;
-      background-image: url(./src/assets/intro-glow.png);
+      background-image: url("/intro-glow.png");
       background-position: 50% 0%;
       background-size: 100% 100%;
       background-color: #79C3E5;
