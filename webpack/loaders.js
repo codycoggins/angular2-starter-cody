@@ -32,7 +32,6 @@ exports.css = {
   exclude: /node_modules/
 };
 
-exports.svg = makeUrlLoader(/\.svg$/);
 exports.eot = makeUrlLoader(/\.eot$/);
 exports.woff = makeUrlLoader(/\.woff$/);
 exports.woff2 = makeUrlLoader(/\.woff2$/);
@@ -40,9 +39,16 @@ exports.ttf = makeUrlLoader(/\.ttf$/);
 
 // exports.png = makeUrlLoader(/\.png$/);
 
+// png and svg loader assumes unique image names.
 exports.png = {
   test: /\.(jpg|png)$/,
-  loader: 'file?name=[path][name].[hash].[ext]',
+  loader: 'file?name=[name].[ext]',
+  exclude: /node_modules/
+}
+
+exports.svg = {
+  test: /\.(svg)$/,
+  loader: 'file?name=[name].[ext]',
   exclude: /node_modules/
 }
 
