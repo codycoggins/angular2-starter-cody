@@ -136,8 +136,12 @@ export class ChatSessionStore {
     }
 
     updateDialogProfile (key: string, value: string) {
-        this.profile[key] = value;
-        this.chatSessionService.updateDialogProfile (key, value);
+        if (value == null || value == '' || value == 'undefined') {
+          console.log('updateDialogProfile(' + key + ', ' + value + '): will not save because value is null or undefined');
+        } else {
+          this.profile[key] = value;
+          this.chatSessionService.updateDialogProfile (key, value);
+        }
     }
 
     translatedData(): [ITranslatedData] {
