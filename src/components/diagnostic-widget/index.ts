@@ -19,15 +19,14 @@ import { OLMessage, OLProfile} from '../../services/chat-session-service';
     }
       `],
   template: `
-    <span (click)="setHidden(!hidden);" class="underline bold" style="color: #0B3D88;">
+    <span (click)="setHidden(!hidden);" class="underline h5" style="color: #0B3D88;">
       {{hidden ? 'Show Diagnostics' : 'Hide Diagnostics'}}
     </span>
     <div class="diagnostic" style="display: {{ hidden ? 'None' : 'Block' }};">
 
       <p class="h3 bold">Diagnostic Information</p>
-      <div>question: <span class="values">{{getProfileItem('original_question')}}</span></div>
       <div>intent: {{getIntent()}}</div>
-      <div>visual_type: <span class="values">{{getProfileItem('visual_type')}}</span></div>
+      <div>visual_type: <span class="values">{{getVisualType()}}</span></div>
 
       <div>retailer: <span class="values">{{getProfileItem('retailer')}}</span></div>
       <div>ui_region: <span class="values">{{getProfileItem('ui_region')}}</span></div>
@@ -58,6 +57,10 @@ export class DiagnosticWidget {
 
   setHidden(hidden: boolean) {
     this.hidden =  hidden;
+  }
+
+  getVisualType() {
+    return this.chatSessionStore.visualType;
   }
 
   getIntent() {

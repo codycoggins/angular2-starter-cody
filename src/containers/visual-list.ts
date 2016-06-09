@@ -45,7 +45,7 @@ import {
      </span>
   </div>
 
-  <div class="visual-title">{{chartTitle}}</div>
+  <div class="visual-title">{{chatSessionStore.visualTitle}}</div>
 
   <div id="chart_div" class="chart-div">
     <!--<span class="visOverlayLabel h2 center">
@@ -58,7 +58,7 @@ import {
 })
 export class VisualList implements OnInit {
   chatSessionStore: ChatSessionStore;
-  chartTitle: string = 'Table';
+  // chartTitle: string = 'Table';
   constructor(chatSessionStore: ChatSessionStore ) {
     console.log('VisualList constructor() ');
     this.chatSessionStore = chatSessionStore;

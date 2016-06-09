@@ -59,7 +59,7 @@ import {
 
   <div id="chart_div" class="chart-div">
     <!--<span class="visOverlayLabel center h2">Example Bar Chart Visualization</span>-->
-    <div class="visual-title">{{chartTitle}}</div>
+    <div class="visual-title">{{chatSessionStore.visualTitle}}</div>
 
     <nvd3-watson [options]="options" [data]="data"></nvd3-watson>
     <legend></legend>
@@ -70,7 +70,7 @@ import {
 
 export class VisualBar implements OnInit  {
   options;
-  chartTitle: string = 'Bar Chart';
+  // chartTitle: string = 'Bar Chart';
   data: any;
   dataRough: any;
   chartType;
@@ -94,10 +94,10 @@ export class VisualBar implements OnInit  {
     if (intent === 'subbrand_performance') {
       // Question 2,5,6
       // for question 2:
-      this.chartTitle = 'Subbrand Performance';
-      if (this.getRegion().length > 0 ) {
-        this.chartTitle = this.chartTitle + ' - ' + this.getRegion() + ' Region';
-      }
+      // this.chartTitle = 'Subbrand Performance';
+      // if (this.getRegion().length > 0 ) {
+      //   this.chartTitle = this.chartTitle + ' - ' + this.getRegion() + ' Region';
+      // }
 
 
 
@@ -143,14 +143,14 @@ export class VisualBar implements OnInit  {
       yFunction = function(d){ return d.SHRCYA; };
       console.log ('intent: channel_performance');
 
-      this.chartTitle = 'Performance by Channel Overview';
-      if (this.getBrand().length > 0 ) {
-        this.chartTitle = this.getBrand() + ' - ' + this.chartTitle;
-      }
-
-      if (this.getRegion().length > 0 ) {
-        this.chartTitle = this.getRegion() + ' Region' + ' - ' + this.chartTitle;
-      }
+      // this.chartTitle = 'Performance by Channel Overview';
+      // if (this.getBrand().length > 0 ) {
+      //   this.chartTitle = this.getBrand() + ' - ' + this.chartTitle;
+      // }
+      //
+      // if (this.getRegion().length > 0 ) {
+      //   this.chartTitle = this.getRegion() + ' Region' + ' - ' + this.chartTitle;
+      // }
 
 
       this.options = {
@@ -184,15 +184,15 @@ export class VisualBar implements OnInit  {
         }
       };
     } else if (intent === 'dollar_opportunity') {
-      this.chartTitle = 'Dollor Opportunity';
+      // this.chartTitle = 'Dollor Opportunity';
       // Question 22
 
     } else if (intent === 'social_feedback') {
       // Question 24
-      this.chartTitle = 'Social Feedback';
-      if (this.getBrand().length > 0 ) {
-        this.chartTitle = this.getBrand() + ' - ' + this.chartTitle;
-      }
+      // this.chartTitle = 'Social Feedback';
+      // if (this.getBrand().length > 0 ) {
+        // this.chartTitle = this.getBrand() + ' - ' + this.chartTitle;
+      // }
 
       console.log ('\n SOCIAL FEEDBACK \n');
       this.dataRough = this.processSocialFeedback (this.dataRough);

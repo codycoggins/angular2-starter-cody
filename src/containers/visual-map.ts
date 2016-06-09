@@ -97,9 +97,6 @@ export class VisualMap implements OnInit {
     console.log('visualMap constructor() ');
 
     this.chatSessionStore = chatSessionStore;
-    this.intent = this.chatSessionStore.intent;
-    this.dataMessage = this.chatSessionStore.translatedData();
-    this.dataObject = this.retranslate (this.dataMessage);
   };
 
   retranslate (someData: any): any {
@@ -115,6 +112,9 @@ export class VisualMap implements OnInit {
 
   ngOnInit () {
     console.log('visualMap ngOnInit');
+    this.intent = this.chatSessionStore.intent;
+    this.dataMessage = this.chatSessionStore.translatedData();
+    this.dataObject = this.retranslate (this.dataMessage);
   
     this.draw();
     this.setLabels();

@@ -20,6 +20,7 @@ export class ChatSessionStore {
     private _visualType: string = 'visual_none';
     private _visualData: any[] = <any[]>{};
     private _mcthides: string[] = [];
+    private _visualTitle: string = 'Visual';
     public intent: string = '';
     public profile: OLProfile = <OLProfile> {};
 
@@ -81,6 +82,15 @@ export class ChatSessionStore {
       this._mcthides = newHides;
     }
 
+    get visualTitle(): string {
+      return this._visualTitle;
+    }
+
+    set visualTitle (newHides: string) {
+      this._visualTitle = newHides;
+    }
+
+
     // set dir to -1 for min, +1 for max
     // returns column 0 value of the min/max row
     // evalueated by columnNum.
@@ -136,8 +146,12 @@ export class ChatSessionStore {
     }
 
     updateDialogProfile (key: string, value: string) {
-        this.profile[key] = value;
-        this.chatSessionService.updateDialogProfile (key, value);
+        if (value == null || value == '' || value == 'undefined') {
+          console.log('updateDialogProfile(' + key + ', ' + value + '): will not save because value is null or undefined');
+        } else {
+          this.profile[key] = value;
+          this.chatSessionService.updateDialogProfile (key, value);
+        }
     }
 
     translatedData(): [ITranslatedData] {
@@ -269,6 +283,7 @@ export class ChatSessionStore {
                              this._allChatItems.getValue().push( chatResponse  ));
                       // }
                     }
+                    this.updateVisualTitle();
                     this.updateVisual(resJson.mcthides);
 
                   },
@@ -289,6 +304,43 @@ export class ChatSessionStore {
       }
     }
 
+    // if you need to update the title of any visualization,
+    // this is the function to update.
+    updateVisualTitle () {
+      if (this.intent == 'channel_performance') {
+        this.visualTitle = this.profile.brand +  ' Channel Performance';
+      } else if (this.intent == 'characteristics_common') {
+        this.visualTitle = 'Characteristics Shared by Stores responsible for ' + this.profile.performance_level;
+      } else if (this.intent == 'characteristics_demo') {
+        this.visualTitle = 'Demographics Shared by Stores responsible for ' + this.profile.performance_level;
+      } else if (this.intent == 'dollar_opportunity') {
+        this.visualTitle = this.profile.brand +  ' Dollar Opportunity';
+      } else if (this.intent == 'region_performance') {
+        this.visualTitle = this.profile.brand +  ' Region Performance';
+      } else if (this.intent == 'retailer_performance') {
+        this.visualTitle = this.profile.brand +  ' Retailer Performance';
+      } else if (this.intent == 'share_change') {
+        this.visualTitle = 'Share Change Drivers';
+      } else if (this.intent == 'SKU_difference') {
+        this.visualTitle = 'SKU Difference';
+      } else if (this.intent == 'SKU_performance') {
+        this.visualTitle = 'Share Change Drivers';
+      } else if (this.intent == 'SKU_similar') {
+        this.visualTitle = 'SKU Simularities';
+      } else if (this.intent == 'social_feedback') {
+        this.visualTitle = this.profile.brand +  ' Social Feedback';
+      } else if (this.intent == 'social_influence') {
+        this.visualTitle = 'Influential Twitter Users for ' + this.profile.brand ;
+      } else if (this.intent == 'social_sentiment') {
+        this.visualTitle = this.profile.brand +  ' Social Sentiment';
+      } else if (this.intent == 'store_performance') {
+        this.visualTitle = this.profile.brand +  ' Retailer Performance';
+      } else if (this.intent == 'subbrand_performance') {
+        this.visualTitle = this.profile.brand +  ' Subbrands Performance';
+      } else if (this.intent == 'variant_performance') {
+        this.visualTitle = this.profile.brand +  ' Variant Performance';
+      }
+    }
     updateVisual(mcthides: string[]) {
       if (mcthides.length > 0 && mcthides[0].length > 0) {
             this.visualType = 'visual_none';
