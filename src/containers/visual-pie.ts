@@ -84,7 +84,7 @@ import {
       let yFunction ;
       this.dataRough =  this.chatSessionStore.translatedData();
       this.drawPieChart();
-      //this.data = this.dataRough;
+      // this.data = this.dataRough;
       // console.log(' Data JSON ' + JSON.stringify(this.data));
     }
 
@@ -98,7 +98,7 @@ import {
       let radius = Math.min(width, height) / 2;
 
       let color = d3.scale.ordinal()
-      //.domain(['Positive','Negative'])
+      // .domain(['Positive','Negative'])
       .range(['#2ca02c', '#d62728']);
 
       let svg = d3.select('#pie-chart')
@@ -125,11 +125,11 @@ import {
       .attr('d', arc)
       .on("click", function(d){
         console.log(d.data.key);
-        if(d.data.key == 'Positive') {
-          //this.dataInColumnHTML(d.data.key);
+        if (d.data.key == 'Positive') {
+          // this.dataInColumnHTML(d.data.key);
         } else
-        if(d.data.key == 'Negative') {
-          //this.dataInColumnHTML(d.data.key);
+        if (d.data.key == 'Negative') {
+          // this.dataInColumnHTML(d.data.key);
         }
 
       })
@@ -195,7 +195,7 @@ import {
   }
 
   dataInColumnHTML(type: string): string {
-    //console.log('type is' +type);
+    // console.log('type is' +type);
     let data: any[][] = this.chatSessionStore.visualData;
     if (data == null || data.length === 0) {
       return '<div style="display: none;">No Data returned</div>';
@@ -210,10 +210,10 @@ import {
       if (i === 0) { tag = 'th'; }
 
 
-      if(data[i][0] == type || i ==0) {
+      if (data[i][0] == type || i == 0) {
         html = html + '<tr>';
         for (let j: number = 0; j < data[i].length; j++) {
-          if(j == 1) {
+          if (j == 1) {
             html = html + '<' + tag + ' width="200" >' + data[i][j] + '</' + tag + '>';
           } else {
             html = html + '<' + tag + ' width="40" >' + data[i][j] + '</' + tag + '>';

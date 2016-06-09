@@ -49,7 +49,7 @@ export class ChatSessionStore {
     set visualType(visualType: string) {
       // special case to fix wrong visual type on social_feedback
       if (this.intent == 'social_feedback') {
-        visualType = 'visual_pie';
+        visualType = 'visual_bar';
       }
       this._visualType = visualType;
       let routeName: string = visualType.replace('visual', 'Visual').replace('_', '-');
@@ -303,6 +303,9 @@ export class ChatSessionStore {
 
       }
     }
+
+    // if you need to update the title of any visualization,
+    // this is the function to update.
     updateVisualTitle () {
       if (this.intent == 'channel_performance') {
         this.visualTitle = this.profile.brand +  ' Channel Performance';
@@ -317,9 +320,13 @@ export class ChatSessionStore {
       } else if (this.intent == 'retailer_performance') {
         this.visualTitle = this.profile.brand +  ' Retailer Performance';
       } else if (this.intent == 'share_change') {
+        this.visualTitle = 'Share Change Drivers';
       } else if (this.intent == 'SKU_difference') {
+        this.visualTitle = 'SKU Difference';
       } else if (this.intent == 'SKU_performance') {
+        this.visualTitle = 'Share Change Drivers';
       } else if (this.intent == 'SKU_similar') {
+        this.visualTitle = 'SKU Simularities';
       } else if (this.intent == 'social_feedback') {
         this.visualTitle = this.profile.brand +  ' Social Feedback';
       } else if (this.intent == 'social_influence') {
@@ -331,6 +338,7 @@ export class ChatSessionStore {
       } else if (this.intent == 'subbrand_performance') {
         this.visualTitle = this.profile.brand +  ' Subbrands Performance';
       } else if (this.intent == 'variant_performance') {
+        this.visualTitle = this.profile.brand +  ' Variant Performance';
       }
     }
     updateVisual(mcthides: string[]) {

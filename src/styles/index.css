@@ -36,6 +36,10 @@ html *
    color: #333;
 }
 
+body {
+  background-color: #F5F5F5;
+}
+
 .navbar-link {
   color: #0B3D88;
   font-weight: bold;
@@ -54,10 +58,14 @@ border-collapse: collapse;
 }
 table, th, td {
   border: 1px solid #E1E1E1;
-  padding-top: #F5F5F5;
+  padding-top: 4px;
+  border-radius: 3px 3px 3px 3px;
+  font-family: Helvetica Regular;
+  background-color: #FFF;
 }
 th, td {
-  padding: 4px;
+  padding: 10px;
+  /*Comps: 10px padding of cells*/
 }
 
 th {
@@ -68,14 +76,18 @@ th {
 }
 
 td {
-  font-size: 12px;
+  font-size: 11px;
+  /* TODO: Negative Numbers: #CC0000*/
 }
-tr:nth-child(even) {
+
+/*tr:nth-child(even) {
   background-color: #FFF;
-}
+}*/
+
 td:not(:first-child) {
   text-align: right;
 }
+
 visual-map, visual-bar, visual-list, visual-column, visual-pie {
   position: relative;
   display: inline-block;
@@ -100,6 +112,7 @@ nav {
   padding-left: 40px;
   padding-right: 40px;
   background-color: #FFF;
+  height: 70px;
 }
 
 .tab {
@@ -109,7 +122,7 @@ nav {
   border-radius: 4px 4px 0 0;
   margin-right: 6px;
   background-color: #F5F5F5;
-  padding: 10px;
+  /*padding: 10px;*/
 }
 
 .tab-selected {

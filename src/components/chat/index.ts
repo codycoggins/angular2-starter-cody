@@ -29,6 +29,9 @@ import {DiagnosticWidget } from '../diagnostic-widget';
       background-color: #0B3D88;
     }
 
+    chat-wrapper {
+      background-color: #79C3E5;
+    }
     #chatLog {
       height:500px;
     }
@@ -143,7 +146,7 @@ import {DiagnosticWidget } from '../diagnostic-widget';
 
   `],
   template: `
-    <div class="clearfix fit p2" style="560px">
+    <div class="chat-wrapper clearfix fit p2" style="560px">
       <company-logo></company-logo>
        <div #chatLog id="chatLog" class="fit overflow-auto">
           <div *ngFor="let chatItem of chatSessionStore.allChatItems | async"
