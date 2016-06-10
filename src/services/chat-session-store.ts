@@ -42,6 +42,16 @@ export class ChatSessionStore {
         this.loadInitialData();
     }
 
+    hasData(): boolean {
+      // console.log ('ChatSessionStore.hasData()');
+      try {
+          if (this._visualData.length > 0) return true;
+      } catch (err) {
+          console.log(err.message);
+          return false;
+      }
+    }
+
     get allChatItems() {
         return asObservable(this._allChatItems);
     }
@@ -324,7 +334,7 @@ export class ChatSessionStore {
       } else if (this.intent == 'SKU_difference') {
         this.visualTitle = 'SKU Difference';
       } else if (this.intent == 'SKU_performance') {
-        this.visualTitle = 'Share Change Drivers';
+        this.visualTitle =  this.profile.sub_brand + ' SKU Offering';
       } else if (this.intent == 'SKU_similar') {
         this.visualTitle = 'SKU Simularities';
       } else if (this.intent == 'social_feedback') {
@@ -366,9 +376,13 @@ export class ChatSessionStore {
       return processedText;
     }
 
-// For reference these are the profile variables:
-// {"retailer":"","subbrand_channel_perf":"","channel":"","sub_brand":"","subbrand_retailer_perf":"",
-//  "performance_level":"decline","region":"","brand":"SUAVE"}
+    // var_region = region
+    // var_subbrand = sub_brand
+    // var_performance_level = performance_level
+    // var_channel = channel
+    // var_retailer = retailer
+    // var_subbrand_channel_perf = subbrand_channel_perf
+    // var_subbrand_retailer_perf = subbrand_retailer_perf
     substituteProfileVariables (watsonText: string): string {
 
       let r: string = watsonText;

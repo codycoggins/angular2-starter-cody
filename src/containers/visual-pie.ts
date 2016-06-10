@@ -244,10 +244,10 @@ draw(words) {
     .append('g')
     .attr('class', 'legend')
     .attr('transform', function(d, i) {
-      let height = legendRectSize + legendSpacing;
-      let offset =  height * color.domain().length / 2;
+      let height1 = legendRectSize + legendSpacing;
+      let offset =  height1 * color.domain().length / 2;
       let horz = -2 * legendRectSize;
-      let vert = i * height - offset;
+      let vert = i * height1 - offset;
       return 'translate(' + horz + ',' + vert + ')';
     });
 

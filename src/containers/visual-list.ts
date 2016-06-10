@@ -68,7 +68,7 @@ import {
     <span (click)="prevPage();" class="next-button"
       style="{{(page > 0) ? '' : 'display: none' }}"> Previous </span> &nbsp;
     <span (click)="nextPage();" class="next-button"
-    style="display: {{(isNextPage()) ? '' : 'display: none' }}"> Next </span>
+    style="display: {{hasNextPage() ? '' : 'display: none' }}"> Next </span>
     <br />
     <br />
   </div>
@@ -81,24 +81,28 @@ export class VisualList implements OnInit {
   rowsPerPage: number = 20;
   totalRows: number = 0;
   // chartTitle: string = 'Table';
+
   constructor(chatSessionStore: ChatSessionStore ) {
     console.log('VisualList constructor() ');
     this.chatSessionStore = chatSessionStore;
   };
 
-  isNextPage() {
+  hasNextPage(): boolean {
+    if (!this.chatSessionStore.hasData()) return false;
     if (((this.page + 1) * this.rowsPerPage) < this.totalRows ) {
-      console.log('isNextPage true');
       return true;
     } else {
-      console.log('isNextPage false');
       return false;
     }
 
   }
   nextPage() {
     console.log('nextPage()');
-    if (this.isNextPage()) { this.page = this.page + 1; }
+    if (this.hasNextPage()) {
+       this.page = this.page + 1;
+    } else {
+      console.log('nextPage(): WARNING there is no next page.');
+    }
   }
 
   prevPage() {
@@ -112,7 +116,13 @@ export class VisualList implements OnInit {
   }
 
   dataInListHTML(): string {
+    console.log ('dataInListHTML()');
+    if (!this.chatSessionStore.hasData()) {
+      this.totalRows = 0;
+      return '<div class="h2">No data found</div>';
+    }
     let data: any[][] = this.chatSessionStore.visualData;
+
     this.totalRows = data.length;
     if (data == null || data.length === 0) {
       return '<div style="display: none;">No Data returned</div>';
@@ -137,6 +147,11 @@ export class VisualList implements OnInit {
 
 
     dataInListHTMLWithGroups(): string {
+      console.log ('dataInListHTML()');
+      if (!this.chatSessionStore.hasData()) {
+        this.totalRows = 0;
+        return '<div class="h2">No data found</div>';
+      }
       let data: any[][] = this.chatSessionStore.visualData;
       this.totalRows = data.length;
       console.log('dataInListHTMLWithGroups() grid size: ' + data.length + ' x ' + data[0].length + '; page=' + this.page);
