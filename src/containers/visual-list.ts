@@ -116,7 +116,7 @@ export class VisualList implements OnInit {
   }
 
   dataInListHTML(): string {
-    console.log ('dataInListHTML()');
+    // console.log ('dataInListHTML()');
     if (!this.chatSessionStore.hasData()) {
       this.totalRows = 0;
       return '<div class="h2">No data found</div>';
@@ -147,14 +147,14 @@ export class VisualList implements OnInit {
 
 
     dataInListHTMLWithGroups(): string {
-      console.log ('dataInListHTML()');
+      // console.log ('dataInListHTML()');
       if (!this.chatSessionStore.hasData()) {
         this.totalRows = 0;
         return '<div class="h2">No data found</div>';
       }
       let data: any[][] = this.chatSessionStore.visualData;
       this.totalRows = data.length;
-      console.log('dataInListHTMLWithGroups() grid size: ' + data.length + ' x ' + data[0].length + '; page=' + this.page);
+      // console.log('dataInListHTMLWithGroups() grid size: ' + data.length + ' x ' + data[0].length + '; page=' + this.page);
       if (data == null || data.length === 0) {
         return '<div style="display: none;">No Data returned</div>';
       }
