@@ -40,6 +40,11 @@ body {
   background-color: #F5F5F5;
 }
 
+a {
+  color: #0B3D88;
+  text-decoration: none;
+}
+
 .navbar-link {
   color: #0B3D88;
   font-weight: bold;

@@ -13,15 +13,21 @@ import {
   styles: [`
     .visOverlayLabel {
       position: absolute;
-      color: #0B3D88;
-      background-color: lightgray;
+      color: #999999;
       z-index: 10;
       left: 170px;
       top: 50px;
-      // font-weight: bold;
       padding: 10px;
-      // font-variant: small-caps;
-      opacity: 0.6;
+      font-size: 32px;
+      font-family: Helvetica Light;
+      font-weight: lighter;
+      text-align: center;
+    }
+    .visOverlaySubtitle {
+      font-size: 18px;
+      text-align: center;
+      font-weight: lighter;
+      color: #999999;
     }
 
     #chart_div {
@@ -30,10 +36,10 @@ import {
   `],
   template: `
   <div id="chart_div" class="chart-div">
-    <span _ngcontent-nvs-8="" class="visOverlayLabel h2 center">
+    <span _ngcontent-nvs-8="" class="visOverlayLabel center">
     When a visualization or supplement is part of your question,
     it will appear here.<br/>
-    <span class="h5">Ask your question in the dialog area or View All My Favorites</span>
+    <span class="visOverlaySubtitle">Ask your question in the dialog area or <a href="#">View All My Favorites</a></span>
     </span>
     <!-- <img
     style="-webkit-filter: grayscale(100%);filter: grayscale(100%);"
