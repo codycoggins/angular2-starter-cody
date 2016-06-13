@@ -250,9 +250,8 @@ export class ChatSessionStore {
                       let chatResponse: ChatItem = new ChatItem(
                          'I am not currently able to commnicate with the server. The system may be under maintenence  Please try again later.',
                            true);
-                        //  if ( chatResponse.text.length > 0) {
-                           this._allChatItems.next(
-                             this._allChatItems.getValue().push( chatResponse  ));
+                      this._allChatItems.next(
+                        this._allChatItems.getValue().push( chatResponse  ));
                     }
                   );
         return obs;
@@ -351,7 +350,10 @@ export class ChatSessionStore {
       } else if (this.intent == 'social_sentiment') {
         this.visualTitle = this.profile.brand +  ' Social Sentiment';
       } else if (this.intent == 'store_performance') {
-        this.visualTitle = this.profile.brand +  ' Retailer Performance';
+        this.visualTitle = this.profile.brand +  ' Store Performance';
+        if (this.profile.region && this.profile.region.length > 0) {
+          this.visualTitle = this.visualTitle  + ' - ' + this.profile.region;
+        }
       } else if (this.intent == 'subbrand_performance') {
         this.visualTitle = this.profile.brand +  ' Subbrands Performance';
       } else if (this.intent == 'variant_performance') {
@@ -461,18 +463,16 @@ export class ChatSessionStore {
         console.log ('The channel in ' + this.profile.performance_level + '  is ' + channel);
         this.updateDialogProfile('channel', channel);
 
-    }
-    else if (this.intent === 'social_feedback') {
-      // code to determine channel causing decline
-      let channel = this.findMinMax(6, direction);
-      console.log ('The channel in ' + this.profile.performance_level + '  is ' + channel);
-      this.updateDialogProfile('channel', channel);
+      } else if (this.intent === 'social_feedback') {
+        // code to determine channel causing decline
+        let channel = this.findMinMax(6, direction);
+        console.log ('The channel in ' + this.profile.performance_level + '  is ' + channel);
+        this.updateDialogProfile('channel', channel);
 
-  } else {
-      console.log ('manageProfileVariables()  did not find a matching intent, so no profile variable processing has been done.');
-
+      } else {
+        console.log ('manageProfileVariables()  did not find a matching intent, so no profile variable processing has been done.');
+      }
     }
-  }
 }
 
 export interface ITranslatedData {

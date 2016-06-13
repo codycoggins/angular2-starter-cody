@@ -18,6 +18,9 @@ export class ChatSessionService {
     dialogId: string;
 
 
+    // TODO: change to  'http://nielsen-orchestration-gateway-dev.mybluemix.net';
+    // when Juanyong is ready
+
     apiHostName: string =
       'http://nielsen-orchestration-gateway.mybluemix.net';
 
