@@ -14,16 +14,9 @@ import { OLMessage, OLProfile} from '../../services/chat-session-service';
 @Component({
   selector: 'legend',
   styles: [`
-    .legend {
-      flex-wrap: wrap;
-      flex: 1 1 auto;
-      justify-content: space-around;
-      width: 100%;
-      min-width: 600px;
-    }
     .legend-item {
       // flex-grow: 0;
-      width: 25%;
+      width: 23%;
       display: inline-block;
       margin-bottom: 20px;
     }
@@ -37,19 +30,27 @@ import { OLMessage, OLProfile} from '../../services/chat-session-service';
     .item-value {
       font-size: 14px;
     }
+
+    .legend-heading {
+      font-weight: bold;
+      margin-left: 20px;
+    }
       `],
   template: `
     <!-- span (click)="setHidden(!hidden);" class="underline bold" style="color: #0B3D88;">
       {{hidden ? 'Show legends' : 'Hide legends'}}
     </span-->
+    <div class="legend-heading" >Legend</div>
+
     <div class="legend flex flex-wrap" style="display: {{ hidden ? 'None' : 'Block' }};">
 
-      <p class="bold">Legend</p>
-      <div class="legend-item"><span class="item-title">Markets</span> <span class="item-value">{{getMarket()}}</span></div>
-      <div class="legend-item"><span class="item-title">Products</span> <span class="item-value">{{getProfileItem('brand')}}</span></div>
-      <div class="legend-item"><span class="item-title">Periods</span> <span class="item-value">52 W/E 12/26/2015</span></div>
+      <div class="legend-item"><span class="item-title">Market</span> <span class="item-value">{{getMarket()}}</span></div>
+      <div class="legend-item"><span class="item-title">Product</span> <span class="item-value">{{getProfileItem('brand')}}</span></div>
+      <div class="legend-item"><span class="item-title">Period</span> <span class="item-value">52 W/E 12/26/2015</span></div>
       <div class="legend-item"><span class="item-title">Fact</span> <span class="item-value">Shr CYA</span></div>
       <div class="legend-item"><span class="item-title">Share Basis</span> <span class="item-value">Shampoo</span></div>
+      <div class="legend-item"><span class="item-title">Channel</span> <span class="item-value">{{getProfileItem('channel')}}</span></div>
+      <div class="legend-item"><span class="item-title">Subbrand</span> <span class="item-value">{{getProfileItem('sub_brand')}}</span></div>
     </div>
   `,
   directives: []

@@ -42,6 +42,16 @@ export class ChatSessionStore {
         this.loadInitialData();
     }
 
+    hasData(): boolean {
+      // console.log ('ChatSessionStore.hasData()');
+      try {
+          if (this._visualData.length > 0) return true;
+      } catch (err) {
+          console.log(err.message);
+          return false;
+      }
+    }
+
     get allChatItems() {
         return asObservable(this._allChatItems);
     }
@@ -64,10 +74,9 @@ export class ChatSessionStore {
     set visualData(visualData: any[][]) {
       // conditional so we only refresh the data if it is non-null.
       // otherwise old data sticks around.
-      if (visualData != null && visualData.length > 0 ) {
-        console.log ('set data: \n' + JSON.stringify( visualData) + '\n');
-        this._visualData = visualData;
-      }
+      // 6/9/2016 removed the null check because old data was sticking around
+      console.log ('set data: \n' + JSON.stringify( visualData) + '\n');
+      this._visualData = visualData;
     }
 
     get visualData (){
@@ -97,7 +106,10 @@ export class ChatSessionStore {
     // column numbers start with 0
     findMinMax ( columnNum: number, dir: number ): any {
       // return column 0 for the row with maximum columnNum
-
+      if (!this.hasData()) {
+        console.log ('findMinMax: no data.');
+        return '';
+      }
       let data: any = this._visualData;
       let maxVal: number = 0;
       let returnKey;
@@ -120,6 +132,11 @@ export class ChatSessionStore {
 
     findMinMaxVal ( columnNum: number, dir: number ): number {
       // return the minimum/maximum value for a column
+      if (!this.hasData()) {
+        console.log ('findMinMaxVal: no data.');
+        return 0;
+      }
+
       if (dir === 0 ) {
         console.log('findMinMaxVal: ERROR dir cannot be 0');
         return 0;
@@ -324,9 +341,9 @@ export class ChatSessionStore {
       } else if (this.intent == 'SKU_difference') {
         this.visualTitle = 'SKU Difference';
       } else if (this.intent == 'SKU_performance') {
-        this.visualTitle = 'Share Change Drivers';
+        this.visualTitle =  this.profile.sub_brand + ' SKU Offering';
       } else if (this.intent == 'SKU_similar') {
-        this.visualTitle = 'SKU Simularities';
+        this.visualTitle = 'SKU Similarities';
       } else if (this.intent == 'social_feedback') {
         this.visualTitle = this.profile.brand +  ' Social Feedback';
       } else if (this.intent == 'social_influence') {
@@ -344,7 +361,11 @@ export class ChatSessionStore {
     updateVisual(mcthides: string[]) {
       if (mcthides.length > 0 && mcthides[0].length > 0) {
             this.visualType = 'visual_none';
-            this.visualType = mcthides[0];
+            if (this.hasData()) {
+              this.visualType = mcthides[0];
+            } else {
+              console.log ('WARNING: we are not showing the ' +  mcthides[0] + ' visual because there is no data.');
+            }
       } else {
         console.log ('chatSessionStore: updateVisual: no mcthides values detected.');
       }
@@ -366,9 +387,13 @@ export class ChatSessionStore {
       return processedText;
     }
 
-// For reference these are the profile variables:
-// {"retailer":"","subbrand_channel_perf":"","channel":"","sub_brand":"","subbrand_retailer_perf":"",
-//  "performance_level":"decline","region":"","brand":"SUAVE"}
+    // var_region = region
+    // var_subbrand = sub_brand
+    // var_performance_level = performance_level
+    // var_channel = channel
+    // var_retailer = retailer
+    // var_subbrand_channel_perf = subbrand_channel_perf
+    // var_subbrand_retailer_perf = subbrand_retailer_perf
     substituteProfileVariables (watsonText: string): string {
 
       let r: string = watsonText;

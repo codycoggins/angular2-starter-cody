@@ -19,9 +19,9 @@ import { OLMessage, OLProfile} from '../../services/chat-session-service';
     }
       `],
   template: `
-    <span (click)="setHidden(!hidden);" class="underline h5" style="color: #0B3D88;">
+    <div (click)="setHidden(!hidden);" class="h6 center" style="color: #0B3D88">
       {{hidden ? 'Show Diagnostics' : 'Hide Diagnostics'}}
-    </span>
+    </div>
     <div class="diagnostic" style="display: {{ hidden ? 'None' : 'Block' }};">
 
       <p class="h3 bold">Diagnostic Information</p>
