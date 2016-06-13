@@ -1,4 +1,4 @@
-/// <reference path="../../typings/main/ambient/d3/d3.cloud.layout.d.ts" />
+
 
 
 import { Component, OnInit } from 'angular2/core';
@@ -117,7 +117,8 @@ import {
     }
 
 drawWordCloud() {
-  let frequency_list = [{"text":"suave","size":50},
+  let frequency_list;
+  let suave = [{"text":"suave","size":50},
 {"text":"hair","size":46},
 {"text":"shampoo","size":22},
 {"text":"perfect","size":10},
@@ -147,7 +148,47 @@ drawWordCloud() {
 {"text":"coupon","size":3},
 {"text":"@deshartsock","size":3},
 {"text":"wedding","size":3}];
+let pantene =
+[{"text":"pantene","size":50},
+{"text":"hair","size":37},
+{"text":"selenagomez","size":26},
+{"text":"perfect","size":20},
+{"text":"thecw","size":16},
+{"text":"conditioner","size":14},
+{"text":"texas","size":12},
+{"text":"commercial","size":12},
+{"text":"selena","size":12},
+{"text":"love","size":11},
+{"text":"new","size":11},
+{"text":"beautiful","size":12},
+{"text":"shampoo","size":9},
+{"text":"representation","size":7},
+{"text":"matters","size":7},
+{"text":"sponsoring","size":7},
+{"text":"beautifullengths","size":6},
+{"text":"support","size":5},
+{"text":"@tide","size":4},
+{"text":"disappointment","size":5},
+{"text":"deserve","size":5},
+{"text":"amazing","size":4},
+{"text":"maybelline","size":4},
+{"text":"helloairspray","size":4},
+{"text":"pantenexinfluenster","size":4},
+{"text":"lgbt","size":3},
+{"text":"smells","size":3},
+{"text":"silky","size":3},
+{"text":"shit","size":3},
+{"text":"community","size":3}];
 
+  // console.log('getProfileItem');
+
+console.log("---------brand name---"+this.chatSessionStore.profile.brand);
+
+  if(this.chatSessionStore.profile.brand == "SUAVE") {
+    frequency_list = suave;
+  } else {
+    frequency_list = pantene;
+  }
   d3.layout.cloud().size([800, 300])
             .words(frequency_list)
             .rotate(0)

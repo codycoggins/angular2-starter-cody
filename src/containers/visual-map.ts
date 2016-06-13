@@ -4,11 +4,13 @@ import {List} from 'immutable';
 
 import {ChatItem} from '../services/chat-item';
 import { ChatSessionStore } from '../services/chat-session-store';
+import { RouteConfig, ROUTER_DIRECTIVES } from 'angular2/router';
 import { OLMessage, OLProfile} from '../services/chat-session-service';
 
 // import { topojson } from 'ts-topojson';
 // import { Base } from 'Topojson';
-
+import {Tabs} from './tabs';
+import {Tab} from './tab';
 declare let g, d3, topojson: any;
 
 import {
@@ -18,7 +20,7 @@ import {
 
 @Component({
   selector: 'visual-map',
-  directives: [ WatsonContainer, Legend ],
+  directives: [ WatsonContainer, ROUTER_DIRECTIVES, Legend, Tabs, Tab ],
   styles: [`
     .visOverlayLabel {
       position: absolute;
@@ -59,26 +61,12 @@ import {
 
   `],
   template: `
-  <div class="visual-title">{{chartTitle}}</div>
-
-  <span class="regionLabel" style="left: 170px;top: 250px;">West {{westInfo}}</span>
-  <span class="regionLabel" style="left: 550px;top: 250px;">MidWest {{midWestInfo}}</span>
-  <span class="regionLabel" style="left: 600px;top: 400px;">South {{southInfo}}</span>
-  <span class="regionLabel" style="left: 750px;top: 200px;">North East {{northEastInfo}}</span>
-
-  <div id="chart_div" class="">
-    <!--<svg id="svg1" width="100%" height="100%" viewBox="0 0 640 480" preserveAspectRatio="xMaxYMax"></svg>-->
-  </div>
-  <legend></legend>
-
-
-
   `
 })
 export class VisualMap implements OnInit {
   chatSessionStore: ChatSessionStore;
   intent: string;
-  chartTitle: string = 'Region Performance';
+  chartTitle: string;
 
   // to be used for map labels
   westInfo: string = '';
@@ -93,30 +81,42 @@ export class VisualMap implements OnInit {
   dataMessage: any;
   dataObject: any;
 
-  constructor(chatSessionStore: ChatSessionStore ) {
+  constructor(chatSessionStore: ChatSessionStore, title: string ) {
     console.log('visualMap constructor() ');
 
     this.chatSessionStore = chatSessionStore;
+    this.chartTitle = title;
+
   };
 
-  retranslate (someData: any): any {
+  retranslate (someData: any, title: string): any {
     if (someData == null) { return null; };
     let myData: any = someData[0].values;
     let dict = {};
+    if(title == 'Share-Value') {
     myData.forEach(function(x) {
         dict[x.REGION] = x.SHRCYA;
         console.log(x.REGION + ', ' + x.SHRCYA);
     });
+    console.log('dict is -- '+JSON.stringify(dict));
     return dict;
+  } else {
+    myData.forEach(function(x) {
+        dict[x.REGION] = x.DOLYA;
+        console.log(x.REGION + ', ' + x.DOLYA);
+    });
+    console.log('dict is -- '+JSON.stringify(dict));
+    return dict;
+  }
   }
 
   ngOnInit () {
     console.log('visualMap ngOnInit');
     this.intent = this.chatSessionStore.intent;
     this.dataMessage = this.chatSessionStore.translatedData();
-    this.dataObject = this.retranslate (this.dataMessage);
-  
-    this.draw();
+    this.dataObject = this.retranslate (this.dataMessage,this.chartTitle);
+
+    this.draw(this.chartTitle);
     this.setLabels();
   }
 
@@ -129,7 +129,7 @@ export class VisualMap implements OnInit {
     }
   }
 
-  draw() {
+  draw(title: string) {
     let dataObject: any = this.dataObject;
     let width = 960,
         height = 500;
@@ -138,7 +138,8 @@ export class VisualMap implements OnInit {
     let path = d3.geo.path();
     // console.log('about to create svg');
 
-    let svg = d3.select('#chart_div')
+    console.log('drawing:'+title);
+    let svg = d3.select('#'+title)
       .append('svg')
       .attr('viewBox', '0 0 960 500')
       .attr('width', '960px')
@@ -152,9 +153,19 @@ export class VisualMap implements OnInit {
 
     // let colorScale = d3.scale.category20b(100);
 
-    let minValue: number = this.chatSessionStore.findMinMaxVal(6, -1);
+    let minValue: number;
+    if(title == 'Share-Value') {
+    minValue = this.chatSessionStore.findMinMaxVal(6, -1);
+   } else {
+       minValue = this.chatSessionStore.findMinMaxVal(2, -1);
+   }
     console.log ('minValue: ' + minValue);
-    let maxValue: number = this.chatSessionStore.findMinMaxVal(6,  1);
+    let maxValue: number;
+    if(title == 'Share-Value') {
+     maxValue = this.chatSessionStore.findMinMaxVal(6,  1);
+   } else {
+      maxValue = this.chatSessionStore.findMinMaxVal(2,  1);
+   }
     console.log ('maxValue: ' + maxValue);
 
     // if (minValue > 0) { minValue = 0; }
