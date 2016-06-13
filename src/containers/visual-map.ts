@@ -93,19 +93,19 @@ export class VisualMap implements OnInit {
     if (someData == null) { return null; };
     let myData: any = someData[0].values;
     let dict = {};
-    if(title == 'Share-Value') {
+    if (title == 'Share-Value') {
     myData.forEach(function(x) {
         dict[x.REGION] = x.SHRCYA;
         console.log(x.REGION + ', ' + x.SHRCYA);
     });
-    console.log('dict is -- '+JSON.stringify(dict));
+    console.log('dict is -- ' + JSON.stringify(dict));
     return dict;
   } else {
     myData.forEach(function(x) {
         dict[x.REGION] = x.DOLYA;
         console.log(x.REGION + ', ' + x.DOLYA);
     });
-    console.log('dict is -- '+JSON.stringify(dict));
+    console.log('dict is -- ' + JSON.stringify(dict));
     return dict;
   }
   }
@@ -114,7 +114,7 @@ export class VisualMap implements OnInit {
     console.log('visualMap ngOnInit');
     this.intent = this.chatSessionStore.intent;
     this.dataMessage = this.chatSessionStore.translatedData();
-    this.dataObject = this.retranslate (this.dataMessage,this.chartTitle);
+    this.dataObject = this.retranslate (this.dataMessage, this.chartTitle);
     this.draw(this.chartTitle);
     this.setLabels();
   }
@@ -137,8 +137,8 @@ export class VisualMap implements OnInit {
     let path = d3.geo.path();
     // console.log('about to create svg');
 
-    console.log('drawing:'+title);
-    let svg = d3.select('#'+title)
+    console.log('drawing:' + title);
+    let svg = d3.select('#' + title)
       .append('svg')
       .attr('viewBox', '0 0 960 500')
       .attr('width', '960px')
@@ -153,14 +153,14 @@ export class VisualMap implements OnInit {
     // let colorScale = d3.scale.category20b(100);
 
     let minValue: number;
-    if(title == 'Share-Value') {
+    if (title == 'Share-Value') {
     minValue = this.chatSessionStore.findMinMaxVal(6, -1);
    } else {
        minValue = this.chatSessionStore.findMinMaxVal(2, -1);
    }
     console.log ('minValue: ' + minValue);
     let maxValue: number;
-    if(title == 'Share-Value') {
+    if (title == 'Share-Value') {
      maxValue = this.chatSessionStore.findMinMaxVal(6,  1);
    } else {
       maxValue = this.chatSessionStore.findMinMaxVal(2,  1);

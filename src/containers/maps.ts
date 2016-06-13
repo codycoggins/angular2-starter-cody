@@ -124,8 +124,8 @@ export class Maps implements OnInit {
     console.log('visualMap ngOnInit');
     this.intent = this.chatSessionStore.intent;
     this.dataMessage = this.chatSessionStore.translatedData();
-    this.map1 = new VisualMap(this.chatSessionStore,this.chart1Title);
-    this.map2 = new VisualMap(this.chatSessionStore,this.chart2Title);
+    this.map1 = new VisualMap(this.chatSessionStore, this.chart1Title);
+    this.map2 = new VisualMap(this.chatSessionStore, this.chart2Title);
     this.map1.ngOnInit();
     this.map2.ngOnInit();
 // call maps methods here
