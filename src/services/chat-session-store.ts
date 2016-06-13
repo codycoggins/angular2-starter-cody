@@ -436,7 +436,14 @@ export class ChatSessionStore {
         console.log ('The channel in ' + this.profile.performance_level + '  is ' + channel);
         this.updateDialogProfile('channel', channel);
 
-    } else {
+    }
+    else if (this.intent === 'social_feedback') {
+      // code to determine channel causing decline
+      let channel = this.findMinMax(6, direction);
+      console.log ('The channel in ' + this.profile.performance_level + '  is ' + channel);
+      this.updateDialogProfile('channel', channel);
+
+  } else {
       console.log ('manageProfileVariables()  did not find a matching intent, so no profile variable processing has been done.');
 
     }
