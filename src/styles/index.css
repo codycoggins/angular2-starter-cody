@@ -159,8 +159,9 @@ nav {
   background-color: #E8E8E8;
   flex: 1 1 auto;
   width: 100%;
-  min-width: 600px;
+  min-width: 900px;
   display: block;
   padding: 20px;
   border: 1px solid #E1E1E1;
-}
+  flex-wrap: wrap;
+ }

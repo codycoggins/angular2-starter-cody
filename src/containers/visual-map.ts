@@ -38,7 +38,7 @@ import {
       min-height: 500px;
 
       width: 100%;
-      height: 100%
+      // height: 100%
     }
 
     path:hover {
@@ -115,7 +115,7 @@ export class VisualMap implements OnInit {
     this.intent = this.chatSessionStore.intent;
     this.dataMessage = this.chatSessionStore.translatedData();
     this.dataObject = this.retranslate (this.dataMessage);
-  
+
     this.draw();
     this.setLabels();
   }

@@ -44,6 +44,13 @@ import {
       position: relative;
     }
 
+    .nv-legendWrap {
+      display: none;
+    }
+    .nv-series {
+      display: none;
+    }
+
   `],
   template: `
   <div style="{{chatSessionStore.intent=='social_feedback' ? '' : 'display: none;'}}" class="tab-container">
