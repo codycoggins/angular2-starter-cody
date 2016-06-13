@@ -68,7 +68,7 @@ import {
     <span (click)="prevPage();" class="next-button"
       style="{{(page > 0) ? '' : 'display: none' }}"> Previous </span> &nbsp;
     <span (click)="nextPage();" class="next-button"
-    style="display: {{hasNextPage() ? '' : 'display: none' }}"> Next </span>
+    style="{{ (hasNextPage()) ? '' : 'display: none' }}"> Next </span>
     <br />
     <br />
   </div>
