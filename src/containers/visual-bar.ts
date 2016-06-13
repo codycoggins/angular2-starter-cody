@@ -8,7 +8,8 @@ import { NvD3Watson } from '../components/visualization/nvd3-watson';
 import {ChatItem} from '../services/chat-item';
 import { OLMessage, OLProfile} from '../services/chat-session-service';
 
-
+import {Tabs} from './tabs';
+import {Tab} from './tab';
 
 declare var d3: any;
 
@@ -24,7 +25,7 @@ import {
 
 @Component({
   selector: 'visual-bar',
-  directives: [ WatsonContainer, NvD3Watson, ROUTER_DIRECTIVES, AppNavigator, AppNavigatorItem, Legend ],
+  directives: [ WatsonContainer, NvD3Watson, ROUTER_DIRECTIVES, AppNavigator, AppNavigatorItem, Legend, Tabs, Tab ],
   styles: [`
     .visOverlayLabel {
       position: absolute;
@@ -64,13 +65,16 @@ import {
      </span>
   </div>
 
-  <div id="chart_div" class="chart-div">
-    <!--<span class="visOverlayLabel center h2">Example Bar Chart Visualization</span>-->
-    <div class="visual-title">{{chatSessionStore.visualTitle}}</div>
 
-    <nvd3-watson [options]="options" [data]="data"></nvd3-watson>
-    <legend></legend>
-  </div>
+        <div id="chart_div" class="chart-div">
+          <!--<span class="visOverlayLabel center h2">Example Bar Chart Visualization</span>-->
+          <div class="visual-title">{{chatSessionStore.visualTitle}}</div>
+
+          <nvd3-watson [options]="options" [data]="data"></nvd3-watson>
+          <legend></legend>
+        </div>
+
+
 
   `
 })
