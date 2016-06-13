@@ -288,7 +288,7 @@ svg.nvd3-svg {
 
 
 .nvd3 text {
-    font: normal 12px Arial;
+    font: normal 16px Arial;
 }
 
 .nvd3 .title {
@@ -326,6 +326,8 @@ svg.nvd3-svg {
 */
 
 .nvd3 .nv-legend .nv-series {
+  /* hide nvd3 legends for this POC */
+    display: none;
     cursor: pointer;
 }
 

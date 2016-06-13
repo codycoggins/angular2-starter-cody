@@ -44,10 +44,10 @@ import {
       position: relative;
     }
 
-    .nv-legendWrap {
+    legend .nv-legendWrap {
       display: none;
     }
-    .nv-series {
+    legend .nv-series {
       display: none;
     }
 
@@ -120,7 +120,7 @@ export class VisualBar implements OnInit  {
             top: 20,
             right: 20,
             bottom: 40,
-            left: 200
+            left: 250
           },
           x: xFunction,
           y: yFunction,
@@ -129,7 +129,7 @@ export class VisualBar implements OnInit  {
           staggerLabels: true,
           transitionDuration: 500,
           xAxis: {
-            axisLabel: 'Sub-Brand'
+            axisLabel: ''
           },
           yAxis: {
             axisLabel: 'SHRCYA',
@@ -243,7 +243,8 @@ export class VisualBar implements OnInit  {
 
 
     this.data = this.dataRough;
-
+    d3.select(".nv-axislabel")
+    .attr("transform", "rotate(0)");
   }
 
   getRegion (): string {
