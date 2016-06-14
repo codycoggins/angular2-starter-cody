@@ -29,8 +29,8 @@ import { OLMessage, OLProfile} from '../../services/chat-session-service';
       <div>sub-intent: {{getSubIntent()}}</div>
       <div>visual_type: <span class="values">{{getVisualType()}}</span></div>
       <div>visual title: <span class="values">{{getVisualTitle()}}</span></div>
-
       <div>retailer: <span class="values">{{getProfileItem('retailer')}}</span></div>
+      <div>store: <span class="values">{{getProfileItem('store')}}</span></div>
       <div>ui_region: <span class="values">{{getProfileItem('ui_region')}}</span></div>
       <div>region: <span class="values">{{getProfileItem('region')}}</span></div>
       <div>channel: <span class="values">{{getProfileItem('channel')}}</span></div>

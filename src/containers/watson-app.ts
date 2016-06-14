@@ -16,6 +16,8 @@ import { VisualMap } from './visual-map';
 import { VisualPie } from './visual-pie';
 import { VisualBullet } from './visual-bullet';
 import {Maps} from './maps';
+import { VisualList1 } from './visual-list1';
+import { VisualList2 } from './visual-list2';
 
 import {
   WatsonContainer,
@@ -149,6 +151,16 @@ import {
     path: '/visual-list',
     name: 'Visual-list',
     component: VisualList
+  },
+  {
+    path: '/visual-list1',
+    name: 'Visual-list1',
+    component: VisualList1
+  },
+  {
+    path: '/visual-list2',
+    name: 'Visual-list2',
+    component: VisualList2
   },
   {
     path: '/Visual-list-positive',

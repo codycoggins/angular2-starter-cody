@@ -1,6 +1,10 @@
 import { Component, OnInit } from 'angular2/core';
-import { RouteConfig, ROUTER_DIRECTIVES } from 'angular2/router';
-import {List} from 'immutable';
+import { Router, RouteConfig, ROUTER_DIRECTIVES } from 'angular2/router';
+import { List} from 'immutable';
+import { ObjectToArray} from './../components/pipes/pipes';
+import {ChatItem} from './../services/chat-item';
+
+
 
 
 import { ChatSessionStore } from '../services/chat-session-store';
@@ -14,6 +18,7 @@ import {
 @Component({
   selector: 'visual-list',
   directives: [ WatsonContainer, ROUTER_DIRECTIVES, AppNavigator, AppNavigatorItem ],
+//  pipes: [ObjectToArray],
   styles: [`
     .visOverlayLabel {
       position: absolute;
@@ -63,8 +68,24 @@ import {
     <!--<span class=" visOverlayLabel h2 center">
     Visual List
     </span>-->
-    <div innerHTML="{{ dataInListHTMLWithGroups() }}"></div>
-
+    <!--div innerHTML="{{ dataInListHTMLWithGroups() }}"></div-->
+    <div class="h2" *ngIf="chatSessionStore.visualData.length <= 1">No data found</div>
+    <table class="table" *ngIf="chatSessionStore.visualData.length > 1">
+        <thead>
+            <tr>
+                <th *ngFor="let head of chatSessionStore.visualData[0]">{{head}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let row of chatSessionStore.visualData | slice:1">
+                <td *ngFor="let col of row | slice:0:1">
+                    <span *ngIf="chatSessionStore.intent!='retailer_performance'">{{col}}</span>
+                    <autoinput *ngIf="chatSessionStore.intent=='retailer_performance'" (click)="selectRetailer(col)">{{col}}</autoinput>
+                </td>
+                <td *ngFor="let col of row | slice:1">{{col}}</td>
+            </tr>
+        </tbody>
+    </table>
     <span (click)="prevPage();" class="next-button"
       style="{{(page > 0) ? '' : 'display: none' }}"> Previous </span> &nbsp;
     <span (click)="nextPage();" class="next-button"
@@ -72,19 +93,20 @@ import {
     <br />
     <br />
   </div>
-
   `
 })
 export class VisualList implements OnInit {
   chatSessionStore: ChatSessionStore;
+    router: Router;
   page: number = 0;
   rowsPerPage: number = 20;
   totalRows: number = 0;
   // chartTitle: string = 'Table';
 
-  constructor(chatSessionStore: ChatSessionStore ) {
+  constructor(chatSessionStore: ChatSessionStore, router: Router ) {
     console.log('VisualList constructor() ');
     this.chatSessionStore = chatSessionStore;
+      this.router = router;
   };
 
   hasNextPage(): boolean {
@@ -94,7 +116,6 @@ export class VisualList implements OnInit {
     } else {
       return false;
     }
-
   }
   nextPage() {
     console.log('nextPage()');
@@ -209,5 +230,11 @@ export class VisualList implements OnInit {
      } else {
        return false;
      }
+   }
+    
+   selectRetailer(retailer: string): void {
+       this.chatSessionStore.updateDialogProfile("retailer", retailer);
+       let drillDown: ChatItem = new ChatItem("drl_q_4.1", false);
+       this.chatSessionStore.addChatAndResponse(drillDown);
    }
 }
