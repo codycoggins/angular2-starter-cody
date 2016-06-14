@@ -82,16 +82,20 @@ export class Legend {
   getIntent() {
     return this.chatSessionStore.intent;
   }
-  
+
   getProfileItem(itemName: string): string {
     // console.log('getProfileItem');
     this.profile = this.chatSessionStore.profile;
     let result: string = this.profile[itemName];
+
+    if (itemName == 'sub_brand' && this.chatSessionStore.intent == 'subbrand_performance') {
+      return 'all subbrands';
+    }
     if (result == '') {
       if (itemName == 'channel') return 'all channels';
       if (itemName == 'sub_brand') return 'all subbrands';
     }
-    return this.profile[itemName];
+    return result;
   }
 
   // getMctHides(): string {

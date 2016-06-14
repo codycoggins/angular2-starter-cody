@@ -21,10 +21,20 @@ export class ChatSessionService {
     // TODO: change to  'http://nielsen-orchestration-gateway-dev.mybluemix.net';
     // when Juanyong is ready
 
-    apiHostName: string =
-      'http://nielsen-orchestration-gateway.mybluemix.net';
 
-    jwtToken: string = 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJST0xFX0FETUlOLFJPTEVfVVNFUiIsImV4cCI6MTQ2NjE3MjE4MH0.6axEGNAAoTPnLWgQ_jmPGbXItEEPoyw7nukpjK7lqvY6JCiITh0krORjLwuM-xPAUGzm3k0b17uwatGeLxWLxw';
+
+
+    // for PROD OL
+    // apiHostName: string =
+    //   'http://nielsen-orchestration-gateway.mybluemix.net';
+    // jwtToken: string = 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJST0xFX0FETUlOLFJPTEVfVVNFUiIsImV4cCI6MTQ2NjE3MjE4MH0.6axEGNAAoTPnLWgQ_jmPGbXItEEPoyw7nukpjK7lqvY6JCiITh0krORjLwuM-xPAUGzm3k0b17uwatGeLxWLxw';
+
+    // for DEV OL
+    apiHostName: string =
+      'http://nielsen-orchestration-gateway-dev.mybluemix.net';
+
+    jwtToken: string =  'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJST0xFX0FETUlOLFJPTEVfVVNFUiIsImV4cCI6MTQ2ODUyOTU2M30.mDJgVeTdcrmFDICzx9j7hAenxj40Oj9vbJfrb7-vCDDG3wkpK3O9U2CKrAnHunntPqdm4Bif8wzIQbbiXEe_vQ';
+
     constructor(http: Http)  {
         this.http = http;
         this.headers = new Headers();

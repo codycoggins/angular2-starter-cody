@@ -115,9 +115,9 @@ export class VisualBar implements OnInit  {
       xFunction = function(d){ return <string> d.LEVEL; };
       yFunction = function(d){ return <number> d.SHRCYA; };
       let colorFunction = function(d) {
-        console.log('retruen is:'+d.value);
+        console.log('retruen is:' + d.value);
         return [d.SHRCYA > 0 ? 'blue' : 'red'];
-      }
+      };
       this.options = {
         chart: {
           // type: 'discreteBarChart',
@@ -156,9 +156,9 @@ export class VisualBar implements OnInit  {
       xFunction = function(d){ return d.NEWCHANNEL; };
       yFunction = function(d){ return d.SHRCYA; };
       let colorFunction = function(d) {
-        console.log('retruen is:'+d.value);
+        console.log('retruen is:' + d.value);
         return [d.SHRCYA > 0 ? 'blue' : 'red'];
-      }
+      };
 
       console.log ('intent: channel_performance');
 
