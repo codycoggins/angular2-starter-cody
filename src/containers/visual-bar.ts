@@ -114,7 +114,10 @@ export class VisualBar implements OnInit  {
 
       xFunction = function(d){ return <string> d.LEVEL; };
       yFunction = function(d){ return <number> d.SHRCYA; };
-
+      let colorFunction = function(d) {
+        console.log('retruen is:'+d.value);
+        return [d.SHRCYA > 0 ? 'blue' : 'red'];
+      }
       this.options = {
         chart: {
           // type: 'discreteBarChart',
@@ -152,6 +155,11 @@ export class VisualBar implements OnInit  {
       // for question:
       xFunction = function(d){ return d.NEWCHANNEL; };
       yFunction = function(d){ return d.SHRCYA; };
+      let colorFunction = function(d) {
+        console.log('retruen is:'+d.value);
+        return [d.SHRCYA > 0 ? 'blue' : 'red'];
+      }
+
       console.log ('intent: channel_performance');
 
       // this.chartTitle = 'Performance by Channel Overview';
@@ -249,6 +257,13 @@ export class VisualBar implements OnInit  {
     this.data = this.dataRough;
     d3.select(".nv-axislabel")
     .attr("transform", "rotate(0)");
+
+    // d3.select(".nv-bar.negative")
+    //   .attr("fill","red");
+    //
+    // d3.select(".nv-bar.positive")
+    //     .attr("fill","blue");
+
   }
 
   getRegion (): string {
