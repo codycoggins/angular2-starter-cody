@@ -1,7 +1,7 @@
 import { Component, OnInit } from 'angular2/core';
 import { Router, RouteConfig, ROUTER_DIRECTIVES } from 'angular2/router';
 import { List} from 'immutable';
-import { ObjectToArray} from './../components/pipes/pipes';
+// import { ObjectToArray} from './../components/pipes/pipes';
 import {ChatItem} from './../services/chat-item';
 
 
@@ -37,7 +37,7 @@ import {
       position: relative;
     }
 
-    .next-button {
+    .next-prev-button {
       margin: 10px;
       color: black;
       height: 40px;
@@ -86,11 +86,14 @@ import {
             </tr>
         </tbody>
     </table>
-    <span (click)="prevPage();" class="next-button"
-      style="{{(page > 0) ? '' : 'display: none' }}"> Previous </span> &nbsp;
-    <span (click)="nextPage();" class="next-button"
-    style="{{ (hasNextPage()) ? '' : 'display: none' }}"> Next </span>
     <br />
+    <div>
+      <span (click)="prevPage();" class="next-prev-button"
+        style="{{(page > 0) ? '' : 'display: none' }}"> Previous </span> &nbsp;
+      <span (click)="nextPage();" class="next-prev-button"
+      style="{{ (hasNextPage()) ? '' : 'display: none' }}"> Next </span>
+    </div>
+     <legend></legend>
     <br />
   </div>
   `
@@ -231,7 +234,7 @@ export class VisualList implements OnInit {
        return false;
      }
    }
-    
+
    selectRetailer(retailer: string): void {
        this.chatSessionStore.updateDialogProfile("retailer", retailer);
        let drillDown: ChatItem = new ChatItem("drl_q_4.1", false);

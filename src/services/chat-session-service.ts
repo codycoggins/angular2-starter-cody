@@ -119,8 +119,8 @@ export class ChatSessionService {
 
         // post returns Observable<Response>
     }
-    
-	updateDialogProfile2 (key: string, value: string)  {
+
+    updateDialogProfile2 (key: string, value: string)  {
         console.log ('ChatSessionService.updateDialogProfile (key = ' + key + ', value= ' + value + ')');
         let body: string = '{\"' + key + '\": \"' + value + '\"}';
 

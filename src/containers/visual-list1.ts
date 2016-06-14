@@ -2,7 +2,7 @@ import { Component, OnInit } from 'angular2/core';
 import { Location } from 'angular2/platform/common';
 import { Router, RouteConfig, ROUTER_DIRECTIVES } from 'angular2/router';
 import { List} from 'immutable';
-import { ObjectToArray} from './../components/pipes/pipes';
+// import { ObjectToArray} from './../components/pipes/pipes';
 import { ChatItem} from './../services/chat-item';
 import { ChatSessionStore } from '../services/chat-session-store';
 import {
