@@ -157,9 +157,12 @@ export class VisualList implements OnInit {
     for (let i: number = 0; i < data.length; i++) {
       html = html + '<tr>';
       let tag: string = 'td' ;
-      if (i === 0) { tag = 'th'; }
 
       for (let j: number = 0; j < data[i].length; j++) {
+        if (i === 0) {
+          tag = 'th';
+          data[0][j] = this.formatColumnHeading(data[0][j]);
+        }
         html = html + '<' + tag + '>' + data[i][j] + '</' + tag + '>';
       }
       html = html + '</tr>';
@@ -169,7 +172,9 @@ export class VisualList implements OnInit {
     return html;
 
   }
-
+    formatColumnHeading(h: string): string {
+      return h.replace(/_/g, ' ');
+    }
 
     dataInListHTMLWithGroups(): string {
       // console.log ('dataInListHTML()');
@@ -188,7 +193,7 @@ export class VisualList implements OnInit {
 
       // headings
       for (let j: number = 0; j < data[0].length; j++) {
-          html = html + '<th>' + data[0][j] + '</th> ';
+          html = html + '<th>' + this.formatColumnHeading(data[0][j]) + '</th> ';
       }
 
 

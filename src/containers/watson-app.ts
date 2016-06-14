@@ -163,6 +163,16 @@ import {
     component: VisualList2
   },
   {
+    path: '/Visual-table-4.1',
+    name: 'Visual-table-4.1',
+    component: VisualList1
+  },
+  {
+    path: '/Visual-table-4.2',
+    name: 'Visual-table-4.2',
+    component: VisualList2
+  },
+  {
     path: '/Visual-list-positive',
     name: 'Visual-list-positive',
     component: VisualList

@@ -31,7 +31,8 @@ export class ChatSessionStore {
 
     visualTypes: string[] = ['visual_map', 'visual_bar',
       'visual_column', 'visual_pie', 'visual_list',
-      'visual_bubble', 'visual_none'];
+      'visual_bubble', 'visual_none',
+      'visual-table-q4', 'visual-table-q4.1', 'visual-table-q4.2'];
 
     subIntents: string[] = ['sub_perf_5', 'sub_perf_6', 'sku_sim_211',
       'dol_opp_221', 'store_perf_201', 'store_perf_202', 'store_perf_203'];
@@ -65,6 +66,8 @@ export class ChatSessionStore {
       if (this.intent == 'social_feedback') {
         visualType = 'visual_pie';
       }
+      visualType = visualType.replace(' ', '');
+      visualType = visualType.replace('q4', '4');
       this._visualType = visualType;
       let routeName: string = visualType.replace('visual', 'Visual').replace('_', '-');
       console.log ('** Routing to ' + routeName + '**');
