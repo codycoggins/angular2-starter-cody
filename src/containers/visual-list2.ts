@@ -35,9 +35,7 @@ import {
                 </tr>
             </tbody>
         </table>
-        <span (click)="prevPage();" class="next-button" style="">
-            Previous </span> &nbsp; <span (click)="nextPage();" class="next-button"
-            style="display: {{hasNextPage()? '': 'display: none'"> Next </span> <br />
+        <!-- TODO: add pagination -->
         <br />
     </div>
     `

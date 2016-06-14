@@ -37,10 +37,7 @@ import {
             </tbody>
         </table>
         <div>
-          <span (click)="prevPage();" class="next-prev-button"
-            style="{{(page > 0) ? '' : 'display: none' }}"> Previous </span> &nbsp;
-          <span (click)="nextPage();" class="next-prev-button"
-          style="{{ (hasNextPage()) ? '' : 'display: none' }}"> Next </span>
+<!-- TODO: add pagination -->
         </div>
      <legend></legend>
     </div>
