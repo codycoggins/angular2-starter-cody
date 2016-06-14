@@ -1,3 +1,4 @@
+
 import { Component, OnInit } from 'angular2/core';
 import { Router, RouteConfig, ROUTER_DIRECTIVES } from 'angular2/router';
 import { List} from 'immutable';
