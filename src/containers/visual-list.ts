@@ -53,50 +53,28 @@ import {
   `],
   template: `
   <div style="{{chatSessionStore.intent=='social_feedback' ? '' : 'display: none;'}}" class="tab-container">
-     <span class="tab">
-       <a [routerLink]="['Visual-bar']"
-         class="navbar-link text-decoration-none">Graph</a>
-     </span>
-     <span class="tab-selected">
-       <a [routerLink]="['Visual-list-positive']"
-         class="navbar-link text-decoration-none">View Tweets</a>
-     </span>
-  </div>
-
-  <div class="visual-title">{{chatSessionStore.visualTitle}}</div>
-
-  <div id="chart_div" class="chart-div">
-    <!--<span class=" visOverlayLabel h2 center">
-    Visual List
-    </span>-->
-    <!--div innerHTML="{{ dataInListHTMLWithGroups() }}"></div-->
-    <div class="h2" *ngIf="chatSessionStore.visualData.length <= 1">No data found</div>
-    <table class="table" *ngIf="chatSessionStore.visualData.length > 1">
-        <thead>
-            <tr>
-                <th *ngFor="let head of chatSessionStore.visualData[0]">{{head}}</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let row of chatSessionStore.visualData | slice:1">
-                <td *ngFor="let col of row | slice:0:1">
-                    <span *ngIf="chatSessionStore.intent!='retailer_performance'">{{col}}</span>
-                    <autoinput *ngIf="chatSessionStore.intent=='retailer_performance'" (click)="selectRetailer(col)">{{col}}</autoinput>
-                </td>
-                <td *ngFor="let col of row | slice:1">{{col}}</td>
-            </tr>
-        </tbody>
-    </table>
-    <br />
-    <div>
-      <span (click)="prevPage();" class="next-prev-button"
-        style="{{(page > 0) ? '' : 'display: none' }}"> Previous </span> &nbsp;
-      <span (click)="nextPage();" class="next-prev-button"
-      style="{{ (hasNextPage()) ? '' : 'display: none' }}"> Next </span>
-    </div>
-     <legend></legend>
-    <br />
-  </div>
+      <span class="tab">
+        <a [routerLink]="['Visual-bar']"
+          class="navbar-link text-decoration-none">Graph</a>
+      </span>
+      <span class="tab-selected">
+        <a [routerLink]="['Visual-list-positive']"
+          class="navbar-link text-decoration-none">View Tweets</a>
+      </span>
+   </div>
+   <div class="visual-title">{{chatSessionStore.visualTitle}}</div>
+   <div id="chart_div" class="chart-div">
+     <!--<span class=" visOverlayLabel h2 center">
+     Visual List
+     </span>-->
+     <div innerHTML="{{ dataInListHTMLWithGroups() }}"></div>
+     <span (click)="prevPage();" class="next-button"
+       style="{{(page > 0) ? '' : 'display: none' }}"> Previous </span> &nbsp;
+     <span (click)="nextPage();" class="next-button"
+     style="{{ (hasNextPage()) ? '' : 'display: none' }}"> Next </span>
+     <br />
+     <br />
+   </div>
   `
 })
 export class VisualList implements OnInit {

@@ -70,6 +70,12 @@ export class ChatSessionStore {
       visualType = visualType.replace('q4', '4');
       this._visualType = visualType;
       let routeName: string = visualType.replace('visual', 'Visual').replace('_', '-');
+      if (this.intent == 'retailer_performance') {
+        if (visualType == 'visual_list') {
+          visualType = 'visual_list1';
+          routeName = 'Visual-table-4.1';
+        }
+      }
       console.log ('** Routing to ' + routeName + '**');
       this.router.navigate( [routeName] );
     }
