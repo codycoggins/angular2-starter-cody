@@ -8,12 +8,13 @@ import { ChatSessionStore } from '../services/chat-session-store';
 import {
     WatsonContainer,
     AppNavigator,
-    AppNavigatorItem
+    AppNavigatorItem,
+    Legend
 } from '../components';
 
 @Component({
     selector: 'visual-list',
-    directives: [WatsonContainer, ROUTER_DIRECTIVES, AppNavigator, AppNavigatorItem],
+    directives: [WatsonContainer, ROUTER_DIRECTIVES, AppNavigator, AppNavigatorItem, Legend],
     template: `
     <div class="visual-title">{{chatSessionStore.visualTitle}}</div>
     <autoinput (click)="goBack()">< Back to Performance by Retailer</autoinput>
@@ -35,10 +36,13 @@ import {
                 </tr>
             </tbody>
         </table>
-        <span (click)="prevPage();" class="next-button" style="">
-            Previous </span> &nbsp; <span (click)="nextPage();" class="next-button"
-            style="display: {{hasNextPage()? '': 'display: none'"> Next </span> <br />
-        <br />
+        <div>
+          <span (click)="prevPage();" class="next-prev-button"
+            style="{{(page > 0) ? '' : 'display: none' }}"> Previous </span> &nbsp;
+          <span (click)="nextPage();" class="next-prev-button"
+          style="{{ (hasNextPage()) ? '' : 'display: none' }}"> Next </span>
+        </div>
+     <legend></legend>
     </div>
     `
 })

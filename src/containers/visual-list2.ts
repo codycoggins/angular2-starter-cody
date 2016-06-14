@@ -8,12 +8,13 @@ import { ChatSessionStore } from '../services/chat-session-store';
 import {
     WatsonContainer,
     AppNavigator,
-    AppNavigatorItem
+    AppNavigatorItem,
+    Legend
 } from '../components';
 
 @Component({
     selector: 'visual-list',
-    directives: [WatsonContainer, ROUTER_DIRECTIVES, AppNavigator, AppNavigatorItem],
+    directives: [WatsonContainer, ROUTER_DIRECTIVES, AppNavigator, AppNavigatorItem, Legend],
     template: `
     <div class="visual-title">{{chatSessionStore.visualTitle}}</div>
     <autoinput (click)="goBack()">< Back to Performance by Retailer</autoinput>

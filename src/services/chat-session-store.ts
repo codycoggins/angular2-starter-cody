@@ -174,7 +174,7 @@ export class ChatSessionStore {
           this.chatSessionService.updateDialogProfile (key, value);
         }
     }
-    
+
     updateDialogProfile2 (key: string, value: string) {
         if (value == null || value == '' || value == 'undefined') {
           console.log('updateDialogProfile2(' + key + ', ' + value + '): will not save because value is null or undefined');
@@ -183,8 +183,8 @@ export class ChatSessionStore {
           this.chatSessionService.updateDialogProfile2 (key, value);
         }
     }
-    
-    
+
+
 
     translatedData(): [ITranslatedData] {
       let data: any[][] = this._visualData;
@@ -374,9 +374,13 @@ export class ChatSessionStore {
       } else if (this.intent == 'SKU_performance') {
         this.visualTitle =  this.profile.sub_brand + ' SKU Offering';
       } else if (this.intent == 'SKU_similar') {
-        this.visualTitle = this.profile.brand +  ' SKU Similarities';
+        this.visualTitle = this.profile.sub_brand +  ' SKU Offering (Top Performing Regions)';
         if (this.subIntent == 'sku_sim_211') {
-          this.visualTitle = this.profile.brand +  ' SKU Similarities (Top Performing Retailers)';
+          this.visualTitle = this.profile.sub_brand +  ' SKU Offering (Top Performing Retailers)';
+        }
+        // not sure if there is a 21.2, going from 6/14 meeting notes
+        if (this.subIntent == 'sku_sim_212') {
+          this.visualTitle = this.profile.sub_brand +  ' SKU Offering (Top Performing Retailers)';
         }
       } else if (this.intent == 'social_feedback') {
         this.visualTitle = this.profile.brand +  ' Social Feedback';
@@ -396,7 +400,7 @@ export class ChatSessionStore {
           this.visualTitle = this.profile.sub_brand +  ' Store Performance Across Regions';
 
         } else if (this.subIntent == 'store_perf_202') {
-          this.visualTitle = this.profile.sub_brand +  ' Store Performance for Across Retailer';
+          this.visualTitle = this.profile.sub_brand +  ' Store Performance Across Retailers';
 
         } else if (this.subIntent == 'store_perf_203') {
           this.visualTitle = this.profile.sub_brand +  ' Store Performance for ' + this.profile.retailer ;

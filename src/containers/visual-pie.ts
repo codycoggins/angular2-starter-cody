@@ -60,13 +60,13 @@ import {
 
     <div id="positive-sentiments-table" style="display: {{ positive ? 'Block' : 'None' }};">
 
-    <div class="visual-title">Positive Sentiments Table</div>
+    <div class="visual-title">Positive Tweets</div>
     <div innerHTML="{{ dataInColumnHTML('POSITIVE') }}"></div>
     </div>
     </td>
     <td valign="top">
     <div id="negative-sentiments-table" style="display: {{ negative ? 'Block' : 'None' }};">
-    <div class="visual-title"> Negative Sentiments Table</div>
+    <div class="visual-title"> Negative Tweets</div>
     <div innerHTML="{{ dataInColumnHTML('NEGATIVE') }}"></div>
     </div>
     </td>

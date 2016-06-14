@@ -12,12 +12,13 @@ import { ChatSessionStore } from '../services/chat-session-store';
 import {
   WatsonContainer,
   AppNavigator,
-  AppNavigatorItem
+  AppNavigatorItem,
+  Legend
 } from '../components';
 
 @Component({
   selector: 'visual-list',
-  directives: [ WatsonContainer, ROUTER_DIRECTIVES, AppNavigator, AppNavigatorItem ],
+  directives: [ WatsonContainer, ROUTER_DIRECTIVES, AppNavigator, AppNavigatorItem, Legend ],
 //  pipes: [ObjectToArray],
   styles: [`
     .visOverlayLabel {
