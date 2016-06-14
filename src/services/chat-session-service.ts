@@ -18,6 +18,9 @@ export class ChatSessionService {
     dialogId: string;
 
 
+    // TODO: change to  'http://nielsen-orchestration-gateway-dev.mybluemix.net';
+    // when Juanyong is ready
+
     apiHostName: string =
       'http://nielsen-orchestration-gateway.mybluemix.net';
 
@@ -115,6 +118,31 @@ export class ChatSessionService {
         }
 
         // post returns Observable<Response>
+    }
+
+    updateDialogProfile2 (key: string, value: string)  {
+        console.log ('ChatSessionService.updateDialogProfile (key = ' + key + ', value= ' + value + ')');
+        let body: string = '{\"' + key + '\": \"' + value + '\"}';
+
+        // if this is the first post for the application, only supply input
+        let apiPath: string =  '/api/updateDialogProfile/client/'
+          + this.clientId ;
+        // if not first time, provide dialog and conversation IDs
+        if (this.clientId != null && this.conversationId != null) {
+          console.log ('PUT ' + this.apiHostName + apiPath );
+          console.log ('body= ' + body);
+          // payload should be:  JSON.stringify(newChatItem)
+          let obs2 = this.http.put(this.apiHostName + apiPath , body,
+            {headers: this.headers }).share() ;
+          obs2.subscribe(
+                    res => {
+                      console.log (res);
+                    },
+                    err => {
+                      console.log (err);
+                    }
+                  );
+        }
     }
 
     // getDialogProfile (key: string, value: string) : Observable <Response> {

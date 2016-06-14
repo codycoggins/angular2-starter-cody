@@ -60,13 +60,13 @@ import {
 
     <div id="positive-sentiments-table" style="display: {{ positive ? 'Block' : 'None' }};">
 
-    <div class="visual-title">Positive Sentiments Table</div>
+    <div class="visual-title">Positive Tweets</div>
     <div innerHTML="{{ dataInColumnHTML('POSITIVE') }}"></div>
     </div>
     </td>
     <td valign="top">
     <div id="negative-sentiments-table" style="display: {{ negative ? 'Block' : 'None' }};">
-    <div class="visual-title"> Negative Sentiments Table</div>
+    <div class="visual-title"> Negative Tweets</div>
     <div innerHTML="{{ dataInColumnHTML('NEGATIVE') }}"></div>
     </div>
     </td>
@@ -115,73 +115,73 @@ import {
 
 drawWordCloud() {
   let frequency_list;
-  let suave = [{"text":"suave","size":50},
-{"text":"hair","size":46},
-{"text":"shampoo","size":22},
-{"text":"perfect","size":10},
-{"text":"conditioner","size":10},
-{"text":"cut","size":10},
-{"text":"long","size":7},
-{"text":"cut","size":10},
-{"text":"look","size":6},
-{"text":"pantene","size":5},
-{"text":"suaveshinyhair","size":5},
-{"text":"@shznakl","size":5},
-{"text":"ad","size":5},
-{"text":"professionals","size":5},
-{"text":"products","size":5},
-{"text":"disappointment","size":5},
-{"text":"random","size":5},
-{"text":"moroccan","size":5},
-{"text":"stupid","size":5},
-{"text":"@jvigil56","size":4},
-{"text":"smells","size":4},
-{"text":"tease","size":4},
-{"text":"@jvigil56","size":4},
-{"text":"poofy","size":4},
-{"text":"volume","size":3},
-{"text":"deal","size":3},
-{"text":"savings","size":3},
-{"text":"coupon","size":3},
-{"text":"@deshartsock","size":3},
-{"text":"wedding","size":3}];
+  let suave = [{"text": "suave", "size": 50},
+{"text": "hair", "size": 46},
+{"text": "shampoo", "size": 22},
+{"text": "perfect", "size": 10},
+{"text": "conditioner", "size": 10},
+{"text": "cut", "size": 10},
+{"text": "long", "size": 7},
+{"text": "cut", "size": 10},
+{"text": "look", "size": 6},
+{"text": "pantene", "size": 5},
+{"text": "suaveshinyhair", "size": 5},
+{"text": "@shznakl", "size": 5},
+{"text": "ad", "size": 5},
+{"text": "professionals", "size": 5},
+{"text": "products", "size": 5},
+{"text": "disappointment", "size": 5},
+{"text": "random", "size": 5},
+{"text": "moroccan", "size": 5},
+{"text": "stupid", "size": 5},
+{"text": "@jvigil56", "size": 4},
+{"text": "smells", "size": 4},
+{"text": "tease", "size": 4},
+{"text": "@jvigil56", "size": 4},
+{"text": "poofy", "size": 4},
+{"text": "volume", "size": 3},
+{"text": "deal", "size": 3},
+{"text": "savings", "size": 3},
+{"text": "coupon", "size": 3},
+{"text": "@deshartsock", "size": 3},
+{"text": "wedding", "size": 3}];
 let pantene =
-[{"text":"pantene","size":50},
-{"text":"hair","size":37},
-{"text":"selenagomez","size":26},
-{"text":"perfect","size":20},
-{"text":"thecw","size":16},
-{"text":"conditioner","size":14},
-{"text":"texas","size":12},
-{"text":"commercial","size":12},
-{"text":"selena","size":12},
-{"text":"love","size":11},
-{"text":"new","size":11},
-{"text":"beautiful","size":12},
-{"text":"shampoo","size":9},
-{"text":"representation","size":7},
-{"text":"matters","size":7},
-{"text":"sponsoring","size":7},
-{"text":"beautifullengths","size":6},
-{"text":"support","size":5},
-{"text":"@tide","size":4},
-{"text":"disappointment","size":5},
-{"text":"deserve","size":5},
-{"text":"amazing","size":4},
-{"text":"maybelline","size":4},
-{"text":"helloairspray","size":4},
-{"text":"pantenexinfluenster","size":4},
-{"text":"lgbt","size":3},
-{"text":"smells","size":3},
-{"text":"silky","size":3},
-{"text":"shit","size":3},
-{"text":"community","size":3}];
+[{"text": "pantene", "size": 50},
+{"text": "hair", "size": 37},
+{"text": "selenagomez", "size": 26},
+{"text": "perfect", "size": 20},
+{"text": "thecw", "size": 16},
+{"text": "conditioner", "size": 14},
+{"text": "texas", "size": 12},
+{"text": "commercial", "size": 12},
+{"text": "selena", "size": 12},
+{"text": "love", "size": 11},
+{"text": "new", "size": 11},
+{"text": "beautiful", "size": 12},
+{"text": "shampoo", "size": 9},
+{"text": "representation", "size": 7},
+{"text": "matters", "size": 7},
+{"text": "sponsoring", "size": 7},
+{"text": "beautifullengths", "size": 6},
+{"text": "support", "size": 5},
+{"text": "@tide", "size": 4},
+{"text": "disappointment", "size": 5},
+{"text": "deserve", "size": 5},
+{"text": "amazing", "size": 4},
+{"text": "maybelline", "size": 4},
+{"text": "helloairspray", "size": 4},
+{"text": "pantenexinfluenster", "size": 4},
+{"text": "lgbt", "size": 3},
+{"text": "smells", "size": 3},
+{"text": "silky", "size": 3},
+{"text": "shit", "size": 3},
+{"text": "community", "size": 3}];
 
   // console.log('getProfileItem');
 
-console.log("---------brand name---"+this.chatSessionStore.profile.brand);
+console.log("---------brand name---" + this.chatSessionStore.profile.brand);
 
-  if(this.chatSessionStore.profile.brand == "SUAVE") {
+  if (this.chatSessionStore.profile.brand == "SUAVE") {
     frequency_list = suave;
   } else {
     frequency_list = pantene;

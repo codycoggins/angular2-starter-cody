@@ -1,6 +1,10 @@
 import { Component, OnInit } from 'angular2/core';
-import { RouteConfig, ROUTER_DIRECTIVES } from 'angular2/router';
-import {List} from 'immutable';
+import { Router, RouteConfig, ROUTER_DIRECTIVES } from 'angular2/router';
+import { List} from 'immutable';
+// import { ObjectToArray} from './../components/pipes/pipes';
+import {ChatItem} from './../services/chat-item';
+
+
 
 
 import { ChatSessionStore } from '../services/chat-session-store';
@@ -8,12 +12,14 @@ import { ChatSessionStore } from '../services/chat-session-store';
 import {
   WatsonContainer,
   AppNavigator,
-  AppNavigatorItem
+  AppNavigatorItem,
+  Legend
 } from '../components';
 
 @Component({
   selector: 'visual-list',
-  directives: [ WatsonContainer, ROUTER_DIRECTIVES, AppNavigator, AppNavigatorItem ],
+  directives: [ WatsonContainer, ROUTER_DIRECTIVES, AppNavigator, AppNavigatorItem, Legend ],
+//  pipes: [ObjectToArray],
   styles: [`
     .visOverlayLabel {
       position: absolute;
@@ -32,7 +38,7 @@ import {
       position: relative;
     }
 
-    .next-button {
+    .next-prev-button {
       margin: 10px;
       color: black;
       height: 40px;
@@ -47,44 +53,42 @@ import {
   `],
   template: `
   <div style="{{chatSessionStore.intent=='social_feedback' ? '' : 'display: none;'}}" class="tab-container">
-     <span class="tab">
-       <a [routerLink]="['Visual-bar']"
-         class="navbar-link text-decoration-none">Graph</a>
-     </span>
-     <span class="tab-selected">
-       <a [routerLink]="['Visual-list-positive']"
-         class="navbar-link text-decoration-none">View Tweets</a>
-     </span>
-  </div>
-
-  <div class="visual-title">{{chatSessionStore.visualTitle}}</div>
-
-  <div id="chart_div" class="chart-div">
-    <!--<span class=" visOverlayLabel h2 center">
-    Visual List
-    </span>-->
-    <div innerHTML="{{ dataInListHTMLWithGroups() }}"></div>
-
-    <span (click)="prevPage();" class="next-button"
-      style="{{(page > 0) ? '' : 'display: none' }}"> Previous </span> &nbsp;
-    <span (click)="nextPage();" class="next-button"
-    style="{{ (hasNextPage()) ? '' : 'display: none' }}"> Next </span>
-    <br />
-    <br />
-  </div>
-
+      <span class="tab">
+        <a [routerLink]="['Visual-bar']"
+          class="navbar-link text-decoration-none">Graph</a>
+      </span>
+      <span class="tab-selected">
+        <a [routerLink]="['Visual-list-positive']"
+          class="navbar-link text-decoration-none">View Tweets</a>
+      </span>
+   </div>
+   <div class="visual-title">{{chatSessionStore.visualTitle}}</div>
+   <div id="chart_div" class="chart-div">
+     <!--<span class=" visOverlayLabel h2 center">
+     Visual List
+     </span>-->
+     <div innerHTML="{{ dataInListHTMLWithGroups() }}"></div>
+     <span (click)="prevPage();" class="next-button"
+       style="{{(page > 0) ? '' : 'display: none' }}"> Previous </span> &nbsp;
+     <span (click)="nextPage();" class="next-button"
+     style="{{ (hasNextPage()) ? '' : 'display: none' }}"> Next </span>
+     <br />
+     <br />
+   </div>
   `
 })
 export class VisualList implements OnInit {
   chatSessionStore: ChatSessionStore;
+    router: Router;
   page: number = 0;
   rowsPerPage: number = 20;
   totalRows: number = 0;
   // chartTitle: string = 'Table';
 
-  constructor(chatSessionStore: ChatSessionStore ) {
+  constructor(chatSessionStore: ChatSessionStore, router: Router ) {
     console.log('VisualList constructor() ');
     this.chatSessionStore = chatSessionStore;
+      this.router = router;
   };
 
   hasNextPage(): boolean {
@@ -94,7 +98,6 @@ export class VisualList implements OnInit {
     } else {
       return false;
     }
-
   }
   nextPage() {
     console.log('nextPage()');
@@ -132,9 +135,12 @@ export class VisualList implements OnInit {
     for (let i: number = 0; i < data.length; i++) {
       html = html + '<tr>';
       let tag: string = 'td' ;
-      if (i === 0) { tag = 'th'; }
 
       for (let j: number = 0; j < data[i].length; j++) {
+        if (i === 0) {
+          tag = 'th';
+          data[0][j] = this.formatColumnHeading(data[0][j]);
+        }
         html = html + '<' + tag + '>' + data[i][j] + '</' + tag + '>';
       }
       html = html + '</tr>';
@@ -144,7 +150,9 @@ export class VisualList implements OnInit {
     return html;
 
   }
-
+    formatColumnHeading(h: string): string {
+      return h.replace(/_/g, ' ');
+    }
 
     dataInListHTMLWithGroups(): string {
       // console.log ('dataInListHTML()');
@@ -163,7 +171,7 @@ export class VisualList implements OnInit {
 
       // headings
       for (let j: number = 0; j < data[0].length; j++) {
-          html = html + '<th>' + data[0][j] + '</th> ';
+          html = html + '<th>' + this.formatColumnHeading(data[0][j]) + '</th> ';
       }
 
 
@@ -209,5 +217,11 @@ export class VisualList implements OnInit {
      } else {
        return false;
      }
+   }
+
+   selectRetailer(retailer: string): void {
+       this.chatSessionStore.updateDialogProfile("retailer", retailer);
+       let drillDown: ChatItem = new ChatItem("drl_q_4.1", false);
+       this.chatSessionStore.addChatAndResponse(drillDown);
    }
 }

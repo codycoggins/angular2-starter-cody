@@ -23,14 +23,19 @@ export class ChatSessionStore {
     private _visualTitle: string = 'Visual';
     public intent: string = '';
     public profile: OLProfile = <OLProfile> {};
+    public subIntent: string = '';
 
     dialogParser: DialogParser;
     chatSessionService: ChatSessionService;
     visualizationStore: VisualizationStore;
 
     visualTypes: string[] = ['visual_map', 'visual_bar',
-    'visual_column', 'visual_pie', 'visual_list',
-    'visual_bubble', 'visual_none'];
+      'visual_column', 'visual_pie', 'visual_list',
+      'visual_bubble', 'visual_none',
+      'visual-table-q4', 'visual-table-q4.1', 'visual-table-q4.2'];
+
+    subIntents: string[] = ['sub_perf_5', 'sub_perf_6', 'sku_sim_211',
+      'dol_opp_221', 'store_perf_201', 'store_perf_202', 'store_perf_203'];
 
     constructor(chatSessionService: ChatSessionService,
         dialogParser: DialogParser,
@@ -61,8 +66,16 @@ export class ChatSessionStore {
       if (this.intent == 'social_feedback') {
         visualType = 'visual_pie';
       }
+      visualType = visualType.replace(' ', '');
+      visualType = visualType.replace('q4', '4');
       this._visualType = visualType;
       let routeName: string = visualType.replace('visual', 'Visual').replace('_', '-');
+      if (this.intent == 'retailer_performance') {
+        if (visualType == 'visual_list') {
+          visualType = 'visual_list1';
+          routeName = 'Visual-table-4.1';
+        }
+      }
       console.log ('** Routing to ' + routeName + '**');
       this.router.navigate( [routeName] );
     }
@@ -171,6 +184,17 @@ export class ChatSessionStore {
         }
     }
 
+    updateDialogProfile2 (key: string, value: string) {
+        if (value == null || value == '' || value == 'undefined') {
+          console.log('updateDialogProfile2(' + key + ', ' + value + '): will not save because value is null or undefined');
+        } else {
+          this.profile[key] = value;
+          this.chatSessionService.updateDialogProfile2 (key, value);
+        }
+    }
+
+
+
     translatedData(): [ITranslatedData] {
       let data: any[][] = this._visualData;
       let result: ITranslatedData = <ITranslatedData> {"key": "Data", values: []};
@@ -250,9 +274,8 @@ export class ChatSessionStore {
                       let chatResponse: ChatItem = new ChatItem(
                          'I am not currently able to commnicate with the server. The system may be under maintenence  Please try again later.',
                            true);
-                        //  if ( chatResponse.text.length > 0) {
-                           this._allChatItems.next(
-                             this._allChatItems.getValue().push( chatResponse  ));
+                      this._allChatItems.next(
+                        this._allChatItems.getValue().push( chatResponse  ));
                     }
                   );
         return obs;
@@ -287,7 +310,7 @@ export class ChatSessionStore {
                     this.intent = resJson.profile.CLASSIFIER_CLASS_0;
                     this.profile = resJson.profile;
                     this.visualData = resJson.data;
-                    this.checkIgnoreRegion(resJson.mcthides);
+                    this.checkSubIntentAndIgnoreRegion(resJson.mcthides);
                     this.manageProfileVariables ();
 
                     for (let i: number = 0; i < resJson.response.length; i++) {
@@ -311,15 +334,29 @@ export class ChatSessionStore {
         return obs;
     }
 
-    checkIgnoreRegion(mcthides: string[]) {
-      if (mcthides.length > 1 && mcthides[0].length > 0) {
-              if (mcthides[1].match ('ignore_region')) {
-                // special case for question 1, skip growth and decline just get results
-                this.profile.performance_level = 'ignore_region';
-              }
 
+    // Marc has added these codes as mcthides:
+    // Q5        sub_perf_5
+    // Q6        sub_perf_6
+    // Q21.1        sku_sim_211
+    // Q22.1        dol_opp_221
+    // Q20.1        store_perf_201
+    // Q20.2        store_perf_202
+    // Q20.3        store_perf_203
+
+    checkSubIntentAndIgnoreRegion(mcthides: string[]) {
+      for (let i = 0; i < mcthides.length; i++) {
+        if (mcthides[i].match ('ignore_region')) {
+          // special case for question 1, skip growth and decline just get results
+          this.profile.performance_level = 'ignore_region';
+        }
+        // if mcthides item is a subIntent, set as this.subIntent
+        if (this.subIntents.indexOf(mcthides[i]) !== -1) {
+          this.subIntent = mcthides[i];
+        }
       }
     }
+
 
     // if you need to update the title of any visualization,
     // this is the function to update.
@@ -331,7 +368,10 @@ export class ChatSessionStore {
       } else if (this.intent == 'characteristics_demo') {
         this.visualTitle = 'Demographics Shared by Stores responsible for ' + this.profile.performance_level;
       } else if (this.intent == 'dollar_opportunity') {
-        this.visualTitle = this.profile.brand +  ' Dollar Opportunity';
+        this.visualTitle = this.profile.brand +  ' Dollar Opportunity Across Regions';
+        if (this.subIntent == 'dol_opp_221') {
+          this.visualTitle = this.profile.brand +  ' Dollar Opportunity Across Retailers';
+        }
       } else if (this.intent == 'region_performance') {
         this.visualTitle = this.profile.brand +  ' Region Performance';
       } else if (this.intent == 'retailer_performance') {
@@ -343,7 +383,14 @@ export class ChatSessionStore {
       } else if (this.intent == 'SKU_performance') {
         this.visualTitle =  this.profile.sub_brand + ' SKU Offering';
       } else if (this.intent == 'SKU_similar') {
-        this.visualTitle = 'SKU Similarities';
+        this.visualTitle = this.profile.sub_brand +  ' SKU Offering (Top Performing Regions)';
+        if (this.subIntent == 'sku_sim_211') {
+          this.visualTitle = this.profile.sub_brand +  ' SKU Offering (Top Performing Retailers)';
+        }
+        // not sure if there is a 21.2, going from 6/14 meeting notes
+        if (this.subIntent == 'sku_sim_212') {
+          this.visualTitle = this.profile.sub_brand +  ' SKU Offering (Top Performing Retailers)';
+        }
       } else if (this.intent == 'social_feedback') {
         this.visualTitle = this.profile.brand +  ' Social Feedback';
       } else if (this.intent == 'social_influence') {
@@ -351,9 +398,31 @@ export class ChatSessionStore {
       } else if (this.intent == 'social_sentiment') {
         this.visualTitle = this.profile.brand +  ' Social Sentiment';
       } else if (this.intent == 'store_performance') {
-        this.visualTitle = this.profile.brand +  ' Retailer Performance';
+        this.visualTitle = this.profile.brand +  ' Store Performance';
+        if (this.profile.region && this.profile.region.length > 0) {
+          this.visualTitle = this.visualTitle  + ' - ' + this.profile.region;
+        }
+        // Q20.1        store_perf_201
+        // Q20.2        store_perf_202
+        // Q20.3        store_perf_203
+        if (this.subIntent == 'store_perf_201') {
+          this.visualTitle = this.profile.sub_brand +  ' Store Performance Across Regions';
+
+        } else if (this.subIntent == 'store_perf_202') {
+          this.visualTitle = this.profile.sub_brand +  ' Store Performance Across Retailers';
+
+        } else if (this.subIntent == 'store_perf_203') {
+          this.visualTitle = this.profile.sub_brand +  ' Store Performance for ' + this.profile.retailer ;
+        }
+
       } else if (this.intent == 'subbrand_performance') {
         this.visualTitle = this.profile.brand +  ' Subbrands Performance';
+        if (this.subIntent == 'sub_perf_5') {
+          this.visualTitle = this.profile.brand + ' Sublines by ' + this.profile.performance_level + ' rates across Channels';
+        } else if (this.subIntent == 'sub_perf_6') {
+          this.visualTitle = this.profile.brand + ' Sublines by ' + this.profile.performance_level + ' rates across Retailers';
+        }
+
       } else if (this.intent == 'variant_performance') {
         this.visualTitle = this.profile.brand +  ' Variant Performance';
       }
@@ -461,18 +530,16 @@ export class ChatSessionStore {
         console.log ('The channel in ' + this.profile.performance_level + '  is ' + channel);
         this.updateDialogProfile('channel', channel);
 
-    }
-    else if (this.intent === 'social_feedback') {
-      // code to determine channel causing decline
-      let channel = this.findMinMax(6, direction);
-      console.log ('The channel in ' + this.profile.performance_level + '  is ' + channel);
-      this.updateDialogProfile('channel', channel);
+      } else if (this.intent === 'social_feedback') {
+        // code to determine channel causing decline
+        let channel = this.findMinMax(6, direction);
+        console.log ('The channel in ' + this.profile.performance_level + '  is ' + channel);
+        this.updateDialogProfile('channel', channel);
 
-  } else {
-      console.log ('manageProfileVariables()  did not find a matching intent, so no profile variable processing has been done.');
-
+      } else {
+        console.log ('manageProfileVariables()  did not find a matching intent, so no profile variable processing has been done.');
+      }
     }
-  }
 }
 
 export interface ITranslatedData {
